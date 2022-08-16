@@ -6,7 +6,7 @@
 
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap);
 
-// Colosrs
+// Colors
 $presentation-heading-color: #1c68bd;
 // $titlecol2: #fff15a;
 $link-color: #5136ac;
@@ -25,6 +25,17 @@ $presentation-heading-font-weight: 700 !default;
 $presentation-font-size-root: 35px !default;
 $presentation-font-weight: 300 !default;
 
+// Code Blocks
+$code-block-border-color: transparent !default;
+$code-block-bg: linear-gradient(to bottom, #283b95, #17b2c3);
+
+/*-- scss:mixins --*/
+
+// Background generator
+//@mixin codeBlockBackground() {
+//  @include radial-gradient(#add9e4, #f7fbfc);
+//}
+
 
 /*-- scss:rules --*/
 
@@ -35,3 +46,7 @@ $presentation-font-weight: 300 !default;
 .reveal ul {
     font-weight: $presentation-font-weight;
   }
+
+.sourceCode {
+  background-image: linear-gradient(to right, white, yellow);
+}

@@ -1,5 +1,5 @@
 ---
-title: "00 - About R"
+title: "About R"
 author: "Otho Mantegazza"
 format:
   revealjs:
@@ -114,5 +114,4 @@ For example, in bookdown you can find:
 
 :::
 
-# Hands On Now 👐   
 

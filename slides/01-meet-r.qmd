@@ -1,0 +1,108 @@
+---
+title: "Meet R"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '2022 CBSER Summer School'
+editor_options: 
+  chunk_output_type: console
+---
+
+# Hands On Now 👐   
+
+## R understands you
+
+Write someting at the R console:
+
+. . .
+
+A simple number...
+ 
+```{r}
+2
+```
+
+. . .
+
+Some operation...
+
+```{r}
+3 + 7
+```
+
+. . .
+
+Text must be quoted...
+
+```{r}
+'hello'
+```
+
+. . .
+
+Otherwise it is interpreted as the name of a variable:
+
+```{r}
+#| error: true
+my_var
+```
+
+## Variables
+
+You can define a variable with the operator `<-` .
+
+```{r}
+# a numeric variable
+this_year <- 2022
+ 
+# a character variable
+italian_greetings <- 'ciao'
+```
+
+. . .
+
+If you type the name of a variable without quotes, r prints its value:
+
+```{r}
+this_year
+```
+
+```{r}
+italian_greetings
+```
+
+. . .
+
+Use the keyboard shortcut `option` + `-` to write the assign operator `<-` more easily.
+
+## Data Types
+
+When you define an object R guesses its type.
+
+. . .
+
+`typeof()` returns the internal type of an object.
+
+```{r}
+typeof(this_year)
+typeof(italian_greetings)
+```
+
+. . .
+
+`class()` returns a the class attribute of an object.
+
+```{r}
+class(this_year)
+class(italian_greetings)
+```
+
+## Everything in R is an object
+
+ and has a type.
+
+
