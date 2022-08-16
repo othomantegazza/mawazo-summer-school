@@ -1,11 +1,13 @@
 ---
-title: "Meet R"
+title: "00 - About R"
 author: "Otho Mantegazza"
 format:
   revealjs:
     theme: [simple, style/theme.scss]
     incremental: true
     footer: '2022 CBSER Summer School'
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Quick history of R
@@ -32,7 +34,7 @@ format:
 
 If you need help, as always, Google and [Stackoverflow](https://stackoverflow.com/questions/tagged/r?sort=MostVotes) are your friends.
 
-...
+. . .
 
 But sometimes you need to learn on a support that is structured, nuanced and detailed... 📚
 
@@ -79,3 +81,38 @@ For example, in bookdown you can find:
 :::
 
 ::::
+
+## More ⬇️⬇️⬇️ {.scrollable}
+
+<br>
+
+### Slack Spaces
+
+::: { .nonincremental}
+
+- [R for Data Science Community](R https://www.rfordatasci.com/) a slack chanel for R networking.
+
+:::
+
+<br>
+
+### Blogs
+
+::: { .nonincremental}
+
+- [Alison Hill's Blog](https://www.apreshill.com/blog/); great for everything Rmarkdown.
+
+- [Simply Statistics](https://simplystatistics.org/); modern statistics and R.
+
+- [Julia Silge's Blog](https://juliasilge.com/blog/); learn about R machine learning framework from one of its main developer.
+
+- [Gina Reynolds Flipbooks](https://evamaerey.github.io/mytidytuesday/2022-06-20-tabyl/2022-06-20-tabyl.html#1); for more tidyverse and Rmarkdown mastery.
+
+- [Fornkonstin](https://fronkonstin.com/); at the interface between math, art and coding.
+
+- [Data imaginist](https://www.data-imaginist.com/); more art in R 🎨.
+
+:::
+
+# Hands On Now 👐   
+
