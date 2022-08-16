@@ -51,9 +51,9 @@ Otherwise it is interpreted as the name of a variable:
 my_var
 ```
 
-## Variables
+## You can define variables
 
-You can define a variable with the operator `<-` .
+You can define a variable with the operator ` <- ` .
 
 ```{r}
 # a numeric variable
@@ -77,7 +77,7 @@ italian_greetings
 
 . . .
 
-Use the keyboard shortcut `option` + `-` to write the assign operator `<-` more easily.
+Use the keyboard shortcut ` alt/option ` + ` - ` to write the assign operator ` <- ` more easily.
 
 ## Data Types
 
@@ -103,6 +103,177 @@ class(italian_greetings)
 
 ## Everything in R is an object
 
- and has a type.
+ And objects have a types.
+
+. . .
+
+```{r}
+class(2)
+```
+
+. . .
+
+```{r}
+class('hello')
+```
+
+. . .
+
+```{r}
+class(FALSE)
+```
+
+. . .
+
+```{r}
+class(mean)
+```
+
+. . .
+
+```{r}
+class(`<-`)
+```
+
+. . .
+
+```{r}
+class(Sys.Date())
+```
+
+## Exercise
+
+1. Use the function `c(arg_1, arg_2, ..., arg_n)` to put together in a vector many objects that you expect to have the same class. Try with different ones.
+
+2. Now do the same, but try to put together in a vector data with different types, what happened?
+
+::: aside
+Learn more about [vectors and types at Advanced R](https://adv-r.hadley.nz/vectors-chap.html).
+:::
+
+# All Data Are Vectors
+
+## Vectors store one or more data point of the same class
+
+```{r}
+num_vector <- c(1, 3, 5, 3, 6)
+
+character_vector <- c('Hi', ',', 'I', 'am', 'a', 'character', 'vector')
+
+logical_vector <- c(TRUE, FALSE, FALSE, TRUE, FALSE)
+```
+
+. . .
+
+<br>
+
+```{r}
+class(num_vector)
+class(character_vector)
+class(logical_vector)
+```
+
+## Classes can be coherced
+
+`TRUE` and `FALSE` can be coerced into numeric zeroes and ones, or also into characters.
+
+```{r}
+c(2, TRUE, 5, FALSE, 4)
+```
+
+. . .
+
+Numbers can be coerced into characters.
+
+```{r}
+c('a', TRUE, 5, FALSE, 4)
+```
+
+## Classes can be coherced
+
+Classes can be coerced explicitly.
+
+```{r}
+logical_vector <- c(T, F, F, T, T, F)
+logical_vector
+as.numeric(logical_vector)
+as.character(logical_vector)
+```
 
 
+. . .
+
+If an element can't be coerced to the desired class, R returns a missing value (`NA`).
+
+```{r}
+as.numeric(c('1', 'two', '3'))
+```
+
+
+## Atomic elements are vectors of length 1
+
+```{r}
+short_vector <- 1
+long_vector <- 1:50
+```
+
+. . .
+
+
+
+```{r}
+short_vector
+long_vector
+```
+
+. . .
+
+```{r}
+class(short_vector)
+class(long_vector)
+```
+
+. . .
+
+```{r}
+length(short_vector)
+length(long_vector)
+```
+
+## Most functions in R are vectorized
+
+If I want to apply an operation over a vector, I can just write it as it is without a for loop. For example:
+
+. . . 
+
+Add an integer to every number in a vector:
+
+```{r}
+long_vector + 100
+```
+
+. . .
+
+Multiply every number in a vector by an integer:
+
+```{r}
+long_vector * 2
+```
+
+## Most functions in R are vectorized
+
+Take the square root of every number in a vector:
+
+```{r}
+sqrt(long_vector)
+```
+
+## Exercise
+
+1. Generate a vector of 100 (semi-) random numbers with a normal distribution.
+
+2. Use a for loop (even if you don't need one) to multiply eachs number in the vector by 2.
+
+:::aside
+[For loops in R](https://bookdown.org/rdpeng/rprogdatascience/control-structures.html#for-loops) according to Roger D. Peng.
+:::

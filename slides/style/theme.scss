@@ -27,7 +27,6 @@ $presentation-font-weight: 300 !default;
 
 // Code Blocks
 $code-block-border-color: transparent !default;
-$code-block-bg: linear-gradient(to bottom, #283b95, #17b2c3);
 
 /*-- scss:mixins --*/
 
@@ -47,6 +46,19 @@ $code-block-bg: linear-gradient(to bottom, #283b95, #17b2c3);
     font-weight: $presentation-font-weight;
   }
 
+code {
+  font-size: 85% !important;
+  font-family: monospace !important;
+  background-color: rgb(233, 233, 233) !important;
+  color: black !important;
+}
+
+pre code {
+  font-size: 100% !important;
+  background-color: white !important;
+
+}
 .sourceCode {
+  //font-size: 90% !important;
   background-image: linear-gradient(to right, white, yellow);
 }
