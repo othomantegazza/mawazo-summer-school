@@ -1,0 +1,81 @@
+---
+title: "Meet R"
+author: "Otho Mantegazza"
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '2022 CBSER Summer School'
+---
+
+# Quick history of R
+ 
+## The R Project for Statistical Computing
+
+[https://www.r-project.org/](https://www.r-project.org/)
+
+- Started in 1991 by Ross Ihaka and Robert Gentleman at the University of Auckland (NZ).
+- Made **open source** in 1995.
+- Official "peer reviewed" packages are hosted on [CRAN](https://cran.r-project.org/).
+- Has multiple "universes" of packages, including [Bioconductor](https://bioconductor.org/) dedicated to bioinformatics, and the [Tidyverse](https://www.tidyverse.org/) for Data Science. 
+- Great for analyzing data, for statistics, for research and for communicating data to others.
+
+
+## A bit more on R
+
+- We are going to use the **[Tidyverse](https://www.tidyverse.org/)**. But you might have to learn also a bit of the original idiom, now called **base R**, which sometimes helps if you have to programm your own functions.
+- We are going to use R in [visual studio code](https://code.visualstudio.com/) as you did for Python, but you might want to try out also [Rstudio](https://www.rstudio.com/), which is a great open source IDE dedicated to R.
+
+# Resources
+
+## As always, stackoverflow is your friend
+
+If you need help, as always, Google and [Stackoverflow](https://stackoverflow.com/questions/tagged/r?sort=MostVotes) are your friends.
+
+...
+
+But sometimes you need to learn on a support that is structured, nuanced and detailed... 📚
+
+
+## A helpful and welcoming community 📚
+
+One of the things that makes R great is its community of users and programmer.
+
+It is **open source** and **open access** oriented and highly dedicated to lowering the barrier to learning R and data science, and make their tools available and usable to everyone.
+
+
+## Open Books
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**[Bookdown](https://bookdown.org/)**: a package and a repository for open access books about R.
+:::
+
+::: {.column width="40%"}
+![](img/bookdown.svg)
+:::
+
+::::
+
+## Open Books
+
+For example, in bookdown you can find:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- **[R for Data Science](https://r4ds.had.co.nz/)** A gentle introducion to data science with the Tidyverse.
+
+- **[Introduction to Data Science](https://rafalab.github.io/dsbook/)** A detailed introduction to Data science by a biostatistician.
+
+- **[Advanced R](https://r4ds.had.co.nz/)** All you need to know about programming in R.
+:::
+
+::: {.column width="50%"}
+- **[Text Mining in R](https://www.tidytextmining.com/index.html)** Dealing with natural language and written text in R.
+- **[Tidy Modeling with R](https://www.tmwr.org/)** R Machine learning framework.
+- **[Designing and Building Data Science Solutions](https://datasciencedesign.com/)** how to set up a data science project.
+:::
+
+::::

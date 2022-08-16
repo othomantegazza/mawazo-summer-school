@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic,700italic);
+
+@import url(https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,500;1,300;1,500&display=swap);
+
+@import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap);
+
+// Colosrs
+$presentation-heading-color: #1c68bd;
+// $titlecol2: #fff15a;
+$link-color: #6200d2;
+$link-color-hover: lighten($link-color, 30%);
+
+
+// Font
+$font-family-sans-serif: Lato, sans-serif !default;
+$presentation-heading-letter-spacing: normal !default;
+
+// Heading
+$presentation-heading-font: Lato, sans-serif !default;
+$presentation-heading-font-weight: 700 !default;
+
+// Slides
+$presentation-font-size-root: 35px !default;
+$presentation-font-weight: 300 !default;
+
+
+/*-- scss:rules --*/
+
+.reveal p {
+   font-weight: $presentation-font-weight;
+ }
+
+.reveal ul {
+    font-weight: $presentation-font-weight;
+  }
