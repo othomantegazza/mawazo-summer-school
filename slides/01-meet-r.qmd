@@ -277,3 +277,152 @@ sqrt(long_vector)
 :::aside
 [For loops in R](https://bookdown.org/rdpeng/rprogdatascience/control-structures.html#for-loops) according to Roger D. Peng.
 :::
+
+## Extra - Lists
+
+If you need to collect together and store data of different types, you can use lists.
+
+```{r}
+my_list <- list(
+  'hello',
+  1,
+  FALSE,
+  1:25
+)
+
+my_list
+```
+
+
+# Let's Build a Dataframe 🧱
+
+## Can we use vectors to build a dataframe? 
+
+We learned that vector contain elements of the same type, for example, numerics, character, logical.
+
+. . .
+
+According to the **[Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.html)** theory, in rectangular dataframes:
+
+::: {.nonincremental}
+
+- Each row is an observation.
+- Each column is a variable.
+
+:::
+
+By definiton variables of your data, must be made by atomic elements of the same type. So we can use vectors of the same length to build the columns of a dataframe.
+
+Let's try.
+
+## And... We have data 
+
+Let's prepare three vectors with the first observations of `iris` and use them to make a dataframe.
+
+```{r}
+sepal_length <- c(5.1, 7.0, 6.3)
+
+sepal_width <- c(3.5, 3.2, 3.3)
+
+species <- c('setosa', 'versicolor', 'virginica')
+
+iris_simple <- 
+  data.frame(
+    species,
+    sepal_length,
+    sepal_width
+  )
+
+iris_simple
+```
+
+## And... We have data 
+
+The variable `iris_simple` points to a dataframe that stores rectangular data.
+
+```{r}
+class(iris_simple)
+```
+
+```{r}
+dim(iris_simple)
+```
+
+. . .
+
+We can access its columns with the operator `$`. Each column is a vector.
+
+```{r}
+iris_simple$sepal_length
+```
+
+```{r}
+class(iris_simple$sepal_length)
+```
+
+```{r}
+is.vector(iris_simple$sepal_length)
+```
+
+## {background-image='img/stephan-quintet.jpg'}
+
+[Now that we have data, let's take our first stroll into the Tidyverse]{style="color:#ffffff; font-size:80px"}
+
+## Tibbles: a modern take on dataframes
+
+Let's attach the whole [Tidyverse](https://www.tidyverse.org/), which includes also the [Tibble](https://tibble.tidyverse.org/) package...
+
+```{r}
+library(tidyverse)
+```
+
+. . .
+
+...and convert our dataframe `iris_simple` into a tibble.
+
+```{r}
+iris_simple <- as_tibble(iris_simple)
+```
+
+. . .
+
+The print method for a `tibble`, provides a handy and informative output.
+
+```{r}
+iris_simple
+```
+
+## Tibbles: a modern take on dataframes {auto-animate="true"}
+
+Let's compare the print method for the dataframe `iris`, before and after we convert it to a tibble.
+
+```{r}
+iris
+```
+
+## Tibbles: a modern take on dataframes {auto-animate="true"}
+
+Let's compare the print method for the dataframe `iris`, before and after we convert it to a tibble.
+
+```{r}
+as_tibble(iris)
+```
+
+## Exercise 
+
+::: {.nonincremental}
+
+1. Check the weather forecast for your hometown (or a place of your choice).
+
+2. Store the forecasted temperature in one vector and the corresponding time in another vector for at least 5 data points.
+
+3. Make a dataframe with those two variables.
+
+4. What's the average temperature? And what's its standard deviation?
+
+5. Then, visualize those data with a line-chart in which the x axis represents time and the y axis represents the forecasted temperature.
+
+:::
+
+
+
