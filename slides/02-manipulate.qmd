@@ -177,9 +177,99 @@ penguins %>%
             sd_bill_length_mm = sd(bill_length_mm))
 ```
 
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+dream_summary <- 
+  penguins %>%
+  select(species, island, bill_length_mm) %>% 
+  filter(island == 'Dream') %>% 
+  mutate(bill_length_meters = bill_length_mm/1000) %>% 
+  group_by(species) %>% 
+  summarise(mean_bill_length_mm = mean(bill_length_mm),
+            sd_bill_length_mm = sd(bill_length_mm))
+```
+
+Let's assign the output to a new variable `dream_summary`.
+
 ## {.big}
 
 In the previous code we have seen also two additional aspects that feature heavily in the tidyverse:
 
 - The Pipe `%>%`.
 - Non-Standard Evaluation.
+
+## The Pipe `%>%`
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/pipe.svg)
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="50%"}
+
+The pipe is provided by the package [magrittr](https://magrittr.tidyverse.org/), it's a forwarding operator:
+
+<br>
+
+It takes the ouput of what comes before (LHS) and sends it to the first argument of the function that comes after (RHS).
+
+<br>
+
+[`LHS %>% RHS`]{.big}
+
+:::
+
+::::
+
+## The Pipe `%>%` {auto-animate="true"}
+
+For example, you could write:
+
+```{r}
+select(penguins, species, body_mass_g)
+```
+
+## The Pipe `%>%` {auto-animate="true"}
+
+...but if you use the pipe, your code is easier to read...
+
+```{r}
+penguins %>% select(species, body_mass_g)
+```
+
+## The Pipe `%>%` {auto-animate="true"}
+
+...especially if you have to perform many operations one after the other...
+
+```{r}
+penguins %>%
+  select(species, body_mass_g) %>% 
+  filter(species == 'Adelie')
+  
+```
+
+## The Pipe `%>%` {auto-animate="true"}
+
+...that otherwise would force you to nest your code horribly.
+
+```{r}
+filter(
+  select(
+    penguins,
+    species, body_mass_g
+  ),
+  species == 'Adelie'
+)
+
+```
+
+## Non Standard Evaluation
+
+This one is hard
+
