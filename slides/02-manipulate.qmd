@@ -14,7 +14,7 @@ editor_options:
 ---
 
 ```{r}
-#| echo: false
+#| include: false
 library(dplyr)
 library(magrittr)
 library(tidyr)
@@ -38,7 +38,13 @@ All the packages share a common design:
   
 All packages can be loaded with `library(tidyverse)`, but you can also load single packages one by one.
 
-# {background-image="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" background-position='center' background-size='contain'}
+# Data: Palmer Penguins {background-image="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gentoo_Penguin_AdF.jpg"}
+
+:::small
+[Photo credits: Arturo de Frias Marques]
+:::
+
+## {background-image="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" background-position='center' background-size='contain'}
 
 ## We first explore the Palmer Penguins Dataset
 
@@ -75,3 +81,105 @@ penguins
 ```
 
 We will use the first one: `penguins`, which has already been cleaned.
+
+## Exercise
+
+The print method for a tibble gives you a reasonable overview of the data stored in it.
+
+Can you get more details with the package [skimr](https://docs.ropensci.org/skimr/)?
+
+Check its documentation, install it, try it out on the `penguins` dataset. Comment on the output. 
+
+
+# Tool: dplyr
+
+## A grammar for data manipulation
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/dplyr.svg)
+:::
+
+::: {.column width="60%" .smallish}
+
+[Dplyr](https://dplyr.tidyverse.org/) provides a grammar for manipulating data, with many useful verbs:
+
+- `mutate()` adds new variables that are functions of existing variables
+- `select()` picks variables based on their names.
+- `filter()` picks cases based on their values.
+- `summarise()` reduces multiple values down to a single summary.
+- `group_by()` performs operations by group.
+
+:::
+
+::::
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  mutate(bill_length_meters = bill_length_mm/1000)
+```
+
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  select(bill_length_mm) %>% 
+  mutate(bill_length_meters = bill_length_mm/1000)
+```
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  select(species, island, bill_length_mm) %>% 
+  mutate(bill_length_meters = bill_length_mm/1000)
+```
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+ count(island)
+```
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  select(species, island, bill_length_mm) %>% 
+  filter(island == 'Dream') %>% 
+  mutate(bill_length_meters = bill_length_mm/1000)
+```
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  select(species, island, bill_length_mm) %>% 
+  filter(island == 'Dream') %>% 
+  mutate(bill_length_meters = bill_length_mm/1000) %>% 
+  group_by(species)
+```
+
+## We can apply those verbs to manipulate data {auto-animate="true"}
+
+```{r}
+penguins %>%
+  select(species, island, bill_length_mm) %>% 
+  filter(island == 'Dream') %>% 
+  mutate(bill_length_meters = bill_length_mm/1000) %>% 
+  group_by(species) %>% 
+  summarise(mean_bill_length_mm = mean(bill_length_mm),
+            sd_bill_length_mm = sd(bill_length_mm))
+```
+
+## {.big}
+
+In the previous code we have seen also two additional aspects that feature heavily in the tidyverse:
+
+- The Pipe `%>%`.
+- Non-Standard Evaluation.
