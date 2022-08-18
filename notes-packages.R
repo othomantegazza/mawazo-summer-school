@@ -1,0 +1,5 @@
+pkgs <- 
+  c(
+    'palmerpenguins',
+    'skimr'
+  )

@@ -366,7 +366,7 @@ is.vector(iris_simple$sepal_length)
 
 ## {background-image='img/stephan-quintet.jpg'}
 
-[Now that we have data, let's take our first stroll into the Tidyverse]{style="color:#ffffff; font-size:80px"}
+[Now that we have data, let's take our first stroll into the Tidyverse.]{style="color:#ffffff; font-size:80px"}
 
 ## Tibbles: a modern take on dataframes
 
@@ -414,7 +414,7 @@ as_tibble(iris)
 
 1. Check the weather forecast for your hometown (or a place of your choice).
 
-2. Store the forecasted temperature in one vector and the corresponding time in another vector for at least 5 data points.
+2. Assign the forecasted temperature in one vector and the corresponding time in another vector for at least 5 data points.
 
 3. Make a dataframe with those two variables.
 

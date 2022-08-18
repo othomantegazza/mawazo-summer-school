@@ -1,0 +1,77 @@
+---
+title: "Manipulate Data"
+subtitle: "Tidyverse - Part 1"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '[2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+library(dplyr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(skimr)
+```
+
+
+# Intro to the Tidyverse
+
+## The [Tidyverse](https://www.tidyverse.org/packages/) is an ecosystem of packages for Data Science
+
+All the packages share a common design:
+
+  - One function does one thing, well.
+  - Designed for pipes.
+  - Extensive documentation.
+  - Non-standard evaluation, to write code quickly and easily.
+
+. . .
+  
+All packages can be loaded with `library(tidyverse)`, but you can also load single packages one by one.
+
+# {background-image="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" background-position='center' background-size='contain'}
+
+## We first explore the Palmer Penguins Dataset
+
+The [Penguins Dataset](https://allisonhorst.github.io/palmerpenguins/) stores real data about palmer penguins. This R data package was developed and is maintained by Allison Horst, Alison Hill and Kirsten Gorman for teaching purposes.
+
+. . . 
+
+Let's install the package...
+
+```{r}
+#| eval: false
+install.packages('palmerpenguins')
+```
+
+. . . 
+
+...and load it in R.
+
+```{r}
+library(palmerpenguins)
+```
+
+## `palmerpenguins` exports two datasets {auto-animate="true"}
+
+```{r}
+penguins_raw
+```
+
+
+## `palmerpenguins` exports two datasets {auto-animate="true"}
+
+```{r}
+penguins
+```
+
+We will use the first one: `penguins`, which has already been cleaned.
