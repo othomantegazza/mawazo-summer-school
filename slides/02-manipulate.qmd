@@ -82,7 +82,7 @@ penguins
 
 We will use the first one: `penguins`, which has already been cleaned.
 
-## Exercise
+## Exercise {.exercise}
 
 The print method for a tibble gives you a reasonable overview of the data stored in it.
 

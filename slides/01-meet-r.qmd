@@ -141,7 +141,7 @@ class(`<-`)
 class(Sys.Date())
 ```
 
-## Exercise
+## Exercise {.exercise}
 
 1. Use the function `c(arg_1, arg_2, ..., arg_n)` to put together in a vector many objects that you expect to have the same class. Try with different ones.
 
@@ -268,7 +268,7 @@ Take the square root of every number in a vector:
 sqrt(long_vector)
 ```
 
-## Exercise
+## Exercise {.exercise}
 
 1. Generate a vector of 100 (semi-) random numbers with a normal distribution.
 
@@ -408,7 +408,7 @@ Let's compare the print method for the dataframe `iris`, before and after we con
 as_tibble(iris)
 ```
 
-## Exercise 
+## Exercise {.exercise}
 
 ::: {.nonincremental}
 
