@@ -1,0 +1,72 @@
+---
+title: "Data Visualization"
+subtitle: "Tidyverse - Part 2"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '[2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(dplyr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+```
+
+# Why Dataviz?
+
+## We are great at recognizing visual patterns
+
+Calvin and Hobbes example
+
+# Data Vizualization for Whom?
+
+## Who reads your dataviz? {.nonincremental}
+
+You generally make dataviz for two types of people:
+
+::: {.nonincremental}
+
+- Yourself.
+- Others.
+
+:::
+
+. . .
+
+When you make dataviz for **yourself**, your aim is **explorative** and your goal is to generate as **many** raw graphs as **quickly** as possible to gain insights on your data.
+
+. . .
+
+When you make dataviz for **others**, your aim is **communicative** and you work to be as **clear** and as **understandable** as possible.
+
+## Exercise {.exercise .smallish}
+
+::: fragment
+With the `penguin` dataset:
+
+- Make a histogram of the variable `bill_length_mm`. Repeat the same histogram, but use colors to differentiate `species`.
+
+- Make a histogram of `bill_depth_mm`, but only of female penguins.
+
+:::
+::: fragment
+Get help from ggplot2's documentation.
+
+- On [ggplot2's ](https://ggplot2-book.org/)
+- On [R4DS book](https://r4ds.had.co.nz/data-visualisation.html])
+- On [ggplot2's website](https://ggplot2.tidyverse.org/)
+:::
+
+
+
