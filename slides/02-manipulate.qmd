@@ -19,6 +19,7 @@ library(dplyr)
 library(magrittr)
 library(tidyr)
 library(palmerpenguins)
+library(tibble)
 library(skimr)
 ```
 
@@ -269,7 +270,108 @@ filter(
 
 ```
 
-## Non Standard Evaluation
+## Non-Standard Evaluation
 
-This one is hard
+This one is difficult...
+
+. . . 
+
+Which argument does the function `select()` take? Let's check it in its help page with `?select`.
+
+```{r}
+?select
+```
+
+Under the `Usage` section it says:
+
+```
+select(.data, ...)
+```
+
+. . .
+
+And then in the section `Arguments` the help page says:
+
+```
+.data: A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+
+...: <tidy-select> One or more unquoted expressions separated by commas. Variable names can be used as if they were positions in the data frame, so expressions like x:y can be used to select a range of variables.
+```
+
+## Non-Standard Evaluation
+
+So, what are do we mean if we write:
+
+```{r}
+#| eval: false
+penguins %>% 
+  select(species, island)
+```
+
+. . .
+
+The `penguins` tibble is fills the`.data` parameter through the pipe `%>%`.
+
+The unquoted names `species, island` fill the argument `...`, they represent the names of the columns to be selected.
+
+. . .
+
+But the name of columns in a tibble is a character vector.
+
+```{r}
+colnames(penguins)
+```
+
+## Non-Standard Evaluation
+
+Through non-standard evaluation, in the function select, we can call element of a character vector like if they were variables (without quoting them).
+
+```{r}
+#| eval: false
+penguins %>% 
+  select(species, island)
+```
+
+The variables `species` and `island` don't exist outside of the dplyr function `select()`.
+
+```{r}
+#| error: true
+species
+```
+
+## {.big}
+
+With non-standard evaluation we can write names without quoting them. This makes writing code for iterative data exploration faster.
+
+. . .
+
+If you come from a more strict programming language, it could be hard to get use to this behaviour.
+
+. . .
+
+Most function of the Tidyverse do non-standard evaluation.
+
+## Exercise {.exercise}
+
+With the penguin dataset:
+
+- Select all **numeric** variables (columns).
+
+- Convert all variables that are expressed in **millimeters** into **meters**, rename them accordingly.
+
+## Exercise {.exercise}
+
+Move all the defined variable of the `penguins` dataset (`species`, `island`, `sex`, `year`) to the left of the measured variables.
+
+Does any of the defined variables has missing data? In case remove the corresponding row.
+
+Then group the dataset by all of those variable defined variables and estimate the minimum for each measured variable of each group. 
+
+## Exercise {.exercise}
+
+How many penguins have `bill_length_mm` above average?
+
+Repeat the analysis for each species.
+
+
 
