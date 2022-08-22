@@ -23,6 +23,10 @@ library(tibble)
 library(ggplot2)
 ```
 
+# {.big}
+
+> “The simple graph has brought more information to the data analyst’s mind than any other device.” — John Tukey
+
 # Why Dataviz?
 
 ## We are great at recognizing visual patterns
@@ -57,16 +61,252 @@ With the `penguin` dataset:
 
 - Make a histogram of the variable `bill_length_mm`. Repeat the same histogram, but use colors to differentiate `species`.
 
-- Make a histogram of `bill_depth_mm`, but only of female penguins.
+- Make a histogram of `bill_depth_mm`, but only for female penguins.
+
+- Make a scatterplot of `flipper_length_mm` vs `body_mass_g`, use colors to differentiate species.
 
 :::
 ::: fragment
 Get help from ggplot2's documentation.
 
-- On [ggplot2's ](https://ggplot2-book.org/)
-- On [R4DS book](https://r4ds.had.co.nz/data-visualisation.html])
-- On [ggplot2's website](https://ggplot2.tidyverse.org/)
+- On [ggplot2's ](https://ggplot2-book.org/).
+- On [R4DS book](https://r4ds.had.co.nz/data-visualisation.html]).
+- On [ggplot2's website](https://ggplot2.tidyverse.org/).
 :::
 
+# Tools: ggplot2
+
+## A grammar of graphics
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/ggplot2.svg)
+:::
+
+::: {.column width="60%" .smallish}
+
+[ggplot2](https://ggplot2.tidyverse.org/) is one of the main tools for declaring graphics in R.
+
+It is based on the grammar of graphics.
+
+It can be used both for explorative analysis and for publication ready graphs.
+
+:::
+
+::::
+
+## The grammar of graphics {.smallish}
+
+The grammar of graphics is a unifying framework to conceptualize and program datavisualization.
+
+It states that most graphics are composed of:
+
+- A default dataset and set of mappings from variables to aesthetics.
+- One or more layers, with each layer having one geometric object, one statistical transformation, one position adjustment, and optionally, one dataset and set of aesthetic mappings,
+- One scale for each aesthetic mapping used.
+- A coordinate system.
+- The facet specification.
+
+[Hadley Wickham - A Layered Grammar of Graphics, 2010](...)
+
+## Let's put it in practice 
+
+A default dataset (`penguins`) and set of mappings from variables to aesthetics...
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Variables
+
+- `bill_length_mm`
+- `bill_depth_mm`
+- `island`
+- `sex`
+
+:::
+
+::: {.column width="50%"}
+
+### Aesthetics
+
+- x
+- y
+- colour
+- shape
+
+::: 
+
+::::
+
+## Let's put it in practice 
+
+```{mermaid}
+%%| fig-width: 5
+flowchart LR
+  bill_length_mm --> x
+  bill_depth_mm --> y
+  island --> colour
+  sex --> shape
+  subgraph Variable
+  bill_length_mm
+  bill_depth_mm
+  island
+  sex
+  end
+  subgraph aesthetics
+  x
+  y
+  colour
+  shape
+  end
+```
 
 
+## {auto-animate="true"}
+
+A default dataset
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>% 
+  drop_na(species, sex) %>% 
+  ggplot()
+```
+
+
+## {auto-animate="true"}
+
+A default dataset and set of mappings from variables to aesthetics.
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>% 
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex))
+```
+
+## {auto-animate="true"}
+
+One or more layers, with each layer having one geometric object...
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>% 
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex)) + 
+  geom_point()
+```
+
+## {auto-animate="true"}
+
+...and a statistical transformation.
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>% 
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex)) + 
+  geom_point() +
+  geom_smooth()
+```
+
+## {auto-animate="true"}
+
+...and a statistical transformation.
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>% 
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex)) + 
+  geom_point() +
+  geom_smooth(method = 'lm')
+```
+
+## {auto-animate="true"}
+
+The facet specification.
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>%
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex)) + 
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  facet_wrap(facets = 'sex', ncol = 1)
+```
+
+## {auto-animate="true"}
+
+In this case there is no need to modify the coordinate system, but we can.
+
+```{r}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5
+penguins %>%
+  drop_na(species, sex) %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm,
+             colour = species,
+             shape = sex)) + 
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  facet_wrap(facets = 'sex', ncol = 1) +
+  scale_y_log10()
+```
+
+## Explore your data with graphics
+
+You can use **graphics** to **learn** what's inside our data.
+
+First, **asking questions** about data then, **plotting** them with different **visual models** to highlight and learn about data patterns, we can go through these two steps iteratively (plot, rinse and repeat).
+
+## Visual models
+
+A **visual model** is a specific type of data visualization, designed to highlight a specific type of pattern in data.
+
+[ggplot provides many visual models]() ready to be used and coustomized.
+
+The most used one in exploratory data analysis are:
+
+- histograms,
+- boxplots,
+- scatterplots,
+- heatmaps,
+- barplots.
+
+
+
+
+# Exercise {.exercise}

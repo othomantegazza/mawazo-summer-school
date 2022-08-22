@@ -92,7 +92,7 @@ Can you get more details with the package [skimr](https://docs.ropensci.org/skim
 Check its documentation, install it, try it out on the `penguins` dataset. Comment on the output. 
 
 
-# Tool: dplyr
+# Tools: dplyr
 
 ## A grammar for data manipulation
 
