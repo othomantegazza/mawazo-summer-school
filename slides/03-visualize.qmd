@@ -74,14 +74,14 @@ var: x
 
 ```{r}
 #| echo: false
-tiger_attack$x %>% summary
+tiger_attack$x %>% summary()
 ```
 
 var: y
 
 ```{r}
 #| echo: false
-tiger_attack$y %>% summary
+tiger_attack$y %>% summary()
 ```
 
 correlation between x, y

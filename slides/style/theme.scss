@@ -45,6 +45,10 @@ $code-block-border-color: transparent !default;
 .reveal ul {
     font-weight: $presentation-font-weight;
   }
+  
+.reveal ol {
+    font-weight: $presentation-font-weight;
+  }
 
 code {
   font-size: 85% !important;
