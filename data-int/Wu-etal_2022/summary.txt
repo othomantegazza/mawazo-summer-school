@@ -1,0 +1,22 @@
+/* DATA DESCRIPTION:
+Citation:	Wu, Jiawang; Liu, Zhifei; Michard, Annie; Tachikawa, Kazuyo; Filippidi, Amalia; He, Zhiwei; Hennekam, Rick; Yang, Shouye; Davies, Gareth R; de Lange, Gert J (2022): Effect of barite-bound Sr on detrital Sr isotope systematics in marine sediments with pertinent Mediterranean examples. PANGAEA, https://doi.pangaea.de/10.1594/PANGAEA.946258 (DOI registration in progress)
+Abstract:	Here we present the data of a sequential extraction scheme, which aims to evaluate the effect of barite-bound Sr in the residual fraction after decarbonation. The investigation is done with pertinent examples for Mediterranean sediments, focusing on the most-recent sapropel S1 interval. A total of 130 samples were taken from 10 cores in the eastern Mediterranean Sea (EMS) and 1 core in the western Mediterranean Sea. This selection represents a geographic and bathymetric coverage of the EMS and permits the basin-wide comparison between organic-rich and -lean sediments. After decarbonation using 1 M HCl solution, the residual sediments were subject to NH4Cl extraction (2 M, pH 7), known to selectively dissolve barite. Our results demonstrate the presence of Sr-bearing barite after traditional carbonate removal and its effect on the derived “detrital” Sr signature, with important implications for detrital provenance studies.
+Keyword(s):	Barite; Barium (Ba); marine sediments; Mediterranean Sea; Provenance; sapropel; Sr isotopes; Strontium (Sr)
+Supplement to:	Wu, Jiawang; Liu, Zhifei; Michard, Annie; Tachikawa, Kazuyo; Filippidi, Amalia; He, Zhiwei; Hennekam, Rick; Yang, Shouye; Davies, Gareth R; de Lange, Gert J (2022): Effect of barite-bound Sr on detrital Sr isotope systematics in marine sediments. Chemical Geology, 587, 120613, https://doi.org/10.1016/j.chemgeo.2021.120613
+Funding:	China Postdoctoral Science Foundation (URI: http://res.chinapostdoctor.org.cn/BshWeb/index.shtml), grant/award no. 2018M640418
+	China Postdoctoral Science Foundation (URI: http://res.chinapostdoctor.org.cn/BshWeb/index.shtml), grant/award no. 2019T120352
+	European Commission (EC), grant/award no. MAS2-CT93-0051: European Programme (PALEOFLUX)
+	European Commission (EC), grant/award no. MAS3 CT97-0137: European Programme (SAP)
+	European Commission (EC), grant/award no. MAST1-90022C: European Programme (MARFLUX)
+	National Natural Science Foundation of China (NSFC) (URI: http://www.nsfc.gov.cn/publish/portal1/), grant/award no. 2018YFE0202402: National Key R&D Program of China
+	National Natural Science Foundation of China (NSFC) (URI: http://www.nsfc.gov.cn/publish/portal1/), grant/award no. 41806064
+	National Natural Science Foundation of China (NSFC) (URI: http://www.nsfc.gov.cn/publish/portal1/), grant/award no. 42006060
+Coverage:	MEDIAN LATITUDE: 36.230485 * MEDIAN LONGITUDE: 21.909939 * SOUTH-BOUND LATITUDE: 33.375000 * WEST-BOUND LONGITUDE: 4.510000 * NORTH-BOUND LATITUDE: 39.661667 * EAST-BOUND LONGITUDE: 32.666667
+License:	Creative Commons Attribution 4.0 International (CC-BY-4.0)
+Size:	3 datasets
+*/
+/* TABULAR SUMMARY OF DATASETS LISTED IN THIS COLLECTION: */
+Filename	Citation of child dataset
+Dataset_S1_bulk_sediments.tab	Wu, Jiawang; Liu, Zhifei; Michard, Annie; Tachikawa, Kazuyo; Filippidi, Amalia; He, Zhiwei; Hennekam, Rick; Yang, Shouye; Davies, Gareth R; de Lange, Gert J (2022): Bulk sediment records of marine sediment cores from the Mediterranean Sea (Dataset S1). https://doi.pangaea.de/10.1594/PANGAEA.946160
+Dataset_S2_HCl-leaching.tab	Wu, Jiawang; Liu, Zhifei; Michard, Annie; Tachikawa, Kazuyo; Filippidi, Amalia; He, Zhiwei; Hennekam, Rick; Yang, Shouye; Davies, Gareth R; de Lange, Gert J (2022): HCl-leaching results of marine sediment cores from the Mediterranean Sea (Dataset S2). https://doi.pangaea.de/10.1594/PANGAEA.946184
+Dataset_S3_NH4Cl-leaching.tab	Wu, Jiawang; Liu, Zhifei; Michard, Annie; Tachikawa, Kazuyo; Filippidi, Amalia; He, Zhiwei; Hennekam, Rick; Yang, Shouye; Davies, Gareth R; de Lange, Gert J (2022): NH4Cl-leaching results of marine sediment cores from the Mediterranean Sea (Dataset S3). https://doi.pangaea.de/10.1594/PANGAEA.946254

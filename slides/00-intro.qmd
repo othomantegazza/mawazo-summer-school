@@ -60,18 +60,18 @@ It is **open source** and **open access** oriented and highly dedicated to lower
 
 ::::
 
-## Open Books
+## Open Books {.scrollable}
 
-For example, in bookdown you can find:
-
-:::: {.columns}
+:::: {.columns .smallish}
 
 ::: {.column width="50%"}
-- **[R for Data Science](https://r4ds.had.co.nz/)** A gentle introducion to data science with the Tidyverse.
+- **[R for Data Science](https://r4ds.had.co.nz/)** -  A gentle introducion to data science with the Tidyverse.
 
-- **[Introduction to Data Science](https://rafalab.github.io/dsbook/)** A detailed introduction to Data science by a biostatistician.
+- **[Introduction to Data Science](https://rafalab.github.io/dsbook/)** - A detailed introduction to Data science by a biostatistician.
 
-- **[Advanced R](https://r4ds.had.co.nz/)** All you need to know about programming in R.
+- **[Advanced R](https://r4ds.had.co.nz/)** - All you need to know about programming in R.
+
+- **[Introduction to Statistical Learning](https://www.statlearning.com)**  - A detailed introductio  to modern statistical methods, implemented in R.
 :::
 
 ::: {.column width="50%"}
@@ -92,13 +92,9 @@ For example, in bookdown you can find:
 
 - [R for Data Science Community](R https://www.rfordatasci.com/) a slack chanel for R networking.
 
-:::
-
 <br>
 
 ### Blogs
-
-::: { .nonincremental}
 
 - [Alison Hill's Blog](https://www.apreshill.com/blog/); great for everything Rmarkdown.
 
@@ -111,6 +107,10 @@ For example, in bookdown you can find:
 - [Fornkonstin](https://fronkonstin.com/); at the interface between math, art and coding.
 
 - [Data imaginist](https://www.data-imaginist.com/); more art in R 🎨.
+
+### Collaborative Challenges
+
+- [Tidytuesday](https://www.google.com/search?client=firefox-b-d&q=github.com+tidytuesday) Tidy and visualize a dataset and share your results with the R community every week on Tuesday.
 
 :::
 

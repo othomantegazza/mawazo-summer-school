@@ -72,7 +72,7 @@ tiger_attack %>%
   print(n = Inf)
 ```
 
-## Summary statistics help us
+## Summary statistics might help us
 
 var: x
 
@@ -175,9 +175,9 @@ p3 +
 
 # Data Vizualization for Whom?
 
-## Who reads your dataviz? {.nonincremental}
+## Who needs your dataviz? {.nonincremental}
 
-You generally make dataviz for two types of people:
+You generally visualize data for two types of people:
 
 ::: {.nonincremental}
 
@@ -405,7 +405,7 @@ penguins %>%
 
 ## {auto-animate="true"}
 
-In this case there is no need to modify the coordinate system, but we can.
+We can also modify the coordinate system, if needed.
 
 ```{r}
 #| output-location: column
@@ -417,7 +417,7 @@ penguins %>%
              y = bill_depth_mm,
              colour = species,
              shape = sex)) + 
-  geom_point() +
+  stat_identity(geom = 'point') +
   geom_smooth(method = 'lm') +
   facet_wrap(facets = 'sex', ncol = 1) +
   scale_y_log10()

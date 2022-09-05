@@ -32,7 +32,7 @@ All the packages share a common design:
 
   - One function does one thing, well.
   - Designed for pipes.
-  - Extensive documentation.
+  - Extensive user-friendly documentation.
   - Non-standard evaluation, to write code quickly and easily.
 
 . . .
@@ -89,7 +89,7 @@ The print method for a tibble gives you a reasonable overview of the data stored
 
 Can you get more details with the package [skimr](https://docs.ropensci.org/skimr/)?
 
-Check its documentation, install it, try it out on the `penguins` dataset. Comment on the output. 
+Check its documentation, install it, try it out on the `penguins` dataset. Comment on the output: is it useful? How?. 
 
 
 # Tools: dplyr
@@ -355,9 +355,19 @@ Most function of the Tidyverse do non-standard evaluation.
 
 With the penguin dataset:
 
+::: {.nonincremental}
+
 - Select all **numeric** variables (columns).
 
 - Convert all variables that are expressed in **millimeters** into **meters**, rename them accordingly.
+
+::: 
+
+Get help from:
+
+- [Dplyr's website](https://dplyr.tidyverse.org/).
+- The [Data Wrangling Chapter]() of R4DS.
+
 
 ## Exercise {.exercise}
 
@@ -366,6 +376,8 @@ Move all the defined variable of the `penguins` dataset (`species`, `island`, `s
 Does any of the defined variables has missing data? In case remove the corresponding row.
 
 Then group the dataset by all of those variable defined variables and estimate the minimum for each measured variable of each group. 
+
+
 
 ## Exercise {.exercise}
 

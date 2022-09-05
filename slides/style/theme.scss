@@ -19,7 +19,7 @@ $presentation-heading-letter-spacing: normal !default;
 
 // Heading
 $presentation-heading-font: Lato, sans-serif !default;
-$presentation-heading-font-weight: 700 !default;
+$presentation-heading-font-weight: 300 !default;
 
 // Slides
 $presentation-font-size-root: 35px !default;
@@ -90,4 +90,8 @@ a {
 
 .exercise {
   background-color: yellow !important;
+}
+
+#title-slide {
+  text-align: left;
 }
