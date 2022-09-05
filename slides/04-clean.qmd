@@ -33,7 +33,7 @@ library(here)
 More often than not when we speak about **datasets**, we speak about rectangular data, i.e., data in **two-dimensional table**, with rows and columns.
 
 
-When we work on rectangular data, we try to get shape them according to the  **[Tidy Data Principles](https://tidyr.tidyverse.org/articles/tidy-data.html)**:
+When we work on rectangular data, we try to shape them according to the  **[Tidy Data Principles](https://tidyr.tidyverse.org/articles/tidy-data.html)**:
 
 1. Every column is a variable.
 2. Every row is an observation.
@@ -78,7 +78,7 @@ The [source code of this package](https://github.com/allisonhorst/palmerpenguins
 ```{r}
 #| message: true
 penguin_csv_url <- 'https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv'
-
+ 
 read_csv(penguin_csv_url)
 ```
 
@@ -164,7 +164,203 @@ Get help from [readr's documentation](https://readr.tidyverse.org/) and the [dat
 Which function did you use? Did you encounter any parsing failure? How did you fix it?
 
 
-## Read a dataset from PANGAEA
+## Read a dataset from PANGAEA 
+
+[PANGAEA](https://www.pangaea.de/), a Data repository for the evironmental sciences.
+
+For our exercise we will use [this dataset](https://doi.pangaea.de/10.1594/PANGAEA.946258) from Wu et al: 
+
+<br>
+
+::: {.big}
+
+"Effect of barite-bound Sr on detrital Sr isotope systematics in marine sediments with pertinent Mediterranean examples".
+
+:::
+
+<br>
+
+[https://doi.pangaea.de/10.1594/PANGAEA.946258](https://doi.pangaea.de/10.1594/PANGAEA.946258)
+
+## {}
+
+```{r}
+pangaea_filename <- 'Dataset_S2_HCl-leaching.tab'
+
+pangaea_path <- here('data-int/Wu-etal_2022/datasets', pangaea_filename)
+```
+
+Let's try to read the data file `r pangaea_filename`.
+
+It's a `.tab` file. 
+
+```{r}
+#| warning: true
+
+pangaea_data <- 
+  pangaea_path %>% 
+  read_delim()
+```
+
+## {}
+
+If we call `problems()` readr tells us what went wrong.
+
+```{r}
+pangaea_data
+```
+
+## {}
+
+We can use the arguments:
+
+::: {.nonincremental}
+
+- `delim = '\t'` to tell `read_delim()` that we are reading a file delimited by tabulature (\\t).
+- `skip = 49` to tell it that the first 49 rows must be skipped.
+
+:::
+
+```{r}
+pangaea_data <- 
+  pangaea_path %>% 
+  read_delim(delim = '\t',
+             skip = 49)
+```
+
+##
+
+Now the data that we've imported into R looks fine.
+
+```{r}
+pangaea_data %>% glimpse()
+```
+
+
+## {.scrollable}
+
+Now the data that we've imported into R looks fine.
+
+```{r}
+#| output: text
+pangaea_data %>% skimr::skim()
+```
+
+
+## Always check for missing values
+
+`skimr::skim()` shows you how many values are missing in your dataset:
+
+- How many missing value are there?
+- Where do they occur?
+
+A more formal way to check for missing values.
+
+```{r}
+pangaea_data %>% 
+  summarise(
+    across(
+      .fns = ~is.na(.) %>% sum()
+    )
+  ) %>% 
+  glimpse()
+```
+
+## Quick checklist when you read new data into R
+
+- Check for missing values.
+- Check the column types, are they what you expect?
+- Check the row number and the column names.
+- Optional, check the `head()` and the `tail()` of the file.
+
+
+Now let's tidy the data.
+
+## Exercise {.exercise}
+
+[Tidytuesday](https://github.com/rfordatascience/tidytuesday) is a weekly data project aimed at learning, collaborating and networking the R ecosystem.
+
+Find this week's dataset and read it in R. Run the checklist from the previous slide on the data that you've read.
+
+If you are donw early, proceed reading data from the previous week or find a colleague to help.
+
+Check Tidytuesday submissions on [Twitter with the hashtag #TidyTuesday](https://twitter.com/hashtag/TidyTuesday)
+
+# Tidy Data
+
+## {.scrollable}
+
+```{r}
+pangaea_data %>% 
+  glimpse()
+```
+
+```{r}
+pangaea_data <- 
+  pangaea_data %>% 
+  janitor::clean_names()
+```
+
+!! Janitor transforms micro into mini (mu to m)
+
+```{r}
+pangaea_data %>% 
+  glimpse()
+```
+
+Independent variables first, measured ones late.
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m)
+```
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type)
+```
+
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type)
+```
+
+These variables define samples univocally.
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type, depth_m)
+```
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type, depth_m)
+```
+
+Is `ca_co3_percent` a measured variable?
+
+Value as columne name.
+
+Let's pivot the measured variables.
+
+```{r}
+pangaea_long <- 
+  pangaea_data %>% 
+  pivot_longer(
+    cols = contains(match = c('leachate', 'residue')),
+    values_to = 'value',
+    names_to = 'variable'
+  )
+```
+
+Now it's clear that `variable` contains more than one value.
+
+```{r}
+pangaea_long %>% 
+  separate(variable, into = c('element', 'type'), sep = '_') %>% 
+  view()
+```
 
 ```{r}
 
