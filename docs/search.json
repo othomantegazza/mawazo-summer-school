@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "slides/00-intro.html#the-r-project-for-statistical-computing",
+    "href": "slides/00-intro.html#the-r-project-for-statistical-computing",
+    "title": "About R",
+    "section": "The R Project for Statistical Computing",
+    "text": "The R Project for Statistical Computing\nhttps://www.r-project.org/\n\nStarted in 1991 by Ross Ihaka and Robert Gentleman at the University of Auckland (NZ).\nMade open source in 1995.\nOfficial “peer reviewed” packages are hosted on CRAN.\nHas multiple “universes” of packages, including Bioconductor dedicated to bioinformatics, and the Tidyverse for Data Science.\nGreat for analyzing data, for statistics, for research and for communicating data to others."
+  },
+  {
+    "objectID": "slides/00-intro.html#a-bit-more-on-r",
+    "href": "slides/00-intro.html#a-bit-more-on-r",
+    "title": "About R",
+    "section": "A bit more on R",
+    "text": "A bit more on R\n\nWe are going to use the Tidyverse. But you might have to learn also a bit of the original idiom, now called base R, which sometimes helps if you have to programm your own functions.\nWe are going to use R in visual studio code as you did for Python, but you might want to try out also Rstudio, which is a great open source IDE dedicated to R."
+  },
+  {
+    "objectID": "slides/00-intro.html#as-always-stackoverflow-is-your-friend",
+    "href": "slides/00-intro.html#as-always-stackoverflow-is-your-friend",
+    "title": "About R",
+    "section": "As always, stackoverflow is your friend",
+    "text": "As always, stackoverflow is your friend\nIf you need help, as always, Google and Stackoverflow are your friends.\n\nBut sometimes you need to learn on a support that is structured, nuanced and detailed… 📚"
+  },
+  {
+    "objectID": "slides/00-intro.html#a-helpful-and-welcoming-community",
+    "href": "slides/00-intro.html#a-helpful-and-welcoming-community",
+    "title": "About R",
+    "section": "A helpful and welcoming community 📚",
+    "text": "A helpful and welcoming community 📚\nOne of the things that makes R great is its community of users and programmer.\nIt is open source and open access oriented and highly dedicated to lowering the barrier to learning R and data science, and make their tools available and usable to everyone."
+  },
+  {
+    "objectID": "slides/00-intro.html#open-books",
+    "href": "slides/00-intro.html#open-books",
+    "title": "About R",
+    "section": "Open Books",
+    "text": "Open Books\n\n\nBookdown: a package and a repository for open access books about R."
+  },
+  {
+    "objectID": "slides/00-intro.html#open-books-1",
+    "href": "slides/00-intro.html#open-books-1",
+    "title": "About R",
+    "section": "Open Books",
+    "text": "Open Books\n\n\n\nR for Data Science - A gentle introducion to data science with the Tidyverse.\nIntroduction to Data Science - A detailed introduction to Data science by a biostatistician.\nAdvanced R - All you need to know about programming in R.\nIntroduction to Statistical Learning - A detailed introductio to modern statistical methods, implemented in R.\n\n\n\nText Mining in R Dealing with natural language and written text in R.\nTidy Modeling with R R Machine learning framework.\nDesigning and Building Data Science Solutions how to set up a data science project."
+  },
+  {
+    "objectID": "slides/00-intro.html#more",
+    "href": "slides/00-intro.html#more",
+    "title": "About R",
+    "section": "More ⬇️⬇️⬇️",
+    "text": "More ⬇️⬇️⬇️\n\nSlack Spaces\n\n\nR for Data Science Community a slack chanel for R networking.\n\n\nBlogs\n\nAlison Hill’s Blog; great for everything Rmarkdown.\nSimply Statistics; modern statistics and R.\nJulia Silge’s Blog; learn about R machine learning framework from one of its main developer.\nGina Reynolds Flipbooks; for more tidyverse and Rmarkdown mastery.\nFornkonstin; at the interface between math, art and coding.\nData imaginist; more art in R 🎨.\n\nCollaborative Challenges\n\nTidytuesday Tidy and visualize a dataset and share your results with the R community every week on Tuesday.\n\n\n\n\n2022 CBSER Summer School"
+  }
+]
