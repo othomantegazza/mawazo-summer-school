@@ -100,11 +100,31 @@ Always quoting the [Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.ht
 3. A **variable** contains all values that measure the same underlying attribute (like height, temperature, duration) across units.
 4. An **observation** contains all values measured on the same unit (like a person, or a day, or a race) across attributes
 
-## Tidyr: a package
+## Tools: Tidy data with Tidyr
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/tidyr.svg)
+:::
+
+::: {.column width="60%"}
+
+[Tidyr](https://tidyr.tidyverse.org/) provides functions for:
+
+- Pivoting data.
+- Rectangling data.
+- Nesting data.
+- Combining and splitting columns.
+- Make missing values explicit.
+
+:::
+
+::::
 
 # Let's tidy the data from Pangaea
 
-## Pangea Data
+## Pangea Data {.scrollable}
 
 Remember the dataset from Pangaea?
 
@@ -119,63 +139,51 @@ pangaea_data <-
              skip = 49)
 ```
 
-
 ```{r}
 pangaea_data %>% 
   glimpse()
 ```
+
+## Clean the column names with `Janitor` {.scrollable}
+
+we can remove capitalization, spaces, and strange characters from the column names with the function `clean_names()` from the [Janitor Package]('https://www.rdocumentation.org/packages/janitor/versions/2.1.0').
 
 ```{r}
 pangaea_data <- 
   pangaea_data %>% 
   janitor::clean_names()
-```
 
-
-
-
-!! Janitor transforms micro into mini (mu to m)
-
-## {.scrollable}
-
-```{r}
-pangaea_data %>% 
+pangaea_data %>%
   glimpse()
 ```
 
-Independent variables first, measured ones late.
+
+Watch out: Janitor transforms `µ` into `m` (so micrograms become milligrams). 
+
+## Place fixed variables in the first columns {.scrollable}
+
+Which column is a fixed variable?
 
 ```{r}
+#| include: false
 pangaea_data %>%
   count(event, latitude, longitude, elevation_m)
-```
 
-```{r}
 pangaea_data %>%
   count(event, latitude, longitude, elevation_m, samp_type)
-```
 
-
-```{r}
 pangaea_data %>%
   count(event, latitude, longitude, elevation_m, samp_type)
-```
 
-These variables define samples univocally.
-
-```{r}
 pangaea_data %>%
   count(event, latitude, longitude, elevation_m, samp_type, depth_m)
 ```
 
-```{r}
-pangaea_data %>%
-  count(event, latitude, longitude, elevation_m, samp_type, depth_m)
-```
+I'm not sure if `ca_co3_percent` is a measured variable, and if it belongs to another informational unit.
 
-Is `ca_co3_percent` a measured variable?
+Besides that, the fixed variables are already in front. 
 
-Value as columne name.
+## There are values stored in the column names {.scrollable}
 
 Let's pivot the measured variables.
 
@@ -184,21 +192,40 @@ pangaea_long <-
   pangaea_data %>% 
   pivot_longer(
     cols = contains(match = c('leachate', 'residue')),
-    values_to = 'value',
-    names_to = 'variable'
+    values_to = 'concentration',
+    names_to = 'element'
   )
+
+pangaea_long
+
+pangaea_long %>% glimpse()
 ```
 
-Now it's clear that `variable` contains more than one value.
+When we pivot data we move them from a wide to a long format and vice-versa.
+
+![](img/tidyr_spread_gather_allison_horst.jpg)
+
+(Image from [Alisson Horst](https://twitter.com/allison_horst), check her other [stats illustrations here](https://github.com/allisonhorst/stats-illustrations/))
+
+## One cell contains multiple values {.scrollable}
+
+Now it's clear that `element` contains more than one value.
+
+For example: `ba_mg_g_leachate` is not a single values and could be split into:
+
+- element: `ba`.
+- unit: `mg_g`.
+- fraction: `leachate`.
+
+Let's split this column at the `_` and reconstitute it in a tidy way
+
 
 ```{r}
-pangaea_long %>% 
-  separate(variable, into = c('element', 'type'), sep = '_') %>% 
+pangaea_tidy <- 
+  pangaea_long %>% 
+  separate(element, into = c('element', 'unit_num', 'unit_dem', 'fraction'), sep = '_') %>% 
+  unite(col = 'unit', unit_num:unit_dem, sep = '_') %>% 
   view()
-```
-
-```{r}
-
 ```
 
 ## Exercise {.exercise}
