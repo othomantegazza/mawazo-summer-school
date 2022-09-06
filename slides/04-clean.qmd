@@ -228,7 +228,7 @@ pangaea_data <-
              skip = 49)
 ```
 
-##
+## {}
 
 Now the data that we've imported into R looks fine.
 
@@ -251,8 +251,14 @@ pangaea_data %>% skimr::skim()
 
 `skimr::skim()` shows you how many values are missing in your dataset:
 
+::: {.nonincremental}
+
 - How many missing value are there?
 - Where do they occur?
+
+:::
+
+## {.scrollable}
 
 A more formal way to check for missing values.
 
@@ -268,11 +274,14 @@ pangaea_data %>%
 
 ## Quick checklist when you read new data into R
 
+::: {.nonincremental}
+
 - Check for missing values.
 - Check the column types, are they what you expect?
 - Check the row number and the column names.
 - Optional, check the `head()` and the `tail()` of the file.
 
+:::
 
 Now let's tidy the data.
 
@@ -287,6 +296,84 @@ If you are donw early, proceed reading data from the previous week or find a col
 Check Tidytuesday submissions on [Twitter with the hashtag #TidyTuesday](https://twitter.com/hashtag/TidyTuesday)
 
 # Tidy Data
+
+## Which Dataset is Tidy?
+
+A common practical way to organize (empirical) data.
+
+::: {.nonincremental}
+
+- Every column is a variable.
+- Every row is an observation.
+- Every cell is a single value.
+- (Every observational unit is in its own table).
+
+:::
+
+Plus: fixed variables should come first, followed by measured variables.
+
+Reference: An Introduction to [Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.html)
+
+## {}
+
+```{r}
+#| echo: false
+#| output: verbatim
+
+friends <- tribble(
+  ~name, ~surname, ~age,
+  'Joey', 'Tribbiani', 27, 
+  'Monica', 'Geller', 24,
+  'Rachel', 'Green', 23,
+  'Phoebe', 'Buffay', 27,
+  'Ross', 'Geller', 26,
+  'Chandler', 'Bing', 26
+)
+
+set.seed(5)
+
+friends_vector <- 
+  friends %>% 
+  as.vector() %>% 
+  unlist() %>% 
+  unname() %>%
+  tibble(text = .) %>% 
+  mutate(
+    left = runif(n(), 0, 1000),
+    top = runif(n(), 0, 700)
+  ) %>% 
+  rowwise() %>% 
+  mutate(
+    html_div = glue::glue(
+      '<div style="position:absolute; left:',
+      left,
+      'px; top:',
+      top,
+      '200px; font-size:40px;">',
+      text ,
+      '</div>'
+    )
+  ) %>% 
+  pull(html_div) %>% 
+  paste(collapse = '')
+# paste0(
+#   .,
+  #   ' {.fragment .absolute top=',
+  #   runif(1, 1, 800) %>% round(),
+  #   ' left=400 height=500} \n'
+  # ) %>% 
+  # paste0(
+  #   '<div style="position:absolute; left:',
+  #   ,
+  #   'px; top:',
+  #   ,
+  #   '200px; font-weight:bold;">',. ,'</div>'
+  # )
+
+```
+
+
+`r friends_vector`
 
 ## {.scrollable}
 
@@ -366,3 +453,8 @@ pangaea_long %>%
 
 ```
 
+## Exercise {.exercise}
+
+Tidy last week's schedule.
+
+![](img/week1-schedule.png)
