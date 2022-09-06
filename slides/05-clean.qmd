@@ -1,0 +1,208 @@
+---
+title: "Clean and Tidy Data"
+subtitle: "Tidyverse - Part 4"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '[2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(dplyr)
+library(readr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+library(readr)
+library(here)
+```
+
+
+# Tidy Data
+
+## Which Dataset is Tidy?
+
+A common practical way to **structure** (empirical) data.
+
+::: {.nonincremental}
+
+- Every column is a variable.
+- Every row is an observation.
+- Every cell is a single value.
+- (Every observational unit is in its own table).
+
+:::
+
+Plus: fixed variables should come first, followed by measured variables.
+
+Reference: An Introduction to [Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.html)
+
+## {}
+
+```{r}
+#| echo: false
+
+friends <- tribble(
+  ~name, ~surname, ~age,
+  'Joey', 'Tribbiani', 27, 
+  'Monica', 'Geller', 24,
+  'Rachel', 'Green', 23,
+  'Phoebe', 'Buffay', 27,
+  'Ross', 'Geller', 26,
+  'Chandler', 'Bing', 26
+)
+
+set.seed(5)
+
+friends_vector <- 
+  friends %>% 
+  as.vector() %>% 
+  unlist() %>% 
+  unname() %>%
+  tibble(text = .) %>% 
+  mutate(
+    left = runif(n(), 0, 1000),
+    top = runif(n(), 0, 700)
+  ) %>% 
+  rowwise() %>% 
+  mutate(
+    html_div = glue::glue(
+      '<div style="position:absolute; left:',
+      left,
+      'px; top:',
+      top,
+      '200px; font-size:40px;">',
+      text ,
+      '</div>'
+    )
+  ) %>% 
+  pull(html_div) %>% 
+  paste(collapse = '')
+```
+
+`r friends_vector`
+
+## Semantics of (tidy) Data
+
+Always quoting the [Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.html) article:
+
+1. A dataset is a collection of **values**.
+2. Every value belongs to a **variable** and an **observation**.
+3. A **variable** contains all values that measure the same underlying attribute (like height, temperature, duration) across units.
+4. An **observation** contains all values measured on the same unit (like a person, or a day, or a race) across attributes
+
+## Tidyr: a package
+
+# Let's tidy the data from Pangaea
+
+## Pangea Data
+
+Remember the dataset from Pangaea?
+
+```{r}
+pangaea_filename <- 'Dataset_S2_HCl-leaching.tab'
+
+pangaea_path <- here('data-int/Wu-etal_2022/datasets', pangaea_filename)
+
+pangaea_data <- 
+  pangaea_path %>% 
+  read_delim(delim = '\t',
+             skip = 49)
+```
+
+
+```{r}
+pangaea_data %>% 
+  glimpse()
+```
+
+```{r}
+pangaea_data <- 
+  pangaea_data %>% 
+  janitor::clean_names()
+```
+
+
+
+
+!! Janitor transforms micro into mini (mu to m)
+
+## {.scrollable}
+
+```{r}
+pangaea_data %>% 
+  glimpse()
+```
+
+Independent variables first, measured ones late.
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m)
+```
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type)
+```
+
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type)
+```
+
+These variables define samples univocally.
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type, depth_m)
+```
+
+```{r}
+pangaea_data %>%
+  count(event, latitude, longitude, elevation_m, samp_type, depth_m)
+```
+
+Is `ca_co3_percent` a measured variable?
+
+Value as columne name.
+
+Let's pivot the measured variables.
+
+```{r}
+pangaea_long <- 
+  pangaea_data %>% 
+  pivot_longer(
+    cols = contains(match = c('leachate', 'residue')),
+    values_to = 'value',
+    names_to = 'variable'
+  )
+```
+
+Now it's clear that `variable` contains more than one value.
+
+```{r}
+pangaea_long %>% 
+  separate(variable, into = c('element', 'type'), sep = '_') %>% 
+  view()
+```
+
+```{r}
+
+```
+
+## Exercise {.exercise}
+
+Tidy last week's schedule.
+
+![](img/week1-schedule.png)
