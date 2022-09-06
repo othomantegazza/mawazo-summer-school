@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
-    - name: Set up Quarto
+    steps:
+      - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
