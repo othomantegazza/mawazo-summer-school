@@ -1,0 +1,16 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: deploy
+    
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
