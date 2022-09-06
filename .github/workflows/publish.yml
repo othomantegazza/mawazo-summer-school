@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
+      - name: install curl and other non r dependencies
+        run: |
+        sudo apt update
+        sudo apt install libcurl4-openssl-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev
       - name: setup R
         uses: r-lib/actions/setup-r@v2
         with:
