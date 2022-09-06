@@ -26,22 +26,20 @@ library(readr)
 library(here)
 ```
 
-# Tidy Data
+# Datasets
 
-## A couple of words on tidy data
+## Dataframes are rectangular datasets
 
-More often than not when we speak about **datasets**, we speak about rectangular data, i.e., data in **two-dimensional table**, with rows and columns.
+More often than not when we speak about **datasets**, we speak about rectangular data, i.e., data in **two-dimensional table**, made of values organized in rows and columns.
 
+. . .
 
-When we work on rectangular data, we try to shape them according to the  **[Tidy Data Principles](https://tidyr.tidyverse.org/articles/tidy-data.html)**:
+- Each **cell** stores a value.
+- Each value belongs to one **column** and one **row**.
 
-1. Every column is a variable.
-2. Every row is an observation.
-3. Every cell is a single value.
+. . .
 
-. . . 
-
-When we get new data, they generally aren't in a tidy shape...
+Rectnagular data are the easiest to use, when we get data that are not rectangular, we try to reshape them in that form.
 
 # Tools: Read Data with Readr
 
