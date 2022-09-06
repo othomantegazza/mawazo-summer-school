@@ -22,3 +22,9 @@ jobs:
         uses: r-lib/actions/setup-renv@v2
         with:
           cache-version: 2
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
