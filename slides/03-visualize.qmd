@@ -652,8 +652,76 @@ penguins %>% ggplot(aes(x = flipper_length_mm, fill = species)) + geom_histogram
 
 ## Boxplots
 
+Robust summary statistics displayed (median, IQR, outliers).
+
+
+
+## Boxplots
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
 Robust summary statistics displayed.
 
-boxplo
+::: 
+
+::: {.column width="50%"}
+
+![](https://upload.wikimedia.org/wikipedia/commons/1/1a/Boxplot_vs_PDF.svg) 
+:::
+
+::::
+
+::: {.small}
+
+Image source: [Wikipedia](https://en.wikipedia.org/wiki/Box_plot)
+
+:::
+
+## Boxplots
+
+```{r}
+penguins %>%
+  ggplot(aes(x = species, y = flipper_length_mm, fill = sex)) + geom_boxplot()
+```
+
+## Scatterplots
+
+```{r}
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y= body_mass_g, colour = species)) + geom_point()
+```
+
+# Heatmaps
+
+```{r}
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, body_mass_g)) +
+  geom_hex(bins = c(20, 20*0.010))
+```
+
+## Heatmaps
+
+```{r}
+#| echo: false
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, body_mass_g)) +
+  geom_hex(bins = c(20, 20*0.010)) +
+  scale_fill_gradient(low = 'grey70', high = 'blue')
+```
+
+## Heatmaps
+
+```{r}
+#| eval: false
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, body_mass_g)) +
+  geom_hex(bins = c(20, 20*0.010)) +
+  scale_fill_gradient(low = 'grey70', high = 'blue')
+```
 
 ## Exercise {.exercise}
+
+Make a histogram of the continuous variables in the penguins dataset but compute the bin statistics before making the plot.
+
