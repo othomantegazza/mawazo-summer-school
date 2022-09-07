@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.38">
 
   <meta name="author" content="Otho Mantegazza">
-  <title>About R</title>
+  <title>Clean and Tidy Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -23,6 +23,70 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -319,104 +383,281 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">About R</h1>
+  <h1 class="title">Clean and Tidy Data</h1>
+  <p class="subtitle">Tidyverse - Part 4</p>
   <p class="author">Otho Mantegazza</p>
 </section>
 
 <section>
-<section id="quick-history-of-r" class="title-slide slide level1 center">
-<h1>Quick history of R</h1>
+<section id="tidy-data" class="title-slide slide level1 center">
+<h1>Tidy Data</h1>
 
 </section>
-<section id="the-r-project-for-statistical-computing" class="slide level2">
-<h2>The R Project for Statistical Computing</h2>
-<p><a href="https://www.r-project.org/">https://www.r-project.org/</a></p>
-<ul>
-<li class="fragment">Started in 1991 by Ross Ihaka and Robert Gentleman at the University of Auckland (NZ).</li>
-<li class="fragment">Made <strong>open source</strong> in 1995.</li>
-<li class="fragment">Official “peer reviewed” packages are hosted on <a href="https://cran.r-project.org/">CRAN</a>.</li>
-<li class="fragment">Has multiple “universes” of packages, including <a href="https://bioconductor.org/">Bioconductor</a> dedicated to bioinformatics, and the <a href="https://www.tidyverse.org/">Tidyverse</a> for Data Science.</li>
-<li class="fragment">Great for analyzing data, for statistics, for research and for communicating data to others.</li>
-</ul>
-</section>
-<section id="a-bit-more-on-r" class="slide level2">
-<h2>A bit more on R</h2>
-<ul>
-<li class="fragment">We are going to use the <strong><a href="https://www.tidyverse.org/">Tidyverse</a></strong>. But you might have to learn also a bit of the original idiom, now called <strong>base R</strong>, which sometimes helps if you have to programm your own functions.</li>
-<li class="fragment">We are going to use R in <a href="https://code.visualstudio.com/">visual studio code</a> as you did for Python, but you might want to try out also <a href="https://www.rstudio.com/">Rstudio</a>, which is a great open source IDE dedicated to R.</li>
-</ul>
-</section></section>
-<section>
-<section id="resources" class="title-slide slide level1 center">
-<h1>Resources</h1>
-
-</section>
-<section id="as-always-stackoverflow-is-your-friend" class="slide level2">
-<h2>As always, stackoverflow is your friend</h2>
-<p>If you need help, as always, Google and <a href="https://stackoverflow.com/questions/tagged/r?sort=MostVotes">Stackoverflow</a> are your friends.</p>
-<div class="fragment">
-<p>But sometimes you need to learn on a support that is structured, nuanced and detailed… 📚</p>
-</div>
-</section>
-<section id="a-helpful-and-welcoming-community" class="slide level2">
-<h2>A helpful and welcoming community 📚</h2>
-<p>One of the things that makes R great is its community of users and programmer.</p>
-<p>It is <strong>open source</strong> and <strong>open access</strong> oriented and highly dedicated to lowering the barrier to learning R and data science, and make their tools available and usable to everyone.</p>
-</section>
-<section id="open-books" class="slide level2">
-<h2>Open Books</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong><a href="https://bookdown.org/">Bookdown</a></strong>: a package and a repository for open access books about R.</p>
-</div><div class="column" style="width:40%;">
-<p><img data-src="img/bookdown.svg"></p>
-</div>
-</div>
-</section>
-<section id="open-books-1" class="slide level2 scrollable">
-<h2>Open Books</h2>
-<div class="columns smallish">
-<div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><p><strong><a href="https://r4ds.had.co.nz/">R for Data Science</a></strong> - A gentle introducion to data science with the Tidyverse.</p></li>
-<li class="fragment"><p><strong><a href="https://rafalab.github.io/dsbook/">Introduction to Data Science</a></strong> - A detailed introduction to Data science by a biostatistician.</p></li>
-<li class="fragment"><p><strong><a href="https://r4ds.had.co.nz/">Advanced R</a></strong> - All you need to know about programming in R.</p></li>
-<li class="fragment"><p><strong><a href="https://www.statlearning.com">Introduction to Statistical Learning</a></strong> - A detailed introductio to modern statistical methods, implemented in R.</p></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><strong><a href="https://www.tidytextmining.com/index.html">Text Mining in R</a></strong> Dealing with natural language and written text in R.</li>
-<li class="fragment"><strong><a href="https://www.tmwr.org/">Tidy Modeling with R</a></strong> R Machine learning framework.</li>
-<li class="fragment"><strong><a href="https://datasciencedesign.com/">Designing and Building Data Science Solutions</a></strong> how to set up a data science project.</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="more" class="slide level2 scrollable">
-<h2>More ⬇️⬇️⬇️</h2>
-<p><br></p>
-<h3 id="slack-spaces">Slack Spaces</h3>
+<section id="which-dataset-is-tidy" class="slide level2">
+<h2>Which Dataset is Tidy?</h2>
+<p>A common practical way to <strong>structure</strong> (empirical) data.</p>
 <div>
 <ul>
-<li><a href="R%20https://www.rfordatasci.com/">R for Data Science Community</a> a slack chanel for R networking.</li>
-</ul>
-<p><br></p>
-<h3 id="blogs">Blogs</h3>
-<ul>
-<li><p><a href="https://www.apreshill.com/blog/">Alison Hill’s Blog</a>; great for everything Rmarkdown.</p></li>
-<li><p><a href="https://simplystatistics.org/">Simply Statistics</a>; modern statistics and R.</p></li>
-<li><p><a href="https://juliasilge.com/blog/">Julia Silge’s Blog</a>; learn about R machine learning framework from one of its main developer.</p></li>
-<li><p><a href="https://evamaerey.github.io/mytidytuesday/2022-06-20-tabyl/2022-06-20-tabyl.html#1">Gina Reynolds Flipbooks</a>; for more tidyverse and Rmarkdown mastery.</p></li>
-<li><p><a href="https://fronkonstin.com/">Fornkonstin</a>; at the interface between math, art and coding.</p></li>
-<li><p><a href="https://www.data-imaginist.com/">Data imaginist</a>; more art in R 🎨.</p></li>
-</ul>
-<h3 id="collaborative-challenges">Collaborative Challenges</h3>
-<ul>
-<li><a href="https://www.google.com/search?client=firefox-b-d&amp;q=github.com+tidytuesday">Tidytuesday</a> Tidy and visualize a dataset and share your results with the R community every week on Tuesday.</li>
+<li>Every column is a variable.</li>
+<li>Every row is an observation.</li>
+<li>Every cell is a single value.</li>
+<li>(Every observational unit is in its own table).</li>
 </ul>
 </div>
+<p>Plus: fixed variables should come first, followed by measured variables.</p>
+<p>Reference: An Introduction to <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">Tidy Data</a></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="cell">
 
-<div class="footer footer-default">
+</div>
+<div style="position:absolute; left:200.214452575892px; top:388.445787760429200px; font-size:40px;">
+Joey
+</div>
+<div style="position:absolute; left:685.218595666811px; top:589.525569672696200px; font-size:40px;">
+Monica
+</div>
+<div style="position:absolute; left:916.87577450648px; top:623.144980240613200px; font-size:40px;">
+Rachel
+</div>
+<div style="position:absolute; left:284.399457275867px; top:504.490679269657200px; font-size:40px;">
+Phoebe
+</div>
+<div style="position:absolute; left:104.650127934292px; top:147.93819161132200px; font-size:40px;">
+Ross
+</div>
+<div style="position:absolute; left:701.057459227741px; top:158.002103539184200px; font-size:40px;">
+Chandler
+</div>
+<div style="position:absolute; left:527.959984261543px; top:97.9885879671201200px; font-size:40px;">
+Tribbiani
+</div>
+<div style="position:absolute; left:807.935200864449px; top:335.939697828144200px; font-size:40px;">
+Geller
+</div>
+<div style="position:absolute; left:956.5001251176px; top:306.188301742077200px; font-size:40px;">
+Green
+</div>
+<div style="position:absolute; left:110.453018685803px; top:676.174897607416200px; font-size:40px;">
+Buffay
+</div>
+<div style="position:absolute; left:273.284949595109px; top:99.3397377664223200px; font-size:40px;">
+Geller
+</div>
+<div style="position:absolute; left:490.513201802969px; top:668.485221872106200px; font-size:40px;">
+Bing
+</div>
+<div style="position:absolute; left:318.404018646106px; top:311.311389273033200px; font-size:40px;">
+27
+</div>
+<div style="position:absolute; left:559.172826586291px; top:41.5537315653637200px; font-size:40px;">
+24
+</div>
+<div style="position:absolute; left:262.593138730153px; top:192.604429321364200px; font-size:40px;">
+23
+</div>
+<div style="position:absolute; left:201.875211205333px; top:21.8037815066054200px; font-size:40px;">
+27
+</div>
+<div style="position:absolute; left:387.525747064501px; top:10.13764066156200px; font-size:40px;">
+26
+</div>
+<div style="position:absolute; left:887.869771569967px; top:341.018320270814200px; font-size:40px;">
+26
+</div>
+</section>
+<section id="semantics-of-tidy-data" class="slide level2">
+<h2>Semantics of (tidy) Data</h2>
+<p>Always quoting the <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">Tidy Data</a> article:</p>
+<ol type="1">
+<li class="fragment">A dataset is a collection of <strong>values</strong>.</li>
+<li class="fragment">Every value belongs to a <strong>variable</strong> and an <strong>observation</strong>.</li>
+<li class="fragment">A <strong>variable</strong> contains all values that measure the same underlying attribute (like height, temperature, duration) across units.</li>
+<li class="fragment">An <strong>observation</strong> contains all values measured on the same unit (like a person, or a day, or a race) across attributes</li>
+</ol>
+</section>
+<section id="tools-tidy-data-with-tidyr" class="slide level2">
+<h2>Tools: Tidy data with Tidyr</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/tidyr.svg"></p>
+</div><div class="column" style="width:60%;">
+<p><a href="https://tidyr.tidyverse.org/">Tidyr</a> provides functions for:</p>
+<ul>
+<li class="fragment">Pivoting data.</li>
+<li class="fragment">Rectangling data.</li>
+<li class="fragment">Nesting data.</li>
+<li class="fragment">Combining and splitting columns.</li>
+<li class="fragment">Make missing values explicit.</li>
+</ul>
+</div>
+</div>
+</section></section>
+<section>
+<section id="lets-tidy-the-data-from-pangaea" class="title-slide slide level1 center">
+<h1>Let’s tidy the data from Pangaea</h1>
+
+</section>
+<section id="pangea-data" class="slide level2 scrollable">
+<h2>Pangea Data</h2>
+<p>Remember the dataset from Pangaea?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>pangaea_filename <span class="ot">&lt;-</span> <span class="st">'Dataset_S2_HCl-leaching.tab'</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>pangaea_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">'data-int/Wu-etal_2022/datasets'</span>, pangaea_filename)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>pangaea_data <span class="ot">&lt;-</span> </span>
+<span id="cb1-6"><a href="#cb1-6"></a>  pangaea_path <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="fu">read_delim</span>(<span class="at">delim =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>             <span class="at">skip =</span> <span class="dv">49</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pangaea_data <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 128
+Columns: 19
+$ Event                      &lt;chr&gt; "SL73BC", "SL73BC", "SL73BC", "SL73BC", "SL…
+$ Latitude                   &lt;dbl&gt; 39.6617, 39.6617, 39.6617, 39.6617, 39.6617…
+$ Longitude                  &lt;dbl&gt; 24.5117, 24.5117, 24.5117, 24.5117, 24.5117…
+$ `Elevation [m]`            &lt;dbl&gt; -339, -339, -339, -339, -339, -339, -339, -…
+$ `Sample label (barite-Sr)` &lt;chr&gt; "SL73-1", "SL73-2", "SL73-3", "SL73-4", "SL…
+$ `Samp type`                &lt;chr&gt; "non-S1", "non-S1", "non-S1", "S1b", "S1b",…
+$ `Depth [m]`                &lt;dbl&gt; 0.0045, 0.0465, 0.0665, 0.1215, 0.1765, 0.1…
+$ `Age [ka BP]`              &lt;dbl&gt; 1.66, 3.13, 4.13, 5.75, 7.30, 7.78, 8.65, 9…
+$ `CaCO3 [%]`                &lt;dbl&gt; 61.5, 55.1, 53.0, 43.4, 41.8, 42.3, 42.6, 3…
+$ `Ba [µg/g] (Leachate)`     &lt;dbl&gt; 72.6, 64.3, 37.4, 63.5, 101.0, 141.0, 75.2,…
+$ `Sr [µg/g] (Leachate)`     &lt;dbl&gt; 767, 681, 690, 552, 527, 528, 551, 482, 391…
+$ `Ca [µg/g] (Leachate)`     &lt;dbl&gt; 188951.9, 163260.4, 162188.7, 125937.6, 124…
+$ `Al [µg/g] (Leachate)`     &lt;dbl&gt; 10612.7, 11428.4, 5463.0, 3261.5, 2121.7, 1…
+$ `Fe [µg/g] (Leachate)`     &lt;dbl&gt; 5935.0, 6814.3, 2465.7, 3936.8, 189.6, 7711…
+$ `Ba [µg/g] (Residue)`      &lt;dbl&gt; 171.0, 198.0, 251.0, 290.0, 315.0, 259.0, 3…
+$ `Sr [µg/g] (Residue)`      &lt;dbl&gt; 66.6, 71.3, 90.3, 99.8, 106.0, 90.7, 108.0,…
+$ `Ca [µg/g] (Residue)`      &lt;dbl&gt; 2315.5, 2369.6, 3007.7, 3447.9, 3713.2, 331…
+$ `Al [µg/g] (Residue)`      &lt;dbl&gt; 29262.5, 35561.4, 45862.4, 52485.6, 55083.0…
+$ `Fe [µg/g] (Residue)`      &lt;dbl&gt; 14834.8, 18301.4, 24534.5, 30745.3, 28532.2…</code></pre>
+</div>
+</div>
+</section>
+<section id="clean-the-column-names-with-janitor" class="slide level2 scrollable">
+<h2>Clean the column names with <code>Janitor</code></h2>
+<p>we can remove capitalization, spaces, and strange characters from the column names with the function <code>clean_names()</code> from the <a href="'https://www.rdocumentation.org/packages/janitor/versions/2.1.0'">Janitor Package</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pangaea_data <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  pangaea_data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>pangaea_data <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 128
+Columns: 19
+$ event                  &lt;chr&gt; "SL73BC", "SL73BC", "SL73BC", "SL73BC", "SL73BC…
+$ latitude               &lt;dbl&gt; 39.6617, 39.6617, 39.6617, 39.6617, 39.6617, 39…
+$ longitude              &lt;dbl&gt; 24.5117, 24.5117, 24.5117, 24.5117, 24.5117, 24…
+$ elevation_m            &lt;dbl&gt; -339, -339, -339, -339, -339, -339, -339, -339,…
+$ sample_label_barite_sr &lt;chr&gt; "SL73-1", "SL73-2", "SL73-3", "SL73-4", "SL73-5…
+$ samp_type              &lt;chr&gt; "non-S1", "non-S1", "non-S1", "S1b", "S1b", "S1…
+$ depth_m                &lt;dbl&gt; 0.0045, 0.0465, 0.0665, 0.1215, 0.1765, 0.1915,…
+$ age_ka_bp              &lt;dbl&gt; 1.66, 3.13, 4.13, 5.75, 7.30, 7.78, 8.65, 9.94,…
+$ ca_co3_percent         &lt;dbl&gt; 61.5, 55.1, 53.0, 43.4, 41.8, 42.3, 42.6, 39.1,…
+$ ba_mg_g_leachate       &lt;dbl&gt; 72.6, 64.3, 37.4, 63.5, 101.0, 141.0, 75.2, 99.…
+$ sr_mg_g_leachate       &lt;dbl&gt; 767, 681, 690, 552, 527, 528, 551, 482, 391, 70…
+$ ca_mg_g_leachate       &lt;dbl&gt; 188951.9, 163260.4, 162188.7, 125937.6, 124733.…
+$ al_mg_g_leachate       &lt;dbl&gt; 10612.7, 11428.4, 5463.0, 3261.5, 2121.7, 12740…
+$ fe_mg_g_leachate       &lt;dbl&gt; 5935.0, 6814.3, 2465.7, 3936.8, 189.6, 7711.3, …
+$ ba_mg_g_residue        &lt;dbl&gt; 171.0, 198.0, 251.0, 290.0, 315.0, 259.0, 310.0…
+$ sr_mg_g_residue        &lt;dbl&gt; 66.6, 71.3, 90.3, 99.8, 106.0, 90.7, 108.0, 96.…
+$ ca_mg_g_residue        &lt;dbl&gt; 2315.5, 2369.6, 3007.7, 3447.9, 3713.2, 3316.7,…
+$ al_mg_g_residue        &lt;dbl&gt; 29262.5, 35561.4, 45862.4, 52485.6, 55083.0, 44…
+$ fe_mg_g_residue        &lt;dbl&gt; 14834.8, 18301.4, 24534.5, 30745.3, 28532.2, 22…</code></pre>
+</div>
+</div>
+<p>Watch out: Janitor transforms <code>µ</code> into <code>m</code> (so micrograms become milligrams).</p>
+</section>
+<section id="place-fixed-variables-in-the-first-columns" class="slide level2 scrollable">
+<h2>Place fixed variables in the first columns</h2>
+<p>Which column is a fixed variable?</p>
+<p>I’m not sure if <code>ca_co3_percent</code> is a measured variable, and if it belongs to another informational unit.</p>
+<p>Besides that, the fixed variables are already in front.</p>
+</section>
+<section id="there-are-values-stored-in-the-column-names" class="slide level2 scrollable">
+<h2>There are values stored in the column names</h2>
+<p>Let’s pivot the measured variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pangaea_long <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  pangaea_data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">cols =</span> <span class="fu">contains</span>(<span class="at">match =</span> <span class="fu">c</span>(<span class="st">'leachate'</span>, <span class="st">'residue'</span>)),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">values_to =</span> <span class="st">'concentration'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">names_to =</span> <span class="st">'element'</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  )</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>pangaea_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,280 × 11
+   event latit…¹ longi…² eleva…³ sampl…⁴ samp_…⁵ depth_m age_k…⁶ ca_co…⁷ element
+   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+ 1 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba_mg_…
+ 2 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr_mg_…
+ 3 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca_mg_…
+ 4 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al_mg_…
+ 5 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe_mg_…
+ 6 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba_mg_…
+ 7 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr_mg_…
+ 8 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca_mg_…
+ 9 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al_mg_…
+10 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe_mg_…
+# … with 1,270 more rows, 1 more variable: concentration &lt;dbl&gt;, and abbreviated
+#   variable names ¹​latitude, ²​longitude, ³​elevation_m,
+#   ⁴​sample_label_barite_sr, ⁵​samp_type, ⁶​age_ka_bp, ⁷​ca_co3_percent
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>pangaea_long <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,280
+Columns: 11
+$ event                  &lt;chr&gt; "SL73BC", "SL73BC", "SL73BC", "SL73BC", "SL73BC…
+$ latitude               &lt;dbl&gt; 39.6617, 39.6617, 39.6617, 39.6617, 39.6617, 39…
+$ longitude              &lt;dbl&gt; 24.5117, 24.5117, 24.5117, 24.5117, 24.5117, 24…
+$ elevation_m            &lt;dbl&gt; -339, -339, -339, -339, -339, -339, -339, -339,…
+$ sample_label_barite_sr &lt;chr&gt; "SL73-1", "SL73-1", "SL73-1", "SL73-1", "SL73-1…
+$ samp_type              &lt;chr&gt; "non-S1", "non-S1", "non-S1", "non-S1", "non-S1…
+$ depth_m                &lt;dbl&gt; 0.0045, 0.0045, 0.0045, 0.0045, 0.0045, 0.0045,…
+$ age_ka_bp              &lt;dbl&gt; 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66,…
+$ ca_co3_percent         &lt;dbl&gt; 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5,…
+$ element                &lt;chr&gt; "ba_mg_g_leachate", "sr_mg_g_leachate", "ca_mg_…
+$ concentration          &lt;dbl&gt; 72.6, 767.0, 188951.9, 10612.7, 5935.0, 171.0, …</code></pre>
+</div>
+</div>
+<p>When we pivot data we move them from a wide to a long format and vice-versa.</p>
+
+<img data-src="img/tidyr_spread_gather_allison_horst.jpg" class="r-stretch"><p>(Image from <a href="https://twitter.com/allison_horst">Alisson Horst</a>, check her other <a href="https://github.com/allisonhorst/stats-illustrations/">stats illustrations here</a>)</p>
+</section>
+<section id="one-cell-contains-multiple-values" class="slide level2 scrollable">
+<h2>One cell contains multiple values</h2>
+<p>Now it’s clear that <code>element</code> contains more than one value.</p>
+<p>For example: <code>ba_mg_g_leachate</code> is not a single values and could be split into:</p>
+<ul>
+<li class="fragment">element: <code>ba</code>.</li>
+<li class="fragment">unit: <code>mg_g</code>.</li>
+<li class="fragment">fraction: <code>leachate</code>.</li>
+</ul>
+<p>Let’s split this column at the <code>_</code> and reconstitute it in a tidy way</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>pangaea_tidy <span class="ot">&lt;-</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  pangaea_long <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">separate</span>(element, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">'element'</span>, <span class="st">'unit_num'</span>, <span class="st">'unit_dem'</span>, <span class="st">'fraction'</span>), <span class="at">sep =</span> <span class="st">'_'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">'unit'</span>, unit_num<span class="sc">:</span>unit_dem, <span class="at">sep =</span> <span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise" class="slide level2 exercise">
+<h2>Exercise</h2>
+<p>Tidy last week’s schedule.</p>
+
+
+<img data-src="img/week1-schedule.png" class="r-stretch"><div class="footer footer-default">
 <p><a href="https://www.summercompschool.mawazoinstitute.org/">2022 CBSER Summer School</a></p>
 </div>
 </section></section>
@@ -631,6 +872,48 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

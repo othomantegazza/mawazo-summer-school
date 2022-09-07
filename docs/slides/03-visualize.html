@@ -1,0 +1,3681 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.38">
+
+  <meta name="author" content="Otho Mantegazza">
+  <title>Data Visualization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Data Visualization</h1>
+  <p class="subtitle">Tidyverse - Part 2</p>
+  <p class="author">Otho Mantegazza</p>
+</section>
+
+<section id="section" class="title-slide slide level1 big center">
+<h1></h1>
+<p>“The simple graph has brought more information to the data analyst’s mind than any other device.”</p>
+<p><br></p>
+<p>“The greatest value of a picture is when it forces us to notice what we never expected to see.”</p>
+<p><br></p>
+<p>— John Tukey</p>
+</section>
+
+<section>
+<section id="why-dataviz" class="title-slide slide level1 center">
+<h1>Why Dataviz?</h1>
+
+</section>
+<section id="we-are-bad-at-recognizing-pattern-from-raw-data" class="slide level2 scrollable">
+<h2>We are bad at recognizing pattern from raw data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,582 × 2
+         x      y
+     &lt;dbl&gt;  &lt;dbl&gt;
+   1 265   385   
+   2 247   260   
+   3 533   388   
+   4 146   172   
+   5 323   354   
+   6 361   377   
+   7 127.  150.  
+   8 490   427   
+   9 275   269   
+  10 270   325   
+  11 287   257   
+  12 220   165   
+  13 116.   98.2 
+  14 223   178   
+  15 633   446   
+  16 247   353   
+  17 141.   54   
+  18 273   396   
+  19 732   407   
+  20 445   475   
+  21 148.  102.  
+  22 756   359   
+  23 176.   91.7 
+  24 653   420   
+  25 255   215   
+  26 158   197   
+  27 490   428   
+  28 350   393   
+  29 111.  161.  
+  30 176.   65.7 
+  31 822   296   
+  32 171   245   
+  33 271   293   
+  34 235   221   
+  35 649   407   
+  36 238   225   
+  37 729   385   
+  38 154   232   
+  39 148.  103.  
+  40 533   400   
+  41 545   398   
+  42 559   471   
+  43 622   467   
+  44 502   465   
+  45 351   373   
+  46 165.   38.4 
+  47 144.  133.  
+  48 595   460   
+  49 415   455   
+  50 567   479   
+  51 607   415   
+  52 452   460   
+  53 154   239   
+  54 657   415   
+  55 606   390   
+  56 273   274   
+  57 165   227   
+  58 217   240   
+  59 159.  122.  
+  60 225   184   
+  61 146.   94.3 
+  62 109.   28   
+  63 322   351   
+  64 292   372   
+  65 165   200   
+  66 295   268   
+  67 166   228   
+  68 761   353   
+  69 546   482   
+  70 329   313   
+  71 593   473   
+  72 124.   56.6 
+  73  99.6  74.8 
+  74 178.   61.8 
+  75 335   414   
+  76 305   415   
+  77 609   427   
+  78 163.   82.6 
+  79 562   442   
+  80 171.   20.2 
+  81 582   476   
+  82 187   143   
+  83 457   443   
+  84 649   416   
+  85 805   332   
+  86 354   307   
+  87 258   349   
+  88 119.  103.  
+  89 533   473   
+  90 446   394   
+  91 383   395   
+  92 181   223   
+  93 130.  162.  
+  94 296   311   
+  95 533   434   
+  96 107.   63.1 
+  97 171.  115.  
+  98 821   301   
+  99 114.  166.  
+ 100 171.   73.5 
+ 101 130.  164.  
+ 102 336   416   
+ 103  91.8 144.  
+ 104 130.   38.4 
+ 105 161   198   
+ 106 658   453   
+ 107 370   441   
+ 108 790   316   
+ 109 488   438   
+ 110 324   322   
+ 111 155   195   
+ 112 289   269   
+ 113 304   415   
+ 114 127.   93   
+ 115 274   324   
+ 116 583   386   
+ 117 786   358   
+ 118 160   198   
+ 119 295   416   
+ 120 417   446   
+ 121 318   297   
+ 122 216   208   
+ 123 535   413   
+ 124 231   241   
+ 125  95.7 158   
+ 126 137.   26.7 
+ 127 120.  131.  
+ 128 210   145   
+ 129 411   400   
+ 130 122.  106   
+ 131 372   389   
+ 132 752   364   
+ 133 477   402   
+ 134 486   472   
+ 135 151   227   
+ 136 411   458   
+ 137 247   333   
+ 138 259   297   
+ 139  90.5 146.  
+ 140 161   216   
+ 141 284   291   
+ 142 416   465   
+ 143 288   258   
+ 144 584   475   
+ 145 519   395   
+ 146 150.   37.1 
+ 147 539   482   
+ 148 175    91.7 
+ 149 468   423   
+ 150 286   257   
+ 151 149   115.  
+ 152 337   334   
+ 153 281   349   
+ 154 159   176   
+ 155 711   421   
+ 156 371   408   
+ 157 292   362   
+ 158 420   420   
+ 159 270   323   
+ 160 172   179   
+ 161 392   385   
+ 162 271   362   
+ 163 754   381   
+ 164 371   358   
+ 165 359   434   
+ 166 266   361   
+ 167 261   278   
+ 168 171   183   
+ 169 330   314   
+ 170  90.5  39.7 
+ 171 118.  174.  
+ 172 427   470   
+ 173 281   257   
+ 174 511   445   
+ 175 392   454   
+ 176 178.  105.  
+ 177 612   421   
+ 178 276   278   
+ 179 427   401   
+ 180 126.   93   
+ 181 136    35.8 
+ 182 142.    8.5 
+ 183 314   339   
+ 184  84   148.  
+ 185 761   382   
+ 186 232   216   
+ 187 326   339   
+ 188 520   395   
+ 189 170   179   
+ 190 566   420   
+ 191 140.   55.3 
+ 192  51.5 112.  
+ 193 755   381   
+ 194  82.7  57.9 
+ 195 240   227   
+ 196 788   319   
+ 197 170.   77.4 
+ 198 588   426   
+ 199 268   392   
+ 200 186   205   
+ 201 597   447   
+ 202 269   282   
+ 203 196   154   
+ 204 576   383   
+ 205 130.  141.  
+ 206 201   130   
+ 207 729   409   
+ 208  56.7 106   
+ 209 622   452   
+ 210 105.  106   
+ 211 345   424   
+ 212 308   411   
+ 213 470   409   
+ 214 704   426   
+ 215 331   411   
+ 216 123   109.  
+ 217 793   312   
+ 218 149   128.  
+ 219  60.6  86.5 
+ 220 815   316   
+ 221 364   430   
+ 222 120.   77.4 
+ 223 164   140   
+ 224 218   225   
+ 225 381   448   
+ 226 104.   44.9 
+ 227 127.   59.2 
+ 228 110   141.  
+ 229 771   342   
+ 230 569   376   
+ 231 253   367   
+ 232 339   369   
+ 233 150.  112.  
+ 234 512   440   
+ 235 263   311   
+ 236 212   240   
+ 237 139.   37.1 
+ 238 280   249   
+ 239 137.   35.8 
+ 240 438   391   
+ 241 449   455   
+ 242  95.7 152.  
+ 243 210   244   
+ 244 394   415   
+ 245 787   322   
+ 246 361   435   
+ 247 155   210   
+ 248 772   342   
+ 249 167.   78.7 
+ 250 598   398   
+ 251 740   388   
+ 252 272   237   
+ 253 416   455   
+ 254 132.  153.  
+ 255 578   385   
+ 256 116.   85.2 
+ 257 587   444   
+ 258 702   426   
+ 259 221   175   
+ 260 596   435   
+ 261 308   328   
+ 262 169   240   
+ 263 152.  110.  
+ 264 819   285   
+ 265 650   416   
+ 266 522   394   
+ 267 327   358   
+ 268 680   442   
+ 269 526   453   
+ 270 146.   43.6 
+ 271 818   309   
+ 272 807   287   
+ 273 521   463   
+ 274 163.   85.2 
+ 275 150.   29.3 
+ 276 325   407   
+ 277 191   151   
+ 278 612   419   
+ 279 238   209   
+ 280 422   387   
+ 281 167.  109.  
+ 282 372   435   
+ 283 302   319   
+ 284 270   234   
+ 285 249   262   
+ 286 348   373   
+ 287 114.   77.4 
+ 288 248   202   
+ 289 256   250   
+ 290 507   398   
+ 291 115.   73.5 
+ 292 135.   29.3 
+ 293 162   172   
+ 294 799   303   
+ 295 799   333   
+ 296 155   196   
+ 297 130.   39.7 
+ 298 344   347   
+ 299 227   175   
+ 300 271   395   
+ 301 126.   42.3 
+ 302 790   344   
+ 303 386   365   
+ 304 286   375   
+ 305 417   399   
+ 306 266   297   
+ 307 560   382   
+ 308 537   437   
+ 309 644   428   
+ 310 185   161   
+ 311 456   445   
+ 312 489   482   
+ 313 787   347   
+ 314 310   386   
+ 315 412   450   
+ 316 212   160   
+ 317 154   216   
+ 318 156   196   
+ 319 341   328   
+ 320 153.   86.5 
+ 321 427   433   
+ 322 693   428   
+ 323 174   244   
+ 324 347   425   
+ 325 300   382   
+ 326 289   410   
+ 327 248   262   
+ 328  93.1  41   
+ 329 235   276   
+ 330 500   468   
+ 331  78.8  99.5 
+ 332 346   333   
+ 333 653   410   
+ 334 113.   70.9 
+ 335 407   389   
+ 336 269   331   
+ 337 287   310   
+ 338  91.8  41   
+ 339 806   332   
+ 340  55.4  93   
+ 341 553   376   
+ 342 296   310   
+ 343 570   465   
+ 344 109.   46.2 
+ 345 807   330   
+ 346 180   151   
+ 347 253   314   
+ 348 653   427   
+ 349 552   463   
+ 350 795   346   
+ 351 124.   42.3 
+ 352 458   479   
+ 353 377   395   
+ 354 744   380   
+ 355 619   468   
+ 356 105.   65.7 
+ 357 136   207   
+ 358 775   361   
+ 359 223   262   
+ 360 153.  123.  
+ 361 154   211   
+ 362 137.  154.  
+ 363 337   322   
+ 364 126.  109.  
+ 365 128.   16.3 
+ 366 447   471   
+ 367 753   363   
+ 368 763   380   
+ 369 203   236   
+ 370  55.4 129.  
+ 371 274   275   
+ 372 263   298   
+ 373 109.   52.7 
+ 374  98.3 179.  
+ 375 283   380   
+ 376 612   457   
+ 377 498   417   
+ 378 116.   99.5 
+ 379 266   388   
+ 380 345   322   
+ 381 322   311   
+ 382 352   310   
+ 383 306   281   
+ 384 137.   80   
+ 385 307   282   
+ 386 118.   93   
+ 387 223   169   
+ 388 257   251   
+ 389 361   338   
+ 390 258   358   
+ 391 489   437   
+ 392 531   443   
+ 393 307   317   
+ 394 231   271   
+ 395 643   428   
+ 396 248   239   
+ 397 343   347   
+ 398 116.   95.6 
+ 399 105.  102.  
+ 400 793   348   
+ 401 263   249   
+ 402 202   130   
+ 403 119.   59.2 
+ 404 361   310   
+ 405 589   474   
+ 406 174.   70.9 
+ 407 193   196   
+ 408 157.  129.  
+ 409 116.  101.  
+ 410 309   322   
+ 411 423   412   
+ 412 209   143   
+ 413 822   291   
+ 414 163.   48.8 
+ 415 604   459   
+ 416 510   402   
+ 417 260   307   
+ 418 567   387   
+ 419 658   424   
+ 420 563   414   
+ 421 390   444   
+ 422 333   319   
+ 423 211   240   
+ 424 577   412   
+ 425 222   169   
+ 426 307   290   
+ 427 149    91.7 
+ 428 252   244   
+ 429  99.6 178.  
+ 430 109.   68.3 
+ 431 588   443   
+ 432 418   453   
+ 433 433   422   
+ 434 278   247   
+ 435 119.   42.3 
+ 436 605   433   
+ 437 468   426   
+ 438 518   477   
+ 439 151   226   
+ 440 307   327   
+ 441 568   479   
+ 442 797   305   
+ 443 352   397   
+ 444 462   475   
+ 445 259   220   
+ 446 625   391   
+ 447 803   295   
+ 448 546   379   
+ 449 787   335   
+ 450 230   263   
+ 451 670   447   
+ 452 498   419   
+ 453 327   408   
+ 454 608   403   
+ 455 342   362   
+ 456 309   285   
+ 457 195   147   
+ 458 491   419   
+ 459 213   165   
+ 460 449   463   
+ 461 145.   20.2 
+ 462 294   307   
+ 463 161.   98.2 
+ 464 106.   94.3 
+ 465 685   425   
+ 466 289   335   
+ 467 226   266   
+ 468 251   206   
+ 469 195   236   
+ 470 425   407   
+ 471  50.2 118.  
+ 472  77.5 145   
+ 473 276   386   
+ 474 691   415   
+ 475 269   268   
+ 476 455   478   
+ 477 344   323   
+ 478 150.  136.  
+ 479 213   140   
+ 480 600   471   
+ 481 163   181   
+ 482 599   460   
+ 483 561   468   
+ 484 787   321   
+ 485 137.   37.1 
+ 486  87.9 162.  
+ 487 352   373   
+ 488 509   398   
+ 489 596   448   
+ 490  65.8 141.  
+ 491 352   353   
+ 492 120.  105.  
+ 493 635   401   
+ 494 159.  126.  
+ 495 312   289   
+ 496 118.   94.3 
+ 497 789   337   
+ 498 617   409   
+ 499 602   427   
+ 500 243   235   
+ 501 618   454   
+ 502 268   231   
+ 503 172.   72.2 
+ 504 227   195   
+ 505 542   482   
+ 506 176.   93   
+ 507 550   466   
+ 508 452   459   
+ 509 277   271   
+ 510 806   331   
+ 511 614   403   
+ 512 554   386   
+ 513 110    24.1 
+ 514 130.    2   
+ 515 363   430   
+ 516 163   148   
+ 517 566   398   
+ 518 247   352   
+ 519 265   311   
+ 520 574   421   
+ 521 250   203   
+ 522 231   190   
+ 523 253   315   
+ 524  54.1 119   
+ 525 148   179   
+ 526 385   367   
+ 527  50.2 115.  
+ 528 289   278   
+ 529 166.  101.  
+ 530 263   334   
+ 531 290   300   
+ 532 120.   56.6 
+ 533 320   300   
+ 534 615   415   
+ 535 646   448   
+ 536 488   440   
+ 537 328   387   
+ 538 653   435   
+ 539 111.   38.4 
+ 540 102.   52.7 
+ 541 136    16.3 
+ 542 149   177   
+ 543 757   364   
+ 544 244   199   
+ 545 199   214   
+ 546  93.1 159.  
+ 547  76.2 161.  
+ 548 801   339   
+ 549 149    28   
+ 550 176.   99.5 
+ 551 110    48.8 
+ 552 220   190   
+ 553 310   299   
+ 554 165   175   
+ 555 548   477   
+ 556 131.  148.  
+ 557 123    56.6 
+ 558 463   440   
+ 559 146.  101.  
+ 560 794   309   
+ 561 170.   18.9 
+ 562 110   163.  
+ 563 396   439   
+ 564 738   401   
+ 565 382   430   
+ 566 670   427   
+ 567 596   408   
+ 568 336   321   
+ 569 583   391   
+ 570 246   343   
+ 571 164   199   
+ 572 530   446   
+ 573 156   241   
+ 574 556   459   
+ 575 219   197   
+ 576 792   341   
+ 577 331   365   
+ 578 365   438   
+ 579 361   311   
+ 580 172.   73.5 
+ 581 218   198   
+ 582 144   183   
+ 583 264   298   
+ 584 119.   20.2 
+ 585 504   479   
+ 586 248   298   
+ 587 345   331   
+ 588 127.   31.9 
+ 589 707   405   
+ 590 328   311   
+ 591 551   444   
+ 592 426   469   
+ 593 143   214   
+ 594 162   167   
+ 595 771   351   
+ 596 235   220   
+ 597  56.7  91.7 
+ 598 614   402   
+ 599 149    29.3 
+ 600 640   441   
+ 601 357   334   
+ 602  94.4 172.  
+ 603 406   461   
+ 604 434   432   
+ 605 283   282   
+ 606 289   342   
+ 607 819   306   
+ 608  98.3 164.  
+ 609 344   339   
+ 610 120.   34.5 
+ 611 408   427   
+ 612  85.3 146.  
+ 613 470   476   
+ 614 686   437   
+ 615 425   438   
+ 616 174   211   
+ 617  80.1  46.2 
+ 618 601   440   
+ 619 377   432   
+ 620 413   418   
+ 621 551   383   
+ 622 162   151   
+ 623 523   459   
+ 624 176.  101.  
+ 625 593   392   
+ 626 294   364   
+ 627 549   459   
+ 628 329   403   
+ 629 291   381   
+ 630 672   427   
+ 631 111.  170.  
+ 632 376   360   
+ 633 798   343   
+ 634 800   301   
+ 635 174.   69.6 
+ 636 133.   86.5 
+ 637 416   406   
+ 638 130.  148.  
+ 639 201   236   
+ 640 722   398   
+ 641 461   474   
+ 642 584   386   
+ 643 444   405   
+ 644 334   374   
+ 645 187   142   
+ 646 577   477   
+ 647 436   415   
+ 648 258   274   
+ 649 290   261   
+ 650 115.   25.4 
+ 651 501   468   
+ 652 294   345   
+ 653 234   276   
+ 654 704   425   
+ 655 104.  150.  
+ 656 233   184   
+ 657 119.   83.9 
+ 658 214   240   
+ 659 217   201   
+ 660 463   442   
+ 661 383   388   
+ 662 789   327   
+ 663 163.   83.9 
+ 664 286   341   
+ 665 258   345   
+ 666 185   197   
+ 667 419   400   
+ 668 165.   99.5 
+ 669 144.   18.9 
+ 670 569   479   
+ 671 133.   85.2 
+ 672 111.   21.5 
+ 673 218   228   
+ 674 568   416   
+ 675 183   159   
+ 676 613   389   
+ 677 646   447   
+ 678 405   379   
+ 679 545   472   
+ 680 270   261   
+ 681 171   224   
+ 682 355   396   
+ 683 563   393   
+ 684 463   420   
+ 685 153   169   
+ 686 476   481   
+ 687 646   446   
+ 688 265   324   
+ 689 604   390   
+ 690 101.  178.  
+ 691 150   176   
+ 692 443   470   
+ 693 302   296   
+ 694 555   459   
+ 695 138   196   
+ 696  86.6  50.1 
+ 697 359   349   
+ 698 153.  122.  
+ 699 170.   20.2 
+ 700 388   369   
+ 701 634   400   
+ 702 411   395   
+ 703 340   379   
+ 704 127.  142.  
+ 705 154.  120.  
+ 706 191   196   
+ 707 130.  167.  
+ 708 339   396   
+ 709 609   457   
+ 710 743   380   
+ 711 793   332   
+ 712 139.   25.4 
+ 713 144.  114.  
+ 714 148.   28   
+ 715 543   390   
+ 716 153.  103.  
+ 717 598   388   
+ 718 246   342   
+ 719 185   153   
+ 720 171.  103.  
+ 721 330   323   
+ 722 167.   18.9 
+ 723 200   202   
+ 724 192   196   
+ 725 567   435   
+ 726 504   461   
+ 727  97    43.6 
+ 728 137.   59.2 
+ 729 179   243   
+ 730 212   246   
+ 731 643   439   
+ 732 174.   90.4 
+ 733 284   282   
+ 734 502   398   
+ 735 256   270   
+ 736 480   482   
+ 737 757   375   
+ 738 180.   50.1 
+ 739 331   323   
+ 740 170.  115.  
+ 741 433   434   
+ 742 344   322   
+ 743 658   417   
+ 744 172.   21.5 
+ 745 359   308   
+ 746 633   408   
+ 747 180.   51.4 
+ 748 166   245   
+ 749 557   428   
+ 750 252   361   
+ 751 299   273   
+ 752 429   465   
+ 753 305   337   
+ 754 820   286   
+ 755 272   335   
+ 756 291   412   
+ 757  64.5  86.5 
+ 758 136    60.5 
+ 759 566   404   
+ 760 407   394   
+ 761 136    34.5 
+ 762 283   352   
+ 763 239   251   
+ 764 737   384   
+ 765 646   429   
+ 766 275   278   
+ 767 346   359   
+ 768 130.   95.6 
+ 769 335   320   
+ 770 105.   64.4 
+ 771 204   221   
+ 772 415   410   
+ 773 215   144   
+ 774 128.   59.2 
+ 775 760   382   
+ 776  90.5 155.  
+ 777 230   182   
+ 778 227   236   
+ 779 316   343   
+ 780 226   209   
+ 781 668   428   
+ 782 490   410   
+ 783 146   199   
+ 784 503   402   
+ 785 698   430   
+ 786 603   437   
+ 787 105.  112.  
+ 788  89.2 162.  
+ 789 672   440   
+ 790 251   205   
+ 791 305   326   
+ 792 116.  152.  
+ 793 289   336   
+ 794 220   189   
+ 795 177   244   
+ 796 418   392   
+ 797 130.  161.  
+ 798 628   410   
+ 799 269   243   
+ 800 299   333   
+ 801 453   473   
+ 802 762   381   
+ 803 751   364   
+ 804 148.   39.7 
+ 805 355   431   
+ 806 248   357   
+ 807  58    89.1 
+ 808 132.   78.7 
+ 809 495   466   
+ 810 223   186   
+ 811 653   411   
+ 812 407   428   
+ 813 141   195   
+ 814 137   197   
+ 815 110    34.5 
+ 816 321   302   
+ 817 645   459   
+ 818 180.   47.5 
+ 819 157   149   
+ 820 570   376   
+ 821 209   141   
+ 822 366   366   
+ 823  63.2 110.  
+ 824  86.6  65.7 
+ 825 812   322   
+ 826 742   399   
+ 827 623   394   
+ 828 783   328   
+ 829 454   410   
+ 830 560   445   
+ 831 177   239   
+ 832 266   247   
+ 833 616   468   
+ 834 328   343   
+ 835 261   353   
+ 836 639   451   
+ 837 268   232   
+ 838 178.   41   
+ 839 701   418   
+ 840 356   426   
+ 841 192   130   
+ 842 286   383   
+ 843 266   281   
+ 844 797   344   
+ 845 106.   44.9 
+ 846 166.   80   
+ 847 344   373   
+ 848 252   236   
+ 849 296   339   
+ 850 754   368   
+ 851 400   452   
+ 852  77.5 154.  
+ 853  94.4  86.5 
+ 854 360   332   
+ 855 109.   90.4 
+ 856 349   427   
+ 857 288   289   
+ 858 171.   39.7 
+ 859 140   216   
+ 860 324   307   
+ 861 187   141   
+ 862 398   437   
+ 863 448   476   
+ 864 164   173   
+ 865 440   404   
+ 866 626   396   
+ 867 571   436   
+ 868 292   393   
+ 869 106.  154.  
+ 870 212   154   
+ 871 339   418   
+ 872 154   233   
+ 873 565   393   
+ 874 304   303   
+ 875 319   299   
+ 876 265   312   
+ 877 120.   93   
+ 878 770   351   
+ 879 265   262   
+ 880 791   315   
+ 881 157   159   
+ 882 148.   83.9 
+ 883 450   395   
+ 884 777   348   
+ 885 451   452   
+ 886 641   412   
+ 887 458   441   
+ 888  74.9 132   
+ 889 387   381   
+ 890 472   413   
+ 891 298   313   
+ 892 645   416   
+ 893 187   134   
+ 894 293   275   
+ 895 253   365   
+ 896 318   346   
+ 897 217   156   
+ 898 566   401   
+ 899 309   405   
+ 900 443   475   
+ 901 452   406   
+ 902 380   447   
+ 903 421   416   
+ 904 272   379   
+ 905 661   431   
+ 906 139.   26.7 
+ 907 109.  122.  
+ 908 492   445   
+ 909 239   250   
+ 910 362   311   
+ 911 139.   59.2 
+ 912 603   427   
+ 913 730   408   
+ 914 263   233   
+ 915 153.   35.8 
+ 916  69.7 161.  
+ 917 205   242   
+ 918 365   393   
+ 919 601   389   
+ 920 436   465   
+ 921 141.   48.8 
+ 922  82.7 140.  
+ 923 334   371   
+ 924 440   392   
+ 925 303   378   
+ 926 579   386   
+ 927 122.   21.5 
+ 928 104.  144.  
+ 929 155   205   
+ 930 171.   74.8 
+ 931 226   183   
+ 932 136    28   
+ 933 349   373   
+ 934 127.   30.6 
+ 935 426   401   
+ 936 178.   63.1 
+ 937 140.   57.9 
+ 938 461   401   
+ 939 598   394   
+ 940 722   392   
+ 941 354   431   
+ 942 567   461   
+ 943 133.  158   
+ 944 140   195   
+ 945 338   351   
+ 946 133.   35.8 
+ 947 727   410   
+ 948 257   328   
+ 949 503   455   
+ 950 569   412   
+ 951 577   414   
+ 952 465   397   
+ 953 114.   17.6 
+ 954 566   454   
+ 955 152   219   
+ 956 457   453   
+ 957 192   142   
+ 958 119.   74.8 
+ 959  54.1 129.  
+ 960 260   277   
+ 961 164   162   
+ 962 283   370   
+ 963 210   245   
+ 964 353   396   
+ 965 728   410   
+ 966 144   199   
+ 967 487   399   
+ 968  82.7  81.3 
+ 969 789   318   
+ 970 255   214   
+ 971  54.1  94.3 
+ 972 124.  132   
+ 973 309   336   
+ 974 771   352   
+ 975 304   286   
+ 976 119.  131.  
+ 977 218   255   
+ 978 783   361   
+ 979 369   328   
+ 980 574   379   
+ 981 176   139   
+ 982 714   419   
+ 983 272   396   
+ 984 603   390   
+ 985 370   442   
+ 986 810   285   
+ 987 259   352   
+ 988 359   355   
+ 989 127.   82.6 
+ 990 597   393   
+ 991 237   247   
+ 992 332   325   
+ 993 306   292   
+ 994 157   151   
+ 995 582   386   
+ 996  95.7  64.4 
+ 997 179   202   
+ 998 237   281   
+ 999 612   420   
+1000 246   272   
+1001 573   479   
+1002 484   473   
+1003 613   456   
+1004 691   414   
+1005 447   398   
+1006 180.   52.7 
+1007 385   380   
+1008 627   465   
+1009 120.  103.  
+1010 149    55.3 
+1011 732   406   
+1012 185   205   
+1013 180.  180.  
+1014 107.  120.  
+1015 255   311   
+1016 295   339   
+1017 292   302   
+1018 175   143   
+1019 405   430   
+1020 174   228   
+1021 325   389   
+1022 340   420   
+1023 525   393   
+1024 637   408   
+1025 753   383   
+1026 786   323   
+1027 254   247   
+1028 321   387   
+1029 822   297   
+1030 361   405   
+1031 413   456   
+1032 263   258   
+1033 724   390   
+1034 667   449   
+1035  52.8 119   
+1036 319   393   
+1037 552   435   
+1038  86.6  78.7 
+1039 185   242   
+1040  74.9 155.  
+1041 333   341   
+1042 273   384   
+1043 237   199   
+1044 241   204   
+1045 116.  162.  
+1046 471   481   
+1047  97    76.1 
+1048 188   163   
+1049 382   376   
+1050 186   156   
+1051 109.   57.9 
+1052 460   448   
+1053 532   389   
+1054 165.   87.8 
+1055 269   314   
+1056 615   408   
+1057 617   389   
+1058 148.   50.1 
+1059 141.   52.7 
+1060 380   448   
+1061 244   288   
+1062 549   383   
+1063  81.4  39.7 
+1064 540   384   
+1065 297   270   
+1066 294   266   
+1067 676   424   
+1068  94.4 141.  
+1069 373   434   
+1070 780   330   
+1071 110   124.  
+1072 211   147   
+1073 356   341   
+1074 654   411   
+1075 324   323   
+1076 282   377   
+1077 110   170.  
+1078 114.  150.  
+1079 595   450   
+1080 153.   57.9 
+1081 293   266   
+1082 318   403   
+1083 247   351   
+1084 283   253   
+1085 387   362   
+1086 332   367   
+1087 537   440   
+1088 719   394   
+1089 110    26.7 
+1090 136     7.20
+1091 613   399   
+1092 284   351   
+1093 158.  116.  
+1094 115.   60.5 
+1095 198   218   
+1096 601   442   
+1097 110    50.1 
+1098 424   401   
+1099 192   135   
+1100 253   316   
+1101 599   388   
+1102 158   215   
+1103 219   163   
+1104 625   395   
+1105 289   367   
+1106  99.6 161.  
+1107 338   364   
+1108  94.4  42.3 
+1109 308   397   
+1110 464   438   
+1111 469   402   
+1112 116.   74.8 
+1113 468   424   
+1114 167   177   
+1115 286   406   
+1116  93.1  47.5 
+1117 435   417   
+1118 327   409   
+1119 131.  146.  
+1120 336   415   
+1121 190   163   
+1122 128.   28   
+1123 580   386   
+1124 295   269   
+1125 566   444   
+1126 146.   24.1 
+1127 738   402   
+1128 221   259   
+1129 265   227   
+1130 105.  142.  
+1131 152.   35.8 
+1132 368   440   
+1133 175   181.  
+1134 109.   29.3 
+1135 300   338   
+1136 551   396   
+1137 355   432   
+1138 155   174   
+1139 563   480   
+1140 171   168   
+1141 382   388   
+1142 492   399   
+1143 290   269   
+1144 720   400   
+1145 233   273   
+1146 577   464   
+1147 251   306   
+1148 596   473   
+1149 271   262   
+1150 382   378   
+1151 818   308   
+1152 358   395   
+1153 329   314   
+1154 716   418   
+1155 216   207   
+1156 445   394   
+1157 618   468   
+1158 284   361   
+1159 182.  181.  
+1160 178.  112.  
+1161 180.   46.2 
+1162 647   448   
+1163 295   368   
+1164 709   403   
+1165 366   362   
+1166 127.   25.4 
+1167 239   201   
+1168 319   348   
+1169  77.5 115.  
+1170 418   454   
+1171 368   322   
+1172 122.  155.  
+1173 172.  103.  
+1174 168.   77.4 
+1175 105.  115.  
+1176 282   250   
+1177 207   238   
+1178 250   263   
+1179 265   382   
+1180 783   327   
+1181 296   334   
+1182 130.   94.3 
+1183 350   337   
+1184 231   216   
+1185 335   407   
+1186 326   310   
+1187 107.   44.9 
+1188 496   433   
+1189 820   304   
+1190 693   419   
+1191 531   442   
+1192 146.   48.8 
+1193 575   478   
+1194 592   446   
+1195 613   401   
+1196 655   413   
+1197 119.   43.6 
+1198 199   202   
+1199 145.   95.6 
+1200 295   334   
+1201 293   414   
+1202 513   397   
+1203 148   215   
+1204 362   328   
+1205 167.   80   
+1206 551   377   
+1207 368   430   
+1208 192   154   
+1209 343   422   
+1210 681   442   
+1211 234   219   
+1212 320   349   
+1213 632   409   
+1214 663   431   
+1215 227   254   
+1216 258   346   
+1217 794   310   
+1218 635   408   
+1219 314   293   
+1220 573   425   
+1221  61.9 115.  
+1222 585   475   
+1223 140.  106   
+1224 300   416   
+1225 463   423   
+1226 105.  111.  
+1227 409   426   
+1228 423   413   
+1229 153   193   
+1230 647   449   
+1231 418   399   
+1232 160   144   
+1233 303   321   
+1234 215   213   
+1235 581   386   
+1236 395   387   
+1237 369   402   
+1238 570   429   
+1239 657   453   
+1240 140.   38.4 
+1241 170.   60.5 
+1242 341   327   
+1243 593   438   
+1244 220   250   
+1245 221   188   
+1246 153.  133.  
+1247 247   238   
+1248 702   419   
+1249 734   381   
+1250 179.   43.6 
+1251 167   144   
+1252 621   453   
+1253 193   145   
+1254 712   421   
+1255 819   308   
+1256 724   406   
+1257 420   401   
+1258 306   282   
+1259 609   389   
+1260 622   460   
+1261 298   338   
+1262 226   202   
+1263 165.   48.8 
+1264 387   452   
+1265 266   389   
+1266 141.   51.4 
+1267 265   338   
+1268  77.5 133.  
+1269 216   209   
+1270 168   214   
+1271  95.7 141.  
+1272 542   474   
+1273 782   329   
+1274 408   452   
+1275 118.   74.8 
+1276 219   256   
+1277 166.   46.2 
+1278 241   253   
+1279 330   410   
+1280 152.   37.1 
+1281 148   180   
+1282 380   400   
+1283 685   438   
+1284 611   469   
+1285 421   462   
+1286 334   237   
+1287 426   446   
+1288 239   249   
+1289 580   476   
+1290 140.  135.  
+1291 802   298   
+1292 216   148   
+1293 337   383   
+1294 174   240   
+1295 251   207   
+1296 511   442   
+1297 364   412   
+1298 274   252   
+1299 228   191   
+1300 536   386   
+1301 423   388   
+1302 198   196   
+1303 302   338   
+1304 703   426   
+1305 766   376   
+1306 109.   31.9 
+1307 786   357   
+1308 231   215   
+1309 309   286   
+1310 244   287   
+1311 229   239   
+1312 139.   57.9 
+1313 144.   20.2 
+1314 217   204   
+1315 118.  175.  
+1316 227   267   
+1317 128.   39.7 
+1318 152   192   
+1319 246   202   
+1320 267   391   
+1321 672   446   
+1322 165.   81.3 
+1323 156.  103.  
+1324 182   158   
+1325  76.2  54   
+1326 299   387   
+1327 743   379   
+1328 562   374   
+1329 579   421   
+1330 196   205   
+1331 165   245   
+1332 599   431   
+1333 105.   99.5 
+1334 366   356   
+1335 170.   90.4 
+1336 297   380   
+1337 708   404   
+1338 434   407   
+1339 106.   93   
+1340 306   414   
+1341 357   372   
+1342 796   307   
+1343 253   267   
+1344 105.  107.  
+1345 593   460   
+1346 599   414   
+1347 436   473   
+1348 165   174   
+1349 142.    7.20
+1350 173   143   
+1351 264   227   
+1352 462   397   
+1353 755   372   
+1354 778   334   
+1355 107.   91.7 
+1356 208   239   
+1357 397   439   
+1358 410   434   
+1359 279   247   
+1360 654   422   
+1361 367   356   
+1362 349   408   
+1363 257   340   
+1364 118.   12.4 
+1365 136   209   
+1366 147   199   
+1367 135.   34.5 
+1368 162    18.9 
+1369 625   465   
+1370 724   412   
+1371 362   319   
+1372 237   279   
+1373 141.   47.5 
+1374 167   245   
+1375 287   271   
+1376 740   387   
+1377 545   391   
+1378 119.   93   
+1379 130.  109.  
+1380 518   406   
+1381 326   390   
+1382 168   204   
+1383 754   388   
+1384 350   428   
+1385 156   153   
+1386 748   392   
+1387 154.  119   
+1388 375   397   
+1389 391   385   
+1390 220   166   
+1391 136   205   
+1392 758   357   
+1393 415   397   
+1394 732   382   
+1395  82.7 164.  
+1396 332   384   
+1397 169   229   
+1398 146.   93   
+1399 159   243   
+1400 613   402   
+1401 402   459   
+1402 156.  116.  
+1403 111.   22.8 
+1404 157   215   
+1405 110    25.4 
+1406 485   482   
+1407 789   319   
+1408 182   143   
+1409 131.  135.  
+1410  77.5 116.  
+1411 466   397   
+1412 467   428   
+1413 350   338   
+1414 271   235   
+1415 293   329   
+1416 459   474   
+1417 782   363   
+1418 131.  144.  
+1419 221   236   
+1420 217   224   
+1421 306   317   
+1422 159.  124.  
+1423 478   482   
+1424 220   215   
+1425 266   280   
+1426  63.2 131.  
+1427 215   251   
+1428 304   295   
+1429 324   388   
+1430 310   322   
+1431 576   464   
+1432 110    89.1 
+1433 548   379   
+1434 266   312   
+1435 358   308   
+1436 150.   52.7 
+1437 361   370   
+1438  69.7 107.  
+1439  91.8  72.2 
+1440 368   357   
+1441  97    70.9 
+1442 136    30.6 
+1443 249   279   
+1444 403   433   
+1445 768   345   
+1446 470   397   
+1447 642   459   
+1448 642   440   
+1449 297   402   
+1450 111.   39.7 
+1451 467   480   
+1452 107.   90.4 
+1453 585   445   
+1454 266   264   
+1455 367   331   
+1456 154   217   
+1457 789   330   
+1458 811   284   
+1459 409   462   
+1460 225   232   
+1461  93.1  56.6 
+1462 750   391   
+1463 813   284   
+1464 130.  170.  
+1465 311   298   
+1466 140.    3.30
+1467 176.   98.2 
+1468 159.  105.  
+1469  78.8 166.  
+1470 168.   90.4 
+1471 363   322   
+1472 105.  103.  
+1473  87.9  74.8 
+1474 344   316   
+1475 768   344   
+1476 359   339   
+1477 366   438   
+1478 739   401   
+1479  91.8  83.9 
+1480 580   449   
+1481 255   301   
+1482 250   358   
+1483 602   404   
+1484 304   380   
+1485 666   434   
+1486 433   472   
+1487 498   416   
+1488 218   172   
+1489 446   476   
+1490 660   446   
+1491 728   409   
+1492 257   357   
+1493 133.   87.8 
+1494 171   138   
+1495 149   152.  
+1496 144   185   
+1497 428   407   
+1498 149   140.  
+1499 180   152   
+1500 275   277   
+1501 123   175.  
+1502  87.9 150.  
+1503 814   316   
+1504  58    95.6 
+1505 169   178   
+1506 576   477   
+1507 589   460   
+1508 106.  159.  
+1509 478   409   
+1510 281   250   
+1511 115.   42.3 
+1512 265   298   
+1513 114.   60.5 
+1514 150.   38.4 
+1515 299   416   
+1516 269   356   
+1517 192   212   
+1518 165.   82.6 
+1519 262   374   
+1520 257   272   
+1521 165.  115.  
+1522 735   404   
+1523 141.   55.3 
+1524 623   390   
+1525 412   420   
+1526 163.   99.5 
+1527 581   435   
+1528 269   295   
+1529 502   479   
+1530 279   274   
+1531 365   392   
+1532 210   240   
+1533 796   334   
+1534 627   401   
+1535 513   402   
+1536 273   383   
+1537 237   191   
+1538 160   165   
+1539 122.    7.20
+1540 244   290   
+1541 111.   37.1 
+1542 782   328   
+1543 227   202   
+1544 462   429   
+1545  81.4  93   
+1546 776   347   
+1547 438   473   
+1548 325   355   
+1549 364   437   
+1550 268   282   
+1551 653   425   
+1552 288   386   
+1553 263   260   
+1554 115.   31.9 
+1555 220   213   
+1556 725   390   
+1557 271   283   
+1558 105.  110.  
+1559 622   458   
+1560 269   233   
+1561 127.    9.80
+1562 222   224   
+1563 553   442   
+1564 213   240   
+1565 241   261   
+1566 315   294   
+1567 220   257   
+1568 157.   31.9 
+1569 593   451   
+1570 308   300   
+1571 221   176   
+1572 312   290   
+1573 162   179   
+1574 634   408   
+1575 202   135   
+1576 179.   57.9 
+1577 681   432   
+1578 812   320   
+1579 178.  106   
+1580 217   155   
+1581 308   409   
+1582 343   316   
+1583 185   154   
+1584 748   374   
+1585 254   268   
+1586 272   293   
+1587 785   334   
+1588 107.  141.  
+1589 443   398   
+1590 242   222   
+1591 162    35.8 
+1592 576   471   
+1593 496   399   
+1594 171.  110.  
+1595 283   252   
+1596  93.1  77.4 
+1597  56.7 114.  
+1598 325   390   
+1599 723   405   
+1600 176.  114.  
+1601 315   293   
+1602 740   400   
+1603 149   185   
+1604 574   396   
+1605 184   238   
+1606 548   460   
+1607 577   470   
+1608 402   385   
+1609  99.6 162.  
+1610 271   294   
+1611 212   150   
+1612  81.4  57.9 
+1613 169   214   
+1614 491   446   
+1615 289   327   
+1616 160   238   
+1617 630   394   
+1618 233   217   
+1619 517   406   
+1620 270   262   
+1621 305   332   
+1622 190   158   
+1623  64.5 120.  
+1624 141.   39.7 
+1625 495   399   
+1626 333   318   
+1627 116.   60.5 
+1628 144.   17.6 
+1629 228   253   
+1630 197   196   
+1631 401   392   
+1632 295   307   
+1633 529   460   
+1634  77.5  82.6 
+1635 605   422   
+1636 230   240   
+1637 519   410   
+1638 490   415   
+1639 544   482   
+1640 504   462   
+1641 579   463   
+1642 178.  110.  
+1643 130.  168.  
+1644 621   407   
+1645 289   333   
+1646 775   368   
+1647 102.   63.1 
+1648 187   135   
+1649 477   482   
+1650 114.   72.2 
+1651 569   461   
+1652 270   235   
+1653 212   157   
+1654 479   482   
+1655 113.   86.5 
+1656 145   187   
+1657 176.   95.6 
+1658  54.1 112.  
+1659 159.  120.  
+1660 809   285   
+1661 400   379   
+1662 450   410   
+1663 276   279   
+1664 745   397   
+1665 521   395   
+1666 177   172   
+1667 306   326   
+1668 312   388   
+1669 293   305   
+1670 518   476   
+1671 378   401   
+1672 268   267   
+1673 122.  131.  
+1674 143   220   
+1675 252   232   
+1676 266   228   
+1677 276   378   
+1678 282   389   
+1679 459   407   
+1680 253   245   
+1681 409   395   
+1682 157.   96.9 
+1683 334   413   
+1684 195   216   
+1685 137.    2   
+1686 105.   44.9 
+1687 137.  135.  
+1688 536   387   
+1689 346   332   
+1690 183   238   
+1691 105.  114.  
+1692 329   363   
+1693 168.   41   
+1694 106.   95.6 
+1695 420   386   
+1696 308   408   
+1697 624   451   
+1698 154.   57.9 
+1699 506   458   
+1700 299   400   
+1701 146.  102.  
+1702 284   290   
+1703 243   263   
+1704 775   354   
+1705 124.    4.60
+1706 365   315   
+1707 341   349   
+1708 499   461   
+1709 154   194   
+1710 345   347   
+1711 246   237   
+1712 358   433   
+1713 488   482   
+1714 709   409   
+1715 285   406   
+1716 589   386   
+1717 354   407   
+1718  93.1  51.4 
+1719 168   245   
+1720 242   254   
+1721 363   327   
+1722 359   316   
+1723 153.   34.5 
+1724 804   291   
+1725 128.   29.3 
+1726 698   431   
+1727 161.   52.7 
+1728 110    37.1 
+1729 237   190   
+1730 819   286   
+1731 438   396   
+1732 111.   87.8 
+1733 273   239   
+1734 131.   17.6 
+1735 189   204   
+1736 149    51.4 
+1737 267   246   
+1738 659   420   
+1739 423   468   
+1740 245   258   
+1741  63.2 145   
+1742 641   459   
+1743 512   407   
+1744 521   410   
+1745 416   405   
+1746 140   204   
+1747 225   172   
+1748 267   230   
+1749 240   269   
+1750 170   183   
+1751 247   354   
+1752  94.4 138.  
+1753 127.   57.9 
+1754 341   326   
+1755  71   157.  
+1756 164   245   
+1757 145.   39.7 
+1758 198   130   
+1759 780   365   
+1760 554   387   
+1761  76.2 154.  
+1762 243   286   
+1763 311   288   
+1764 607   430   
+1765  65.8 115.  
+1766 279   248   
+1767 703   408   
+1768 251   209   
+1769 373   369   
+1770 246   295   
+1771 261   308   
+1772 281   389   
+1773 302   303   
+1774 339   351   
+1775 157   197   
+1776 543   388   
+1777 165.  107.  
+1778 339   338   
+1779 217   160   
+1780 261   373   
+1781  80.1  47.5 
+1782 228   237   
+1783 221   221   
+1784 122.   56.6 
+1785 283   273   
+1786 122.   77.4 
+1787 128.  135.  
+1788 763   370   
+1789 270   394   
+1790 201   198   
+1791 178   174   
+1792 610   457   
+1793 634   446   
+1794 208   244   
+1795 325   384   
+1796 230   206   
+1797 558   434   
+1798 176.  103.  
+1799 122.   20.2 
+1800 422   388   
+1801 166   175   
+1802 148.   91.7 
+1803 369   358   
+1804 637   461   
+1805 485   472   
+1806 180   225   
+1807 820   287   
+1808 286   384   
+1809 174   138   
+1810 142   200   
+1811 145.   22.8 
+1812 131.   38.4 
+1813 804   292   
+1814 616   414   
+1815 817   311   
+1816 607   390   
+1817 376   395   
+1818 585   386   
+1819 391   454   
+1820 366   386   
+1821 447   457   
+1822 118.  168.  
+1823 412   422   
+1824 219   232   
+1825 145   199   
+1826 396   451   
+1827 469   417   
+1828 676   443   
+1829 774   354   
+1830 688   417   
+1831 252   349   
+1832 629   448   
+1833 576   459   
+1834 554   384   
+1835 105.  109.  
+1836 381   425   
+1837 122.  132   
+1838 176.   96.9 
+1839 639   454   
+1840 264   335   
+1841  68.4 132   
+1842 656   414   
+1843 147   172   
+1844 784   326   
+1845 360   371   
+1846 168.   78.7 
+1847 362   338   
+1848 819   307   
+1849 785   325   
+1850 491   410   
+1851 537   386   
+1852 561   480   
+1853 377   427   
+1854 251   265   
+1855 219   239   
+1856 283   401   
+1857 220   214   
+1858 434   421   
+1859 587   475   
+1860 747   368   
+1861 282   273   
+1862 179   203   
+1863 636   444   
+1864 348   336   
+1865 249   301   
+1866 150.  127.  
+1867 102.   44.9 
+1868 360   429   
+1869 431   402   
+1870 245   226   
+1871 440   474   
+1872 176   144   
+1873  89.2 155.  
+1874  95.7  65.7 
+1875 261   372   
+1876 777   334   
+1877 110    87.8 
+1878 266   387   
+1879 681   422   
+1880 566   395   
+1881 449   476   
+1882 645   437   
+1883 159.   44.9 
+1884  71   158   
+1885 146.  131.  
+1886 249   326   
+1887 418   445   
+1888 498   418   
+1889 583   475   
+1890 191   142   
+1891 561   428   
+1892 558   481   
+1893 132.   61.8 
+1894 207   243   
+1895 738   377   
+1896 374   433   
+1897 713   415   
+1898 226   243   
+1899 176.   39.7 
+1900 148   199   
+1901 105.   96.9 
+1902 420   385   
+1903 217   170   
+1904 292   303   
+1905 693   413   
+1906 283   371   
+1907 155   203   
+1908 118.  170.  
+1909 372   428   
+1910 200   130   
+1911 625   396   
+1912 155   169   
+1913 357   378   
+1914 140.   39.7 
+1915 224   180   
+1916 386   364   
+1917 427   464   
+1918 116.   59.2 
+1919 521   394   
+1920 247   296   
+1921 648   430   
+1922 263   280   
+1923 333   395   
+1924 597   387   
+1925 355   336   
+1926 148   171   
+1927 292   394   
+1928 545   462   
+1929 570   377   
+1930 175    68.3 
+1931 516   401   
+1932 274   276   
+1933 370   373   
+1934 300   400   
+1935 306   337   
+1936 362   352   
+1937 197   204   
+1938 462   412   
+1939 151   175   
+1940 150.  126.  
+1941 771   365   
+1942 264   354   
+1943 308   399   
+1944 204   136   
+1945 616   409   
+1946 157   158   
+1947 356   307   
+1948 203   241   
+1949 542   473   
+1950 265   383   
+1951 518   467   
+1952 265   280   
+1953 466   432   
+1954 101.   69.6 
+1955 115.  128.  
+1956 205   237   
+1957 366   439   
+1958 590   454   
+1959 407   379   
+1960 216   151   
+1961 539   385   
+1962 776   344   
+1963 788   321   
+1964 259   256   
+1965 127.   15   
+1966 172.  115.  
+1967 726   405   
+1968 274   379   
+1969 265   384   
+1970 317   305   
+1971 613   468   
+1972 181   203   
+1973 154.  133.  
+1974 123   132   
+1975 363   323   
+1976 493   410   
+1977 312   322   
+1978 346   346   
+1979 354   311   
+1980 361   317   
+1981 301   416   
+1982 507   444   
+1983 592   452   
+1984 180.   48.8 
+1985 553   462   
+1986 175    69.6 
+1987 148.   26.7 
+1988 367   440   
+1989 265   323   
+1990 153   218   
+1991 219   172   
+1992 136    61.8 
+1993 340   350   
+1994 409   394   
+1995 289   331   
+1996 150.  103.  
+1997 436   391   
+1998 495   482   
+1999 463   408   
+2000 142.  152.  
+2001 800   300   
+2002 106.   67   
+2003 637   430   
+2004 277   387   
+2005 145   175   
+2006 232   184   
+2007 326   358   
+2008 179.   44.9 
+2009 146   173   
+2010 130.  166.  
+2011 547   469   
+2012 394   450   
+2013 124.  109.  
+2014 468   401   
+2015 162   159   
+2016 198   213   
+2017 241   229   
+2018 246   348   
+2019 275   252   
+2020 405   399   
+2021 525   405   
+2022 175    35.8 
+2023 150.   83.9 
+2024 123    42.3 
+2025 749   392   
+2026 223   228   
+2027 220   258   
+2028 284   403   
+2029 251   360   
+2030 175   114.  
+2031 273   339   
+2032 781   329   
+2033 394   387   
+2034 101.  171   
+2035 355   379   
+2036 344   423   
+2037 278   254   
+2038 594   425   
+2039  90.5  72.2 
+2040 489   434   
+2041 357   335   
+2042 166.   81.3 
+2043  93.1  90.4 
+2044 295   415   
+2045 146.   25.4 
+2046 218   162   
+2047 657   416   
+2048 450   472   
+2049 126.   57.9 
+2050 728   403   
+2051 270   255   
+2052 356   312   
+2053 133.  135.  
+2054 526   392   
+2055 262   298   
+2056 162    99.5 
+2057  73.6 140.  
+2058 109.  172.  
+2059 215   212   
+2060 544   434   
+2061 541   383   
+2062 508   440   
+2063 546   380   
+2064  58   114.  
+2065 190   237   
+2066  77.5  48.8 
+2067 130.  135.  
+2068 333   370   
+2069 380   383   
+2070 264   377   
+2071 613   418   
+2072 218   226   
+2073 170.  116.  
+2074 267   361   
+2075 272   334   
+2076 189   196   
+2077 216   170   
+2078 252   339   
+2079 541   479   
+2080 226   210   
+2081 123   107.  
+2082 105.   98.2 
+2083 297   339   
+2084 123   146.  
+2085  85.3 145   
+2086 263   367   
+2087 464   437   
+2088 602   389   
+2089 641   415   
+2090 417   454   
+2091 252   274   
+2092 251   264   
+2093 562   385   
+2094 102.  178.  
+2095 794   347   
+2096 218   254   
+2097 116.   22.8 
+2098 385   366   
+2099 436   395   
+2100 246   346   
+2101 160   177   
+2102  97   168.  
+2103 165   226   
+2104 186   197   
+2105 389   420   
+2106 707   411   
+2107 417   460   
+2108 295   366   
+2109 803   335   
+2110 229   270   
+2111 303   333   
+2112 434   431   
+2113 796   306   
+2114 217   203   
+2115 260   353   
+2116 723   413   
+2117 212   137   
+2118 256   215   
+2119 320   385   
+2120 328   361   
+2121 272   332   
+2122 267   312   
+2123 469   412   
+2124 193   135   
+2125 615   468   
+2126 764   379   
+2127 264   260   
+2128 330   390   
+2129 226   184   
+2130 124.   93   
+2131 493   440   
+2132 797   306   
+2133 422   401   
+2134 170.   76.1 
+2135 250   242   
+2136 102.  146.  
+2137 272   253   
+2138 124.   57.9 
+2139 331   316   
+2140 745   382   
+2141 250   322   
+2142 284   338   
+2143 139.   94.3 
+2144 167   220   
+2145 338   417   
+2146 250   301   
+2147 623   407   
+2148 462   414   
+2149 219   191   
+2150 410   463   
+2151 246   337   
+2152 218   163   
+2153 124.   33.2 
+2154 769   344   
+2155 273   338   
+2156 798   304   
+2157 217   223   
+2158 253   298   
+2159  87.9  90.4 
+2160 277   272   
+2161 469   413   
+2162 747   395   
+2163 127.  133.  
+2164 152   169   
+2165 105.  105.  
+2166 273   372   
+2167 448   464   
+2168 362   370   
+2169 376   368   
+2170 350   309   
+2171 139.   38.4 
+2172  97   166.  
+2173 590   474   
+2174 122.  176.  
+2175 644   412   
+2176 548   482   
+2177 746   396   
+2178 561   444   
+2179 213   248   
+2180 625   411   
+2181 113.   72.2 
+2182  76.2  83.9 
+2183 429   391   
+2184 629   464   
+2185 115.   85.2 
+2186 553   482   
+2187  78.8  47.5 
+2188 126.    4.60
+2189 332   366   
+2190 231   240   
+2191 115.   24.1 
+2192 252   319   
+2193 743   398   
+2194 445   459   
+2195 154   202   
+2196 726   388   
+2197 619   389   
+2198 635   445   
+2199 165   145   
+2200 762   351   
+2201 361   436   
+2202 244   235   
+2203  72.3 162.  
+2204 235   245   
+2205 200   197   
+2206 196   155   
+2207 429   471   
+2208  91.8 161.  
+2209 667   429   
+2210 389   373   
+2211 487   442   
+2212 491   425   
+2213 196   207   
+2214 608   410   
+2215 713   400   
+2216 383   360   
+2217 162   152   
+2218 647   429   
+2219 292   395   
+2220 159   204   
+2221 811   323   
+2222 674   434   
+2223 599   446   
+2224 141.   41   
+2225 184   161   
+2226 598   397   
+2227 217   253   
+2228 337   416   
+2229 279   388   
+2230 124.  133.  
+2231 238   192   
+2232 787   356   
+2233 242   262   
+2234 293   396   
+2235 152.   83.9 
+2236 183   145   
+2237 558   448   
+2238 159.   98.2 
+2239  76.2 111.  
+2240 459   400   
+2241 119.  144.  
+2242 684   439   
+2243  77.5  50.1 
+2244 193   213   
+2245 466   475   
+2246 142.   11.1 
+2247 805   289   
+2248 459   479   
+2249 396   457   
+2250 552   377   
+2251 410   425   
+2252 136   136.  
+2253 757   379   
+2254 289   411   
+2255 119.  145   
+2256 181   204   
+2257 325   406   
+2258 567   416   
+2259 171   173   
+2260 285   405   
+2261 451   461   
+2262 222   225   
+2263 615   389   
+2264 273   284   
+2265 277   292   
+2266 245   237   
+2267 148.  129.  
+2268 797   334   
+2269 356   432   
+2270 334   353   
+2271 216   211   
+2272 167.   44.9 
+2273 327   311   
+2274 368   410   
+2275 711   415   
+2276 168.  109.  
+2277 128.  103.  
+2278 561   374   
+2279 158   175   
+2280 793   311   
+2281 293   265   
+2282 274   326   
+2283 264   311   
+2284 109.   69.6 
+2285 376   439   
+2286 270   269   
+2287 235   277   
+2288 369   329   
+2289 195   196   
+2290 324   306   
+2291 539   384   
+2292 731   407   
+2293 753   389   
+2294 425   447   
+2295 591   441   
+2296 627   464   
+2297 101.  157.  
+2298 196   130   
+2299 198   203   
+2300  67.1 146.  
+2301 690   435   
+2302 730   385   
+2303 198   219   
+2304 349   337   
+2305 175    39.7 
+2306 272   284   
+2307 110   123.  
+2308 461   479   
+2309  76.2  51.4 
+2310 163   149   
+2311 273   292   
+2312 153.  120.  
+2313 560   422   
+2314 180.   55.3 
+2315 246   341   
+2316 454   457   
+2317 266   230   
+2318 160   208   
+2319 451   477   
+2320 342   421   
+2321 107.   93   
+2322 266   339   
+2323 715   418   
+2324 607   458   
+2325 128.   60.5 
+2326 757   376   
+2327 636   408   
+2328 267   390   
+2329 424   469   
+2330 167   204   
+2331 257   333   
+2332 146.   46.2 
+2333 174.  114.  
+2334  94.4 175.  
+2335 698   411   
+2336 810   324   
+2337 332   397   
+2338 114.  141.  
+2339 247   227   
+2340 397   457   
+2341 236   189   
+2342 284   261   
+2343 118.   59.2 
+2344 251   320   
+2345 725   389   
+2346 430   395   
+2347 564   412   
+2348 152.  107.  
+2349 700   410   
+2350 461   445   
+2351 308   400   
+2352 627   450   
+2353 591   453   
+2354 264   378   
+2355 179.   59.2 
+2356 128.   94.3 
+2357 159   145   
+2358 226   233   
+2359 159.   54   
+2360 332   406   
+2361 239   208   
+2362 591   386   
+2363 691   434   
+2364 459   440   
+2365 462   426   
+2366 462   479   
+2367 792   314   
+2368 527   451   
+2369 784   359   
+2370 391   443   
+2371 800   342   
+2372 286   354   
+2373 175   221   
+2374 717   417   
+2375 782   352   
+2376 465   408   
+2377 153.  105.  
+2378 239   193   
+2379 719   400   
+2380 348   416   
+2381 149   103.  
+2382 386   369   
+2383 697   412   
+2384 148.   93   
+2385 234   257   
+2386 482   473   
+2387 157.   95.6 
+2388 649   408   
+2389 178   146   
+2390 161   155   
+2391 534   429   
+2392 183   147   
+2393 808   286   
+2394 175    67   
+2395 566   394   
+2396 806   289   
+2397 241   285   
+2398 109.   89.1 
+2399 540   383   
+2400 404   439   
+2401 113.   20.2 
+2402 326   407   
+2403 628   393   
+2404 107.   54   
+2405 383   372   
+2406 105.  101.  
+2407  94.4  70.9 
+2408 640   442   
+2409 594   387   
+2410 380   426   
+2411 106.  175.  
+2412 163   140   
+2413 651   417   
+2414 261   364   
+2415  77.5  56.6 
+2416  86.6  60.5 
+2417 467   397   
+2418 286   256   
+2419 767   375   
+2420 456   478   
+2421 300   282   
+2422 118.  102.  
+2423 139   195   
+2424 158   169   
+2425 126.  133.  
+2426 174.  115.  
+2427 554   482   
+2428 453   400   
+2429 411   463   
+2430 238   248   
+2431 233   193   
+2432 317   345   
+2433 509   452   
+2434 175   239   
+2435 178.   64.4 
+2436 118.   42.3 
+2437 310   286   
+2438 214   166   
+2439 748   393   
+2440 139.   90.4 
+2441 674   433   
+2442 309   406   
+2443 153   239   
+2444 289   322   
+2445 149   170   
+2446 233   218   
+2447  68.4 146.  
+2448 609   428   
+2449 818   284   
+2450 532   400   
+2451 652   437   
+2452 410   395   
+2453 164   225   
+2454 149   233   
+2455 176.   41   
+2456 387   363   
+2457 611   396   
+2458 127.   29.3 
+2459 110    77.4 
+2460 282   397   
+2461 586   386   
+2462 179.   56.6 
+2463 696   432   
+2464 502   455   
+2465 265   380   
+2466 216   150   
+2467 717   412   
+2468 282   379   
+2469 362   312   
+2470 115.  150.  
+2471 152.   29.3 
+2472 168.   18.9 
+2473 382   449   
+2474 173   199   
+2475 635   402   
+2476 184   160   
+2477 492   482   
+2478 765   379   
+2479 175    37.1 
+2480 535   415   
+2481 782   362   
+2482 641   441   
+2483 110    35.8 
+2484 311   299   
+2485 555   482   
+2486 560   374   
+2487 105.  127.  
+2488 150   188   
+2489 652   410   
+2490 163.   86.5 
+2491 304   294   
+2492 184   197   
+2493 172.   90.4 
+2494 286   280   
+2495 298   272   
+2496 437   473   
+2497 590   386   
+2498 474   413   
+2499 811   322   
+2500 262   224   
+2501 207   139   
+2502 389   453   
+2503 154.   91.7 
+2504 531   456   
+2505 407   462   
+2506 111.  126.  
+2507 136   159.  
+2508 559   432   
+2509 679   423   
+2510 106.   64.4 
+2511 388   453   
+2512 123    35.8 
+2513 148   183   
+2514 530   476   
+2515  84    38.4 
+2516 141.   46.2 
+2517 413   396   
+2518 104.  166.  
+2519 164   224   
+2520 159.  114.  
+2521 283   402   
+2522 376   377   
+2523 546   470   
+2524 550   378   
+2525  78.8 167.  
+2526 122.   43.6 
+2527 639   460   
+2528 144.  132   
+2529 254   269   
+2530  84   145   
+2531 182.  180.  
+2532 411   396   
+2533 574   478   
+2534 109.  164.  
+2535 163   240   
+2536 701   428   
+2537 142.  103.  
+2538 822   300   
+2539 335   415   
+2540 272   338   
+2541 157.   33.2 
+2542 296   370   
+2543 152   200   
+2544 432   391   
+2545 364   368   
+2546 182   238   
+2547 242   269   
+2548  68.4 112.  
+2549 476   398   
+2550 294   306   
+2551 148.  149.  
+2552 176.   94.3 
+2553 164   240   
+2554  86.6 163.  
+2555 251   235   
+2556 424   463   
+2557 116.  128.  
+2558 266   329   
+2559 523   480   
+2560 780   350   
+2561 804   335   
+2562 236   278   
+2563 741   389   
+2564 500   413   
+2565 370   372   
+2566 369   441   
+2567 143   199   
+2568 161   153   
+2569 608   394   
+2570 565   408   
+2571 156.   94.3 
+2572 260   372   
+2573 358   333   
+2574 821   302   
+2575 368   323   
+2576 270   395   
+2577 198   134   
+2578 273   329   
+2579 324   389   
+2580 214   249   
+2581 284   382   
+2582 427   407   </code></pre>
+</div>
+</div>
+</section>
+<section id="summary-statistics-might-help-us" class="slide level2">
+<h2>Summary statistics might help us</h2>
+<p>var: x</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   50.2   167.2   288.0   346.0   499.8   822.0 </code></pre>
+</div>
+</div>
+<p>var: y</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    2.0   162.2   314.0   283.3   401.0   482.0 </code></pre>
+</div>
+</div>
+<p>correlation between x, y</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7601536</code></pre>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+
+<img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+
+<img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<p><img data-src="img/ch1.png" class="absolute" style="top: 5px; "></p>
+<p><img data-src="img/ch2.png" class="fragment absolute" style="top: 60px; left: 400px; height: 500px; "></p>
+<p><img data-src="img/ch3.png" class="fragment absolute" style="top: 300px; "></p>
+</section></section>
+<section>
+<section id="data-vizualization-for-whom" class="title-slide slide level1 center">
+<h1>Data Vizualization for Whom?</h1>
+
+</section>
+<section id="who-needs-your-dataviz" class="slide level2 nonincremental">
+<h2>Who needs your dataviz?</h2>
+<p>You generally visualize data for two types of people:</p>
+<div>
+<ul>
+<li>Yourself.</li>
+<li>Others.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>When you make dataviz for <strong>yourself</strong>, your aim is <strong>explorative</strong> and your goal is to generate as <strong>many</strong> raw graphs as <strong>quickly</strong> as possible to gain insights on your data.</p>
+</div>
+<div class="fragment">
+<p>When you make dataviz for <strong>others</strong>, your aim is <strong>communicative</strong> and you work to be as <strong>clear</strong> and as <strong>understandable</strong> as possible.</p>
+</div>
+</section>
+<section id="exercise" class="slide level2 exercise smallish">
+<h2>Exercise</h2>
+<div class="fragment">
+<p>With the <code>penguin</code> dataset:</p>
+<ul>
+<li class="fragment"><p>Make a histogram of the variable <code>bill_length_mm</code>. Repeat the same histogram, but use colors to differentiate <code>species</code>.</p></li>
+<li class="fragment"><p>Make a histogram of <code>bill_depth_mm</code>, but only for female penguins.</p></li>
+<li class="fragment"><p>Make a scatterplot of <code>flipper_length_mm</code> vs <code>body_mass_g</code>, use colors to differentiate species.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Get help from ggplot2’s documentation.</p>
+<ul>
+<li class="fragment">On <a href="https://ggplot2-book.org/">ggplot2’s</a>.</li>
+<li class="fragment">On <a href="https://r4ds.had.co.nz/data-visualisation.html%5D">R4DS book</a>.</li>
+<li class="fragment">On <a href="https://ggplot2.tidyverse.org/">ggplot2’s website</a>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="tools-ggplot2" class="title-slide slide level1 center">
+<h1>Tools: ggplot2</h1>
+
+</section>
+<section id="a-grammar-of-graphics" class="slide level2">
+<h2>A grammar of graphics</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/ggplot2.svg"></p>
+</div><div class="column smallish" style="width:60%;">
+<p><a href="https://ggplot2.tidyverse.org/">ggplot2</a> is one of the main tools for declaring graphics in R.</p>
+<p>It is based on the grammar of graphics.</p>
+<p>It can be used both for explorative analysis and for publication ready graphs.</p>
+</div>
+</div>
+</section>
+<section id="the-grammar-of-graphics" class="slide level2 smallish">
+<h2>The grammar of graphics</h2>
+<p>The grammar of graphics is a unifying framework to conceptualize and program datavisualization.</p>
+<p>It states that most graphics are composed of:</p>
+<ul>
+<li class="fragment">A default dataset and set of mappings from variables to aesthetics.</li>
+<li class="fragment">One or more layers, with each layer having one geometric object, one statistical transformation, one position adjustment, and optionally, one dataset and set of aesthetic mappings,</li>
+<li class="fragment">One scale for each aesthetic mapping used.</li>
+<li class="fragment">A coordinate system.</li>
+<li class="fragment">The facet specification.</li>
+</ul>
+<p><a href="...">Hadley Wickham - A Layered Grammar of Graphics, 2010</a></p>
+</section>
+<section id="lets-put-it-in-practice" class="slide level2">
+<h2>Let’s put it in practice</h2>
+<p>A default dataset (<code>penguins</code>) and set of mappings from variables to aesthetics…</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="variables">Variables</h3>
+<ul>
+<li class="fragment"><code>bill_length_mm</code></li>
+<li class="fragment"><code>bill_depth_mm</code></li>
+<li class="fragment"><code>island</code></li>
+<li class="fragment"><code>sex</code></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="aesthetics">Aesthetics</h3>
+<ul>
+<li class="fragment">x</li>
+<li class="fragment">y</li>
+<li class="fragment">colour</li>
+<li class="fragment">shape</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="lets-put-it-in-practice-1" class="slide level2">
+<h2>Let’s put it in practice</h2>
+<div class="cell" data-reveal="true" data-fig-width="5">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  bill_length_mm --&gt; x
+  bill_depth_mm --&gt; y
+  island --&gt; colour
+  sex --&gt; shape
+  subgraph Variable
+  bill_length_mm
+  bill_depth_mm
+  island
+  sex
+  end
+  subgraph aesthetics
+  x
+  y
+  colour
+  shape
+  end
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-6" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>A default dataset</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a href="#cb5-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2" class="hljs-ln-code"><a href="#cb5-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3" class="hljs-ln-code"><a href="#cb5-3"></a>  <span class="fu">ggplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-11-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>A default dataset and set of mappings from variables to aesthetics.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href="#cb6-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2" class="hljs-ln-code"><a href="#cb6-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3" class="hljs-ln-code"><a href="#cb6-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb6-4" class="hljs-ln-code"><a href="#cb6-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb6-5" class="hljs-ln-code"><a href="#cb6-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb6-6" class="hljs-ln-code"><a href="#cb6-6"></a>             <span class="at">shape =</span> sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-12-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-8" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>One or more layers, with each layer having one geometric object…</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href="#cb7-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2" class="hljs-ln-code"><a href="#cb7-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3" class="hljs-ln-code"><a href="#cb7-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb7-4" class="hljs-ln-code"><a href="#cb7-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb7-5" class="hljs-ln-code"><a href="#cb7-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb7-6" class="hljs-ln-code"><a href="#cb7-6"></a>             <span class="at">shape =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb7-7" class="hljs-ln-code"><a href="#cb7-7"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-13-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-9" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>…and a statistical transformation.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href="#cb8-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2" class="hljs-ln-code"><a href="#cb8-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3" class="hljs-ln-code"><a href="#cb8-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb8-4" class="hljs-ln-code"><a href="#cb8-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb8-5" class="hljs-ln-code"><a href="#cb8-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb8-6" class="hljs-ln-code"><a href="#cb8-6"></a>             <span class="at">shape =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb8-7" class="hljs-ln-code"><a href="#cb8-7"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-8" class="hljs-ln-code"><a href="#cb8-8"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-14-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-10" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>…and a statistical transformation.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb9-1" class="hljs-ln-code"><a href="#cb9-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2" class="hljs-ln-code"><a href="#cb9-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3" class="hljs-ln-code"><a href="#cb9-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb9-4" class="hljs-ln-code"><a href="#cb9-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb9-5" class="hljs-ln-code"><a href="#cb9-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb9-6" class="hljs-ln-code"><a href="#cb9-6"></a>             <span class="at">shape =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb9-7" class="hljs-ln-code"><a href="#cb9-7"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-8" class="hljs-ln-code"><a href="#cb9-8"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-15-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-11" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>The facet specification.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb10-1" class="hljs-ln-code"><a href="#cb10-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb10-2" class="hljs-ln-code"><a href="#cb10-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3" class="hljs-ln-code"><a href="#cb10-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb10-4" class="hljs-ln-code"><a href="#cb10-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb10-5" class="hljs-ln-code"><a href="#cb10-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb10-6" class="hljs-ln-code"><a href="#cb10-6"></a>             <span class="at">shape =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb10-7" class="hljs-ln-code"><a href="#cb10-7"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-8" class="hljs-ln-code"><a href="#cb10-8"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>) <span class="sc">+</span></span>
+<span id="cb10-9" class="hljs-ln-code"><a href="#cb10-9"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="st">'sex'</span>, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-16-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-12" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p>We can also modify the coordinate system, if needed.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb11-1" class="hljs-ln-code"><a href="#cb11-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb11-2" class="hljs-ln-code"><a href="#cb11-2"></a>  <span class="fu">drop_na</span>(species, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3" class="hljs-ln-code"><a href="#cb11-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
+<span id="cb11-4" class="hljs-ln-code"><a href="#cb11-4"></a>             <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb11-5" class="hljs-ln-code"><a href="#cb11-5"></a>             <span class="at">colour =</span> species,</span>
+<span id="cb11-6" class="hljs-ln-code"><a href="#cb11-6"></a>             <span class="at">shape =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb11-7" class="hljs-ln-code"><a href="#cb11-7"></a>  <span class="fu">stat_identity</span>(<span class="at">geom =</span> <span class="st">'point'</span>) <span class="sc">+</span></span>
+<span id="cb11-8" class="hljs-ln-code"><a href="#cb11-8"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>) <span class="sc">+</span></span>
+<span id="cb11-9" class="hljs-ln-code"><a href="#cb11-9"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="st">'sex'</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb11-10" class="hljs-ln-code"><a href="#cb11-10"></a>  <span class="fu">scale_y_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="03-visualize_files/figure-revealjs/unnamed-chunk-17-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="explore-your-data-with-graphics" class="slide level2">
+<h2>Explore your data with graphics</h2>
+<p>You can use <strong>graphics</strong> to <strong>learn</strong> what’s inside our data.</p>
+<p>First, <strong>asking questions</strong> about data then, <strong>plotting</strong> them with different <strong>visual models</strong> to highlight and learn about data patterns, we can go through these two steps iteratively (plot, rinse and repeat).</p>
+</section>
+<section id="visual-models" class="slide level2">
+<h2>Visual models</h2>
+<p>A <strong>visual model</strong> is a specific type of data visualization, designed to highlight a specific type of pattern in data.</p>
+<p><a href="">ggplot provides many visual models</a> ready to be used and coustomized.</p>
+<p>The most used one in exploratory data analysis are:</p>
+<ul>
+<li class="fragment">histograms,</li>
+<li class="fragment">boxplots,</li>
+<li class="fragment">scatterplots,</li>
+<li class="fragment">heatmaps,</li>
+<li class="fragment">barplots.</li>
+</ul>
+</section></section>
+<section id="exercise-1" class="title-slide slide level1 exercise center">
+<h1>Exercise</h1>
+
+<div class="footer footer-default">
+<p><a href="https://www.summercompschool.mawazoinstitute.org/">2022 CBSER Summer School</a></p>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>
