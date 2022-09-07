@@ -1,6 +1,8 @@
 # slides output
-**.html
-**_files
+slides/**.html
+slides/**_files
+
+
 
 # Mac stuff
 
@@ -49,9 +51,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# pkgdown site
-docs/
-
 # translation temp files
 po/*~
 
@@ -63,3 +62,5 @@ rsconnect/
 .Rhistory
 .RData
 .Ruserdata
+
+/.quarto/

@@ -8,6 +8,7 @@ format:
     footer: '2022 CBSER Summer School'
 editor_options: 
   chunk_output_type: console
+output-dir: '../docs'
 ---
 
 # Quick history of R
