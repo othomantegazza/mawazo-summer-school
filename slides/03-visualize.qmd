@@ -209,7 +209,7 @@ With the `penguin` dataset:
 ::: fragment
 Get help from ggplot2's documentation.
 
-- On [ggplot2's ](https://ggplot2-book.org/).
+- On [ggplot2's book](https://ggplot2-book.org/).
 - On [R4DS book](https://r4ds.had.co.nz/data-visualisation.html]).
 - On [ggplot2's website](https://ggplot2.tidyverse.org/).
 :::
@@ -252,7 +252,7 @@ It states that most graphics are composed of:
 
 ## Let's put it in practice 
 
-A default dataset (`penguins`) and set of mappings from variables to aesthetics...
+We take dataset (`penguins`) and decide that we want to map a set of **variables** to **aesthetics** specification...
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -303,7 +303,7 @@ flowchart LR
 
 ## {auto-animate="true"}
 
-A default dataset
+A default **dataset**...
 
 :::: {.columns}
 
@@ -334,7 +334,7 @@ p
 
 ## {auto-animate="true"}
 
-A default dataset and set of mappings from variables to aesthetics.
+A default dataset and set of mappings from **variables** to **aesthetics**.
 
 :::: {.columns}
 
@@ -371,7 +371,7 @@ p
 
 ## {auto-animate="true"}
 
-One or more layers, with each layer having one geometric object...
+One or more layers, with each layer having one **geometric** object...
 
 :::: {.columns}
 
@@ -410,7 +410,7 @@ p
 
 ## {auto-animate="true"}
 
-...and a statistical transformation.
+...and a **statistical transformation**.
 
 :::: {.columns}
 
@@ -449,7 +449,7 @@ p
 
 ## {auto-animate="true"}
 
-...and a statistical transformation.
+...and a **statistical transformation**.
 
 :::: {.columns}
 
@@ -488,7 +488,7 @@ p
 
 ## {auto-animate="true"}
 
-The facet specification.
+The **facet** specification.
 
 :::: {.columns}
 
@@ -529,7 +529,7 @@ p
 
 ## {auto-animate="true"}
 
-We can also modify the coordinate system, if needed.
+We can also modify the **coordinate system**, if needed.
 
 :::: {.columns}
 
@@ -569,27 +569,91 @@ p
 
 ::::
 
-## Explore your data with graphics
+## Exercise {.exercise}
+
+```{r}
+#| include: false
+
+penguins %>% 
+  ggplot(aes(x = species)) +
+  geom_bar()
+```
+
+Take the `penguins` dataset; make a [bar chart](https://ggplot2.tidyverse.org/reference/geom_bar.html?q=geom_bar) that counts how many penguins have been recorded for each species.
+
+- which variable are you mapping to each aesthetic specification?
+- Which geometric object are you using?
+- Are you using a statistical transformation?
+
+
+# Explore your data with graphics 
+
+## Graphical exploration
 
 You can use **graphics** to **learn** what's inside our data.
+
+<br>
 
 First, **asking questions** about data then, **plotting** them with different **visual models** to highlight and learn about data patterns, we can go through these two steps iteratively (plot, rinse and repeat).
 
 ## Visual models
 
-A **visual model** is a specific type of data visualization, designed to highlight a specific type of pattern in data.
+A **visual model** is a specific type of graph, designed for a specific purpose.
 
-[ggplot provides many visual models]() ready to be used and coustomized.
+<br>
 
-The most used one in exploratory data analysis are:
+[ggplot provides many basic visual models](https://ggplot2.tidyverse.org/reference/index.html#geoms) in its set of `geom_*` functions.
 
-- histograms,
-- boxplots,
-- scatterplots,
-- heatmaps,
+<br>
+
+Niche and advanced visual models can be found in its [ecosystem of extensions](https://exts.ggplot2.tidyverse.org/gallery/).
+
+
+## Visual models
+
+Examples of visual models used in exploratory data analysis are:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### one variable
+
 - barplots.
+- histograms.
+- boxplots.
 
+:::
 
+::: {.column width="50%"}
 
+### two variables
 
-# Exercise {.exercise}
+- scatterplots.
+- heatmaps.
+
+:::
+
+::::
+
+Don't feel limited to these visual models, we learn to program because we want flexibility.
+
+## Histograms
+
+```{r}
+penguins %>% ggplot(aes(x = flipper_length_mm, fill = species)) + geom_histogram()
+```
+
+## Histograms
+
+```{r}
+penguins %>% ggplot(aes(x = flipper_length_mm, fill = species)) + geom_histogram()
+```
+
+## Boxplots
+
+Robust summary statistics displayed.
+
+boxplo
+
+## Exercise {.exercise}
