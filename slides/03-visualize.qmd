@@ -167,11 +167,11 @@ p3 +
 
 ## {}
 
-![](img/ch1.png){.absolute top=5}
+![](img/ch1.jpg){.absolute top=5}
 
-![](img/ch2.png){.fragment .absolute top=60 left=400 height=500}
+![](img/ch2.jpg){.fragment .absolute top=60 left=400 height=500}
 
-![](img/ch3.png){.fragment .absolute top=300}
+![](img/ch3.jpg){.fragment .absolute style="top:220px; transform:rotate(340deg)"}
 
 # Data Vizualization for Whom?
 

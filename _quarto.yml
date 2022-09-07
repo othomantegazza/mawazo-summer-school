@@ -1,0 +1,9 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - slides/*.qmd
+    - index.md
+
+execute:
+  freeze: auto
