@@ -224,8 +224,7 @@ Let's split this column at the `_` and reconstitute it in a tidy way
 pangaea_tidy <- 
   pangaea_long %>% 
   separate(element, into = c('element', 'unit_num', 'unit_dem', 'fraction'), sep = '_') %>% 
-  unite(col = 'unit', unit_num:unit_dem, sep = '_') %>% 
-  view()
+  unite(col = 'unit', unit_num:unit_dem, sep = '_')
 ```
 
 ## Exercise {.exercise}
