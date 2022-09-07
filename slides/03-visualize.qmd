@@ -305,123 +305,269 @@ flowchart LR
 
 A default dataset
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>% 
+p <- 
+  penguins %>% 
   drop_na(species, sex) %>% 
   ggplot()
 ```
 
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
 
 ## {auto-animate="true"}
 
 A default dataset and set of mappings from variables to aesthetics.
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>% 
+p <- 
+  penguins %>% 
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex))
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+    )
 ```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
 
 ## {auto-animate="true"}
 
 One or more layers, with each layer having one geometric object...
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>% 
+p <- 
+  penguins %>% 
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex)) + 
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+  ) + 
   geom_point()
 ```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
+
 
 ## {auto-animate="true"}
 
 ...and a statistical transformation.
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>% 
+p <- 
+  penguins %>% 
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex)) + 
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+  ) + 
   geom_point() +
   geom_smooth()
 ```
 
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
+
 ## {auto-animate="true"}
 
 ...and a statistical transformation.
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>% 
+p <- 
+  penguins %>% 
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex)) + 
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+  ) + 
   geom_point() +
   geom_smooth(method = 'lm')
 ```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
 
 ## {auto-animate="true"}
 
 The facet specification.
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>%
+p <- 
+  penguins %>%
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex)) + 
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+  ) + 
   geom_point() +
   geom_smooth(method = 'lm') +
-  facet_wrap(facets = 'sex', ncol = 1)
+  facet_wrap(facets = 'sex',
+             ncol = 1)
 ```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
 
 ## {auto-animate="true"}
 
 We can also modify the coordinate system, if needed.
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+
 ```{r}
-#| output-location: column
-#| fig-width: 5
-#| fig-height: 5
-penguins %>%
+p <- 
+  penguins %>%
   drop_na(species, sex) %>% 
-  ggplot(aes(x = bill_length_mm,
-             y = bill_depth_mm,
-             colour = species,
-             shape = sex)) + 
-  stat_identity(geom = 'point') +
+  ggplot(
+    aes(x = bill_length_mm,
+        y = bill_depth_mm,
+        colour = species,
+        shape = sex)
+  ) + 
+  geom_point() +
   geom_smooth(method = 'lm') +
-  facet_wrap(facets = 'sex', ncol = 1) +
+  facet_wrap(facets = 'sex',
+             ncol = 1) +
   scale_y_log10()
 ```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| echo: false
+p
+```
+
+
+:::
+
+::::
 
 ## Explore your data with graphics
 
