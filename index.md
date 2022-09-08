@@ -15,3 +15,4 @@ author: 'Otho Mantegazza'
 3. [Visualize Data](slides/03-visualize.html)
 4. [Get Data into R](slides/04-get.html)
 5. [Clean Data with R](slides/05-clean.html)
+6. [Explorative Data Analysis](slides/06-explorative-data-analysis.html)
