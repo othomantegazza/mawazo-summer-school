@@ -1,5 +1,5 @@
 ---
-title: "Get and Clean Data"
+title: "Get Data into R"
 subtitle: "Tidyverse - Part 3"
 author: "Otho Mantegazza"
 execute: 
@@ -124,7 +124,7 @@ Can you spot that column types are different?
 <br>
 <br>
 
-## Parsing {.smallish}
+## Parsing {.smallish .scrollable}
 
 When we read data from text encoded "delimited" files, such as CSV, we use function that [parse](https://en.wikipedia.org/wiki/Parsing) the file.
 
@@ -147,6 +147,8 @@ penguins_from_csv <-
       year = col_integer()
     )
   )
+
+penguins_from_csv %>% glimpse()
 ```
 
 ## Exercise {.exercise}

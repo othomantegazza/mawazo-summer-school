@@ -652,17 +652,11 @@ penguins %>% ggplot(aes(x = flipper_length_mm, fill = species)) + geom_histogram
 
 ## Boxplots
 
-Robust summary statistics displayed (median, IQR, outliers).
-
-
-
-## Boxplots
-
 :::: {.columns}
 
 ::: {.column width="40%"}
 
-Robust summary statistics displayed.
+Robust summary statistics displayed (median, IQR, outliers).
 
 ::: 
 

@@ -24,6 +24,7 @@ library(tibble)
 library(ggplot2)
 library(readr)
 library(here)
+library(stringr)
 ```
 
 
@@ -45,6 +46,12 @@ A common practical way to **structure** (empirical) data.
 Plus: fixed variables should come first, followed by measured variables.
 
 Reference: An Introduction to [Tidy Data](https://tidyr.tidyverse.org/articles/tidy-data.html)
+
+## Which Dataset is Tidy?
+
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+Source: [R4DS - Tidy Data](https://r4ds.had.co.nz/tidy-data.html)
 
 ## {}
 
@@ -203,6 +210,14 @@ pangaea_long %>% glimpse()
 
 When we pivot data we move them from a wide to a long format and vice-versa.
 
+## Pivot Longer
+
+![](https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png)
+
+Source : [R4DS - Tidy Data](https://r4ds.had.co.nz/tidy-data.html)
+
+## Pivot Longer
+
 ![](img/tidyr_spread_gather_allison_horst.jpg)
 
 (Image from [Alisson Horst](https://twitter.com/allison_horst), check her other [stats illustrations here](https://github.com/allisonhorst/stats-illustrations/))
@@ -213,9 +228,13 @@ Now it's clear that `element` contains more than one value.
 
 For example: `ba_mg_g_leachate` is not a single values and could be split into:
 
+::: {.nonincremental}
+
 - element: `ba`.
 - unit: `mg_g`.
 - fraction: `leachate`.
+
+:::
 
 Let's split this column at the `_` and reconstitute it in a tidy way
 
@@ -224,8 +243,43 @@ Let's split this column at the `_` and reconstitute it in a tidy way
 pangaea_tidy <- 
   pangaea_long %>% 
   separate(element, into = c('element', 'unit_num', 'unit_dem', 'fraction'), sep = '_') %>% 
-  unite(col = 'unit', unit_num:unit_dem, sep = '_')
+  unite(col = 'unit', unit_num:unit_dem, sep = '/')
+
+pangaea_tidy
+
+pangaea_tidy %>% glimpse()
 ```
+
+## And let's fix the measurement unit {.scrollable}
+
+Remember that janitor transformed `µ` into `m`?
+
+```{r}
+pangea_tidy <- 
+  pangaea_tidy %>% 
+  mutate(unit = unit %>% str_replace('m', 'µ'))
+
+pangaea_tidy
+```
+
+## Data can take many shapes {.scrollable}
+
+```{r}
+pangaea_also_tidy <- 
+  pangaea_tidy %>% 
+  pivot_wider(names_from = 'element', values_from = 'fraction') 
+  
+pangaea_also_tidy 
+
+pangaea_also_tidy %>% glimpse()
+```
+
+# Pivot Wider
+
+![](https://d33wubrfki0l68.cloudfront.net/8350f0dda414629b9d6c354f87acf5c5f722be43/bcb84/images/tidy-8.png)
+
+Source : [R4DS - Tidy Data](https://r4ds.had.co.nz/tidy-data.html)
+
 
 ## Exercise {.exercise}
 
