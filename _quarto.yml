@@ -4,6 +4,8 @@ project:
   render:
     - slides/*.qmd
     - index.md
+  preview:
+    port: 4200
 
 execute:
   freeze: auto
