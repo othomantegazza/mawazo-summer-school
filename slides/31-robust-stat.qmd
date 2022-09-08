@@ -1,0 +1,13 @@
+---
+title: "Robust Statistics"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    incremental: true
+    footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---

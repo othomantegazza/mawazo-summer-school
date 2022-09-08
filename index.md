@@ -10,9 +10,10 @@ author: 'Otho Mantegazza'
 
 # Hands-on Lessons
 
-1. [Meet R](slides/01-meet-r.html)
-2. [Manipulate Data](slides/02-manipulate.html)
-3. [Visualize Data](slides/03-visualize.html)
-4. [Get Data into R](slides/04-get.html)
-5. [Clean Data with R](slides/05-clean.html)
-6. [Explorative Data Analysis](slides/06-explorative-data-analysis.html)
+1. [Meet R](slides/10-meet-r.html)
+2. [Manipulate Data](slides/20-manipulate.html)
+3. [Visualize Data](slides/30-visualize.html)
+3. [Robust Statistics](slides/31-robust-stat.html)
+4. [Get Data into R](slides/40-get.html)
+5. [Clean Data with R](slides/50-clean.html)
+6. [Explorative Data Analysis](slides/60-explorative-data-analysis.html)
