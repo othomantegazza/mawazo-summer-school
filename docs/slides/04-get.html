@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.38">
 
   <meta name="author" content="Otho Mantegazza">
-  <title>Get and Clean Data</title>
+  <title>Get Data into R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -383,7 +383,7 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Get and Clean Data</h1>
+  <h1 class="title">Get Data into R</h1>
   <p class="subtitle">Tidyverse - Part 3</p>
   <p class="author">Otho Mantegazza</p>
 </section>
@@ -521,7 +521,7 @@ $ year              &lt;dbl&gt; 2007, 2007, …</code></pre>
 <p>Can you spot that column types are different?</p>
 <p><br> <br></p>
 </section>
-<section id="parsing" class="slide level2 smallish">
+<section id="parsing" class="slide level2 smallish scrollable">
 <h2>Parsing</h2>
 <p>When we read data from text encoded “delimited” files, such as CSV, we use function that <a href="https://en.wikipedia.org/wiki/Parsing">parse</a> the file.</p>
 <p>When we parse something, we formalize its structure applying a set of grammatical rules.</p>
@@ -540,7 +540,21 @@ $ year              &lt;dbl&gt; 2007, 2007, …</code></pre>
 <span id="cb10-11"><a href="#cb10-11"></a>      <span class="at">sex =</span> <span class="fu">col_factor</span>(),</span>
 <span id="cb10-12"><a href="#cb10-12"></a>      <span class="at">year =</span> <span class="fu">col_integer</span>()</span>
 <span id="cb10-13"><a href="#cb10-13"></a>    )</span>
-<span id="cb10-14"><a href="#cb10-14"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-14"><a href="#cb10-14"></a>  )</span>
+<span id="cb10-15"><a href="#cb10-15"></a></span>
+<span id="cb10-16"><a href="#cb10-16"></a>penguins_from_csv <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
 </div>
 </section>
 <section id="exercise" class="slide level2 exercise">
@@ -565,16 +579,16 @@ $ year              &lt;dbl&gt; 2007, 2007, …</code></pre>
 <section id="section-1" class="slide level2">
 <h2></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>pangaea_filename <span class="ot">&lt;-</span> <span class="st">'Dataset_S2_HCl-leaching.tab'</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a>pangaea_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">'data-int/Wu-etal_2022/datasets'</span>, pangaea_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pangaea_filename <span class="ot">&lt;-</span> <span class="st">'Dataset_S2_HCl-leaching.tab'</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>pangaea_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">'data-int/Wu-etal_2022/datasets'</span>, pangaea_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try to read the data file Dataset_S2_HCl-leaching.tab.</p>
 <p>It’s a <code>.tab</code> file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pangaea_data <span class="ot">&lt;-</span> </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  pangaea_path <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">read_delim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>pangaea_data <span class="ot">&lt;-</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  pangaea_path <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">read_delim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: One or more parsing issues, see `problems()` for details</code></pre>
 </div>
@@ -593,7 +607,7 @@ chr (3): /*, DATA, DESCRIPTION:
 <h2></h2>
 <p>If we call <code>problems()</code> readr tells us what went wrong.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>pangaea_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pangaea_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 177 × 3
    `/*`                   DATA           `DESCRIPTION:`                         
@@ -623,17 +637,17 @@ chr (3): /*, DATA, DESCRIPTION:
 </ul>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>pangaea_data <span class="ot">&lt;-</span> </span>
-<span id="cb17-2"><a href="#cb17-2"></a>  pangaea_path <span class="sc">%&gt;%</span> </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">read_delim</span>(<span class="at">delim =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>             <span class="at">skip =</span> <span class="dv">49</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pangaea_data <span class="ot">&lt;-</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  pangaea_path <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">read_delim</span>(<span class="at">delim =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>             <span class="at">skip =</span> <span class="dv">49</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section-4" class="slide level2">
 <h2></h2>
 <p>Now the data that we’ve imported into R looks fine.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pangaea_data <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>pangaea_data <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 128
 Columns: 19
@@ -663,7 +677,7 @@ $ `Fe [µg/g] (Residue)`      &lt;dbl&gt; 14834.8, 18301.4, 24534.5, 30745.3, 28
 <h2></h2>
 <p>Now the data that we’ve imported into R looks fine.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>pangaea_data <span class="sc">%&gt;%</span> skimr<span class="sc">::</span><span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>pangaea_data <span class="sc">%&gt;%</span> skimr<span class="sc">::</span><span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table>
 <caption>Data summary</caption>
@@ -1021,13 +1035,13 @@ $ `Fe [µg/g] (Residue)`      &lt;dbl&gt; 14834.8, 18301.4, 24534.5, 30745.3, 28
 <h2></h2>
 <p>A more formal way to check for missing values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>pangaea_data <span class="sc">%&gt;%</span> </span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    <span class="fu">across</span>(</span>
-<span id="cb21-4"><a href="#cb21-4"></a>      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">is.na</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span>
-<span id="cb21-5"><a href="#cb21-5"></a>    )</span>
-<span id="cb21-6"><a href="#cb21-6"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>pangaea_data <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">across</span>(</span>
+<span id="cb22-4"><a href="#cb22-4"></a>      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">is.na</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span>
+<span id="cb22-5"><a href="#cb22-5"></a>    )</span>
+<span id="cb22-6"><a href="#cb22-6"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 19

@@ -407,6 +407,11 @@
 <p>Plus: fixed variables should come first, followed by measured variables.</p>
 <p>Reference: An Introduction to <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">Tidy Data</a></p>
 </section>
+<section id="which-dataset-is-tidy-1" class="slide level2">
+<h2>Which Dataset is Tidy?</h2>
+
+<img data-src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" class="r-stretch"><p>Source: <a href="https://r4ds.had.co.nz/tidy-data.html">R4DS - Tidy Data</a></p>
+</section>
 <section id="section" class="slide level2">
 <h2></h2>
 <div class="cell">
@@ -632,6 +637,14 @@ $ concentration          &lt;dbl&gt; 72.6, 767.0, 188951.9, 10612.7, 5935.0, 171
 </div>
 </div>
 <p>When we pivot data we move them from a wide to a long format and vice-versa.</p>
+</section>
+<section id="pivot-longer" class="slide level2">
+<h2>Pivot Longer</h2>
+
+<img data-src="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="r-stretch"><p>Source : <a href="https://r4ds.had.co.nz/tidy-data.html">R4DS - Tidy Data</a></p>
+</section>
+<section id="pivot-longer-1" class="slide level2">
+<h2>Pivot Longer</h2>
 
 <img data-src="img/tidyr_spread_gather_allison_horst.jpg" class="r-stretch"><p>(Image from <a href="https://twitter.com/allison_horst">Alisson Horst</a>, check her other <a href="https://github.com/allisonhorst/stats-illustrations/">stats illustrations here</a>)</p>
 </section>
@@ -639,18 +652,148 @@ $ concentration          &lt;dbl&gt; 72.6, 767.0, 188951.9, 10612.7, 5935.0, 171
 <h2>One cell contains multiple values</h2>
 <p>Now it’s clear that <code>element</code> contains more than one value.</p>
 <p>For example: <code>ba_mg_g_leachate</code> is not a single values and could be split into:</p>
+<div>
 <ul>
-<li class="fragment">element: <code>ba</code>.</li>
-<li class="fragment">unit: <code>mg_g</code>.</li>
-<li class="fragment">fraction: <code>leachate</code>.</li>
+<li>element: <code>ba</code>.</li>
+<li>unit: <code>mg_g</code>.</li>
+<li>fraction: <code>leachate</code>.</li>
 </ul>
+</div>
 <p>Let’s split this column at the <code>_</code> and reconstitute it in a tidy way</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>pangaea_tidy <span class="ot">&lt;-</span> </span>
 <span id="cb10-2"><a href="#cb10-2"></a>  pangaea_long <span class="sc">%&gt;%</span> </span>
 <span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">separate</span>(element, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">'element'</span>, <span class="st">'unit_num'</span>, <span class="st">'unit_dem'</span>, <span class="st">'fraction'</span>), <span class="at">sep =</span> <span class="st">'_'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">'unit'</span>, unit_num<span class="sc">:</span>unit_dem, <span class="at">sep =</span> <span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">'unit'</span>, unit_num<span class="sc">:</span>unit_dem, <span class="at">sep =</span> <span class="st">'/'</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>pangaea_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,280 × 13
+   event latit…¹ longi…² eleva…³ sampl…⁴ samp_…⁵ depth_m age_k…⁶ ca_co…⁷ element
+   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+ 1 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba     
+ 2 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr     
+ 3 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca     
+ 4 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al     
+ 5 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe     
+ 6 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba     
+ 7 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr     
+ 8 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca     
+ 9 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al     
+10 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe     
+# … with 1,270 more rows, 3 more variables: unit &lt;chr&gt;, fraction &lt;chr&gt;,
+#   concentration &lt;dbl&gt;, and abbreviated variable names ¹​latitude, ²​longitude,
+#   ³​elevation_m, ⁴​sample_label_barite_sr, ⁵​samp_type, ⁶​age_ka_bp,
+#   ⁷​ca_co3_percent
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pangaea_tidy <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,280
+Columns: 13
+$ event                  &lt;chr&gt; "SL73BC", "SL73BC", "SL73BC", "SL73BC", "SL73BC…
+$ latitude               &lt;dbl&gt; 39.6617, 39.6617, 39.6617, 39.6617, 39.6617, 39…
+$ longitude              &lt;dbl&gt; 24.5117, 24.5117, 24.5117, 24.5117, 24.5117, 24…
+$ elevation_m            &lt;dbl&gt; -339, -339, -339, -339, -339, -339, -339, -339,…
+$ sample_label_barite_sr &lt;chr&gt; "SL73-1", "SL73-1", "SL73-1", "SL73-1", "SL73-1…
+$ samp_type              &lt;chr&gt; "non-S1", "non-S1", "non-S1", "non-S1", "non-S1…
+$ depth_m                &lt;dbl&gt; 0.0045, 0.0045, 0.0045, 0.0045, 0.0045, 0.0045,…
+$ age_ka_bp              &lt;dbl&gt; 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66,…
+$ ca_co3_percent         &lt;dbl&gt; 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5,…
+$ element                &lt;chr&gt; "ba", "sr", "ca", "al", "fe", "ba", "sr", "ca",…
+$ unit                   &lt;chr&gt; "mg/g", "mg/g", "mg/g", "mg/g", "mg/g", "mg/g",…
+$ fraction               &lt;chr&gt; "leachate", "leachate", "leachate", "leachate",…
+$ concentration          &lt;dbl&gt; 72.6, 767.0, 188951.9, 10612.7, 5935.0, 171.0, …</code></pre>
+</div>
+</div>
+</section>
+<section id="and-lets-fix-the-measurement-unit" class="slide level2 scrollable">
+<h2>And let’s fix the measurement unit</h2>
+<p>Remember that janitor transformed <code>µ</code> into <code>m</code>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>pangea_tidy <span class="ot">&lt;-</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  pangaea_tidy <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">mutate</span>(<span class="at">unit =</span> unit <span class="sc">%&gt;%</span> <span class="fu">str_replace</span>(<span class="st">'m'</span>, <span class="st">'µ'</span>))</span>
+<span id="cb14-4"><a href="#cb14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5"></a>pangaea_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,280 × 13
+   event latit…¹ longi…² eleva…³ sampl…⁴ samp_…⁵ depth_m age_k…⁶ ca_co…⁷ element
+   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+ 1 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba     
+ 2 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr     
+ 3 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca     
+ 4 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al     
+ 5 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe     
+ 6 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ba     
+ 7 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 sr     
+ 8 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 ca     
+ 9 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 al     
+10 SL73…    39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 fe     
+# … with 1,270 more rows, 3 more variables: unit &lt;chr&gt;, fraction &lt;chr&gt;,
+#   concentration &lt;dbl&gt;, and abbreviated variable names ¹​latitude, ²​longitude,
+#   ³​elevation_m, ⁴​sample_label_barite_sr, ⁵​samp_type, ⁶​age_ka_bp,
+#   ⁷​ca_co3_percent
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+</section>
+<section id="data-can-take-many-shapes" class="slide level2 scrollable">
+<h2>Data can take many shapes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pangaea_also_tidy <span class="ot">&lt;-</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  pangaea_tidy <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">'element'</span>, <span class="at">values_from =</span> <span class="st">'fraction'</span>) </span>
+<span id="cb16-4"><a href="#cb16-4"></a>  </span>
+<span id="cb16-5"><a href="#cb16-5"></a>pangaea_also_tidy </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,280 × 16
+   event  latitude longi…¹ eleva…² sampl…³ samp_…⁴ depth_m age_k…⁵ ca_co…⁶ unit 
+   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;
+ 1 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 2 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 3 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 4 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 5 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 6 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 7 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 8 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+ 9 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+10 SL73BC     39.7    24.5    -339 SL73-1  non-S1   0.0045    1.66    61.5 mg/g 
+# … with 1,270 more rows, 6 more variables: concentration &lt;dbl&gt;, ba &lt;chr&gt;,
+#   sr &lt;chr&gt;, ca &lt;chr&gt;, al &lt;chr&gt;, fe &lt;chr&gt;, and abbreviated variable names
+#   ¹​longitude, ²​elevation_m, ³​sample_label_barite_sr, ⁴​samp_type, ⁵​age_ka_bp,
+#   ⁶​ca_co3_percent
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pangaea_also_tidy <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,280
+Columns: 16
+$ event                  &lt;chr&gt; "SL73BC", "SL73BC", "SL73BC", "SL73BC", "SL73BC…
+$ latitude               &lt;dbl&gt; 39.6617, 39.6617, 39.6617, 39.6617, 39.6617, 39…
+$ longitude              &lt;dbl&gt; 24.5117, 24.5117, 24.5117, 24.5117, 24.5117, 24…
+$ elevation_m            &lt;dbl&gt; -339, -339, -339, -339, -339, -339, -339, -339,…
+$ sample_label_barite_sr &lt;chr&gt; "SL73-1", "SL73-1", "SL73-1", "SL73-1", "SL73-1…
+$ samp_type              &lt;chr&gt; "non-S1", "non-S1", "non-S1", "non-S1", "non-S1…
+$ depth_m                &lt;dbl&gt; 0.0045, 0.0045, 0.0045, 0.0045, 0.0045, 0.0045,…
+$ age_ka_bp              &lt;dbl&gt; 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66, 1.66,…
+$ ca_co3_percent         &lt;dbl&gt; 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5, 61.5,…
+$ unit                   &lt;chr&gt; "mg/g", "mg/g", "mg/g", "mg/g", "mg/g", "mg/g",…
+$ concentration          &lt;dbl&gt; 72.6, 767.0, 188951.9, 10612.7, 5935.0, 171.0, …
+$ ba                     &lt;chr&gt; "leachate", NA, NA, NA, NA, "residue", NA, NA, …
+$ sr                     &lt;chr&gt; NA, "leachate", NA, NA, NA, NA, "residue", NA, …
+$ ca                     &lt;chr&gt; NA, NA, "leachate", NA, NA, NA, NA, "residue", …
+$ al                     &lt;chr&gt; NA, NA, NA, "leachate", NA, NA, NA, NA, "residu…
+$ fe                     &lt;chr&gt; NA, NA, NA, NA, "leachate", NA, NA, NA, NA, "re…</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="pivot-wider" class="title-slide slide level1 center">
+<h1>Pivot Wider</h1>
+
+<img data-src="https://d33wubrfki0l68.cloudfront.net/8350f0dda414629b9d6c354f87acf5c5f722be43/bcb84/images/tidy-8.png" class="r-stretch"><p>Source : <a href="https://r4ds.had.co.nz/tidy-data.html">R4DS - Tidy Data</a></p>
 </section>
 <section id="exercise" class="slide level2 exercise">
 <h2>Exercise</h2>
