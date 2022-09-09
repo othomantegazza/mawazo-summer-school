@@ -1,48 +1,13 @@
-Teaching material for an upcoming summer school.
+# Context
 
+Teaching material for the [Mawazo Summer School in Computational Biology For Sustainable Research](https://www.summercompschool.mawazoinstitute.org/).
 
+# Material
 
-- Why do we use data?
-- Why do we use command line? Why R?
-- What to do with data --> Wrangle Visualize Model Communicate?
+This teaching material is deployed at [https://othomantegazza.github.io/mawazo-summer-school/](https://othomantegazza.github.io/mawazo-summer-school/).
 
-# Visualize
+# License
 
-- Why?
-- How?
+All material is licensed under [CC4 SA-BY](LICENSE)
 
-
-  - Technical - Math
-  - Technical - Programmming
-  - Design 
-  - Perception
-  - Communication
-
-Practical: High level --> GGPLOT
-Practical: Low Level / Web --> JS / D3 / Vegalite?
-
-# Wrangle
-
-- Tables
-- Tidy data: Variables / observations / values / information unit
-- Missing values
-- distributions outliers
-- Pivoting
-
-Practical: the tidyverse
-
-Non rectangular data - nested data - JSON
-
-# Model
-
-- Signal / Noise
-- Libraries for machine learning
-
-# Communicate
-
-Literate programming
-
-# Tools
-
-R / Github / Notebooks / Docker 
-
+- The file [rice.csv](data-int/rice.csv) is the Supplemental Data S3 from [this article](https://academic.oup.com/jxb/article/70/20/5617/5538968#supplementary-data).
