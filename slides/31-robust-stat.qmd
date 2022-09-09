@@ -42,7 +42,7 @@ A Summary statistic describes a property of a distribution in one single number.
 For example:
 
 - The **mean** represents the **central tendency** of a distribution.
-- The **standard deviation** represents its dispersion.
+- The **standard deviation** represents its **dispersion**.
 
 **None** of these statistics is robust toward outliers.
 
@@ -58,6 +58,8 @@ penguins_summary <- function(pengs) {
     summarise(m = mean(bill_depth_mm, na.rm = T),
               sd = sd(bill_depth_mm, na.rm = T),
               med = median(bill_depth_mm, na.rm = T),
+              q1 = quantile(bill_depth_mm, na.rm = T)['25%'],
+              q3 = quantile(bill_depth_mm, na.rm = T)['75%'],
               iqr = IQR(bill_depth_mm, na.rm = T),
               mad = mad(bill_depth_mm, na.rm = T))
 }
@@ -172,7 +174,8 @@ penguins_bad <-
     )
 ```
 
-Let's see what happens to the mean and to the SD.
+With this chunk of code I've added an outlier at in the variable `bill_depth_mm` at `r (penguins$bill_depth_mm %>% max(na.rm = T))*10` mm. Let's see what happens.
+
 
 ```{r}
 #| echo: false
@@ -199,7 +202,7 @@ p_bad <-
 ```
 
 
-## Mean and SD with an outlier {.scrollable}
+## Mean and SD with an outlier at 215 mm {.scrollable}
 
 I've added an outlier to the `Adelie` species, let's see what happens graphically
 
@@ -219,7 +222,7 @@ In the next plots I **will not represent the outlier graphically** because it st
  
 Mean and SD are heavily influenced by the outlier. 
 
-### The mean of Adelie is influenced by the outlier
+### The mean of Adelie is influenced by the outlier at 215 mm
 
 ::: {style="height: 750px; width: 1000px;"}
  
@@ -246,7 +249,7 @@ p +
 
 :::
 
-### The SD of Adelie is influenced by the outlier
+### The SD of Adelie is influenced by the outlier 215 mm
 
 ::: {style="height: 750px; width: 1000px;"}
  
@@ -276,13 +279,179 @@ p +
 
 :::
 
-# Median and Interquartile Range (IQR)
+# Robust Summary Statistics
+
+
+## Median and Interquartile Range (IQR)
+
+### Median
+
+The median represents a the **central tendency** of a distribution, it is the value that splits the bigger 50% (half) of the data from the smaller half.
+
+
+### Interquartile Range (IQR)
+
+The IQR range represents how a distribution is **dispersed**, it is the range between the 1st and the 3rd quartile.
+
+- The **1st quartile** splits the smaller 25% of a distribution from the rest.
+- The **3rd quartile** splits the bigger 75% of a distribution from the rest.
+
+## Median and IQR without outlier  {.scrollable}
+
+### - Median
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+p_median <- 
+  p +
+  geom_vline(data = penguins_summarized,
+            aes(xintercept = med),
+            colour = violet,
+            size = 2) +
+  geom_label(data = penguins_summarized,
+            aes(x = med,
+                y = 1,
+                label = med %>% round(1)),
+            fill = 'white',
+            colour = violet,
+            hjust = -0.2,
+            vjust = 0)
+
+p_median
+```
+
+:::
+
+### - IQR
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+
+p +
+  geom_segment(data = penguins_summarized,
+            aes(x = q1,
+                xend = q3,
+                y = 15,
+                yend = 15),
+            colour = violet,
+            size = 2) +
+  geom_label(data = penguins_summarized,
+            aes(x = med,
+                y = 15,
+                label = iqr %>% round(1)),
+            fill = 'white',
+            colour = violet,
+            hjust = .5,
+            vjust = -.4) 
+```
+
+:::
+
+## Median and IQR with an outlier at 215 mm {.scrollable}
+
+### The median is not influenced by the outlier at 215 mm
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+
+p_median <- 
+  p +
+  geom_vline(data = penguins_bad_summarized,
+            aes(xintercept = med),
+            colour = violet,
+            size = 2) +
+  geom_label(data = penguins_bad_summarized,
+            aes(x = med,
+                y = 1,
+                label = med %>% round(1)),
+            fill = 'white',
+            colour = violet,
+            hjust = -0.2,
+            vjust = 0)
+
+p_median
+```
+
+:::
+
+### The median is not influenced by the outlier at 215 mm
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+p +
+  geom_segment(data = penguins_bad_summarized,
+            aes(x = q1,
+                xend = q3,
+                y = 15,
+                yend = 15),
+            colour = violet,
+            size = 2) +
+  geom_label(data = penguins_summarized,
+            aes(x = med,
+                y = 15,
+                label = iqr %>% round(1)),
+            fill = 'white',
+            colour = violet,
+            hjust = .5,
+            vjust = -.4) 
+```
+
+:::
+
+# References
+
+## Referece - Summaries
+
+Summary statistic without outlier.
+
+```{r}
+penguins_summarized
+```
+
+Summary statistic with an outlier at 215 mm.
+
+```{r}
+penguins_bad_summarized
+```
+
+## Reference - Functions
+
+- Mean: `mean()`
+- Standard Deviation: `sd()`
+- Median: `median()` or `quantile()['50%']`
+- 1st quartile: `quantile()['25%']`
+- 3rd quartile: `quantile()['75%']`
+- IQR: `iqr()`
+
+Use `na.rm = TRUE` with all those function to ignore **missing values**.
+
+## Take home 
+
+
+When we have many data, we often have to **reduce** them to simple indicators with summary statistics.
+
+No statisitic is perfect, some, such as mean and standard deviation are more precise, but they **"break"** easilt if the data with "non-ideal" data.
+
+Others are such as **median** and **IQR** are simpler and less sophisticated, but are better at capturing the essence of the data in "non-ideal" situation, i.e. **robust**.
+
+The word **robust** is often use to describe statistical methods. It means that the method is unlikely to break when the data are not perfect and the condition are worse than ideal.
 
 
 
-
-
-
-## Reference
-
-https://rafalab.github.io/dsbook/robust-summaries.html
+[Read: Introduction to data science | Chapter 12 - Robust Summaries](https://rafalab.github.io/dsbook/robust-summaries.html)
