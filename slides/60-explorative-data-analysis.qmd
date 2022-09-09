@@ -7,10 +7,52 @@ execute:
 format:
   revealjs:
     theme: [simple, style/theme.scss]
-    incremental: true
     footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
 editor_options: 
   chunk_output_type: console
 ---
 
+# Putting it All Together
+
+## The steps of EDA
+
+We have covered almost all steps of what is called Explorative Data Analysis (EDA).
+
+![](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)
+
+::: {.small}
+Image Source: [R4DS](https://r4ds.had.co.nz/explore-intro.html)
+:::
+
+## The Steps of EDA
+
+The **explore** part is iterative.
+
+- Transform
+- Visualize
+- Model
+
+## A imperative for EDA
+
+To get insights from data that you haven't faced before, 
+
+1. Look what's inside.
+2. Learn their structure
+3. Formulate **questions**
+4. Try to anwser them with statistical methods.
+
+Briefly, explore them.
+
+# Practice Dataset
+
+## Transcriptome and Phenotype of multiple Rice species
+
+A set of AP2-like genes is associated with inflorescence branching and architecture in domesticated rice.
+
+![](img/rice.jpg)
+
+- [Paper](https://academic.oup.com/jxb/article/70/20/5617/5538968#supplementary-data)
+- [DOWNLOAD SUPPLEMENTARY TABLE S3 - 96Kb](https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/jxb/70/20/10.1093_jxb_erz340/1/erz340_suppl_supplementary_table_s3.xlsx?Expires=1665751089&Signature=FdtB9g67ZEnhTpZ4i9gUtQAl8OougNyi6k2JvxJJPUhg8kb-Su4RS0FdkGlvI7eQqb8WjVl0DEcLATVH0DspX5gB2Ri0MGwUjgPkht7-TuKbg39EZiGVBLF1eREDlu0a2~tSH-TfcHArHhEaBQaG8TvaN5bccn8-4lU-OVr7nEE9mmeVr~W3dLz2rODqQimvZawV9Uvd33uukyGYJ8X4J-VJjtZO7bBY0Hh12DDk95OY1Lv7aWhCcDJRQWi9inXtSzTNgL7iVAMwzW7WWximErO2RgxFP6krcvebYfBvSZsdwWBbfJYP46E4~XXPyI6g3~xehiy5uhbx71GaflUn2Q__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA) !It's a CSV file!
+
+## {}
 
