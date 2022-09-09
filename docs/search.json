@@ -865,6 +865,34 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Hands-on Lessons\n\nMeet R\nManipulate Data\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis"
+    "text": "Introduction"
+  },
+  {
+    "objectID": "index.html#r",
+    "href": "index.html#r",
+    "title": "Data Analysis in R",
+    "section": "R",
+    "text": "R\n\nR for Data Science: An introduction to data analysis with R/Tidyverse.\n\n(2nd edition coming out soon).\n\nIntroduction to Data Science - A detailed introduction to Data science by a biostatistician.\nAdvanced R - All you wish to know about programming in R.\nIntroduction to Statistical Learning - A detailed introductio to modern statistical methods, implemented in R.\nText Mining in R Analyzing natural language and written text in R.\nTidy Modeling with R R’s machine learning framework.\nDesigning and Building Data Science Solutions how to set up a data science project."
+  },
+  {
+    "objectID": "index.html#python",
+    "href": "index.html#python",
+    "title": "Data Analysis in R",
+    "section": "Python",
+    "text": "Python\n\nThe Python Data Science Handbook\nA Whirlwind Introduction to Python"
+  },
+  {
+    "objectID": "index.html#dataviz-design",
+    "href": "index.html#dataviz-design",
+    "title": "Data Analysis in R",
+    "section": "Dataviz Design",
+    "text": "Dataviz Design\n\nData Visualization - A practical introduction Visualize data in R."
+  },
+  {
+    "objectID": "index.html#extra",
+    "href": "index.html#extra",
+    "title": "Data Analysis in R",
+    "section": "Extra",
+    "text": "Extra\n\nCheck out the bookdown repository for many more"
   }
 ]
