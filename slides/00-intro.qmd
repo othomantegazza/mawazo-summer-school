@@ -69,7 +69,7 @@ It is **open source** and **open access** oriented and highly dedicated to lower
 
 - **[Introduction to Data Science](https://rafalab.github.io/dsbook/)** - A detailed introduction to Data science by a biostatistician.
 
-- **[Advanced R](https://r4ds.had.co.nz/)** - All you need to know about programming in R.
+- **[Advanced R](https://adv-r.hadley.nz/)** - All you need to know about programming in R.
 
 - **[Introduction to Statistical Learning](https://www.statlearning.com)**  - A detailed introductio  to modern statistical methods, implemented in R.
 :::
