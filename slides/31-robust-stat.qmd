@@ -443,15 +443,16 @@ Use `na.rm = TRUE` with all those function to ignore **missing values**.
 
 ## Take home 
 
+::: {.smallish}
 
-When we have many data, we often have to **reduce** them to simple indicators with summary statistics.
+- When we have many data, we often have to **reduce** them to simple indicators with summary statistics.
 
-No statisitic is perfect, some, such as mean and standard deviation are more precise, but they **"break"** easilt if the data with "non-ideal" data.
+- No statisitic is perfect, some, such as mean and standard deviation are more precise, but they **"break"** easilt if the data with "non-ideal" data.
 
-Others are such as **median** and **IQR** are simpler and less sophisticated, but are better at capturing the essence of the data in "non-ideal" situation, i.e. **robust**.
+- Others are such as **median** and **IQR** are simpler and less sophisticated, but are better at capturing the essence of the data in "non-ideal" situation, i.e. **robust**.
 
-The word **robust** is often use to describe statistical methods. It means that the method is unlikely to break when the data are not perfect and the condition are worse than ideal.
+- The word **robust** is often use to describe statistical methods. It means that the method is unlikely to break when the data are not perfect and the condition are worse than ideal.
 
+Read: [Introduction to data science | Chapter 12 - Robust Summaries](https://rafalab.github.io/dsbook/robust-summaries.html)
 
-
-[Read: Introduction to data science | Chapter 12 - Robust Summaries](https://rafalab.github.io/dsbook/robust-summaries.html)
+:::
