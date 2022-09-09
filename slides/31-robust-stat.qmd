@@ -92,12 +92,12 @@ $mean(x) = \frac{1}{n} \sum_{i=i}^{n} x_{i}$
 
 p_mean <- 
   p +
-  geom_vline(data = . %>% penguins_summary(),
+  geom_vline(data = penguins_summarized,
             aes(xintercept = m),
             colour = 'red',
             size = 2,
             lty = '11') +
-  geom_label(data = . %>% penguins_summary(),
+  geom_label(data = penguins_summarized,
             aes(x = m,
                 y = 1,
                 label = m %>% round(1)),
@@ -128,10 +128,7 @@ $SD = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left(x_i - \bar{x}\right)^2}$
 
 p_sd <- 
   p +
-  geom_segment(data = . %>% 
-              group_by(species) %>% 
-              summarise(m = mean(bill_depth_mm, na.rm = T),
-                        sd = sd(bill_depth_mm, na.rm = T)),
+  geom_segment(data = penguins_summarized,
             aes(x = m-sd/2,
                 xend = m+sd/2,
                 y = 15,
@@ -139,7 +136,7 @@ p_sd <-
             lty = '11',
             colour = 'red',
             size = 2) +
-  geom_label(data = . %>% penguins_summary(),
+  geom_label(data = penguins_summarized,
             aes(x = m,
                 y = 15,
                 label = sd %>% round(1)),
@@ -177,87 +174,114 @@ penguins_bad <-
 
 Let's see what happens to the mean and to the SD.
 
-## {.scrollable}
+```{r}
+#| echo: false
+penguins_bad_summarized <- 
+  penguins_bad %>% 
+  penguins_summary()
+
+p_bad <- 
+  penguins_bad %>% 
+  ggplot(aes(x = bill_depth_mm,
+             fill = species)) +
+  geom_histogram(binwidth = .4) +
+  guides(fill = 'none') +
+  facet_grid(rows = 'species') +
+  geom_segment(
+    data = . %>% filter(species == 'Adelie'),
+    aes(y = 15,
+        yend = 2.5,
+        x = max(bill_depth_mm, na.rm = T),
+        xend = max(bill_depth_mm, na.rm = T)),
+    arrow = arrow(length = unit(0.5, "cm")),
+    size = 2
+  ) 
+```
+
+
+## Mean and SD with an outlier {.scrollable}
+
+I've added an outlier to the `Adelie` species, let's see what happens graphically
+
 ::: {style="height: 750px; width: 1000px;"}
  
 ```{r}
 #| echo: false
 #| fig.height: 7
 #| fig-width: 7
-penguins_summary <- function(pengs) {
-  pengs %>% 
-    group_by(species) %>% 
-    summarise(m = mean(bill_depth_mm, na.rm = T),
-              sd = sd(bill_depth_mm, na.rm = T),
-              med = median(bill_depth_mm, na.rm = T),
-              mad = mad(bill_depth_mm, na.rm = T))
-}
 
-penguins_bad %>% 
-  ggplot(aes(x = bill_depth_mm,
-             fill = species)) +
-  geom_histogram(binwidth = .4) +
-  geom_vline(data = . %>% penguins_summary(),
+p_bad
+```
+
+:::
+
+In the next plots I **will not represent the outlier graphically** because it stretches the x axis too much.
+ 
+Mean and SD are heavily influenced by the outlier. 
+
+### The mean of Adelie is influenced by the outlier
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+
+p +
+  geom_vline(data = penguins_bad_summarized,
             aes(xintercept = m),
             colour = 'red',
             size = 2,
             lty = '11') +
-  geom_label(data = . %>% penguins_summary(),
+  geom_label(data = penguins_bad_summarized,
             aes(x = m,
                 y = 1,
                 label = m %>% round(1)),
             fill = 'white',
             colour = 'red',
             hjust = -0.2,
-            vjust = 0) +
-  guides(fill = 'none') +
-  facet_grid(rows = 'species')
+            vjust = 0)
 ```
 
 :::
 
-### - Standard Deviation
+### The SD of Adelie is influenced by the outlier
 
-::: {style="color:#6d07a8;"}
-
-$SD(x) = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left(x_i - \bar{x}\right)^2}$
-
-:::
- 
 ::: {style="height: 750px; width: 1000px;"}
  
 ```{r}
 #| echo: false
 #| fig.height: 7
 #| fig-width: 7
-penguins_bad %>% 
-  ggplot(aes(x = bill_depth_mm,
-             fill = species)) +
-  geom_histogram(binwidth = .4) +
-  geom_segment(data = . %>% 
-              group_by(species) %>% 
-              summarise(m = mean(bill_depth_mm, na.rm = T),
-                        sd = sd(bill_depth_mm, na.rm = T)),
+
+p +
+  geom_segment(data = penguins_bad_summarized,
             aes(x = m-sd/2,
                 xend = m+sd/2,
                 y = 15,
                 yend = 15),
             lty = '11',
-            colour = '#6d07a8',
+            colour = 'red',
             size = 2) +
-  geom_label(data = . %>% penguins_summary(),
+  geom_label(data = penguins_bad_summarized,
             aes(x = m,
                 y = 15,
                 label = sd %>% round(1)),
             fill = 'white',
-            colour = '#6d07a8',
+            colour = 'red',
             hjust = .5,
-            vjust = -.4) +
-  guides(fill = 'none') +
-  facet_grid(rows = 'species')
+            vjust = -.4) 
 ```
 
 :::
+
+# Median and Interquartile Range (IQR)
+
+
+
+
+
 
 ## Reference
 
