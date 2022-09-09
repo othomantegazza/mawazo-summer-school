@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.38">
 
   <meta name="author" content="Otho Mantegazza">
-  <title>Robust Statistics</title>
+  <title>Robust Summary Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -23,6 +23,70 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -319,17 +383,220 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Robust Statistics</h1>
+  <h1 class="title">Robust Summary Statistics</h1>
   <p class="author">Otho Mantegazza</p>
 </section>
 
-<section class="slide level2">
+<section>
+<section id="summary-statistics" class="title-slide slide level1 center">
+<h1>Summary Statistics</h1>
 
+</section>
+<section id="concise-summaries" class="slide level2">
+<h2>Concise summaries</h2>
+<p>When we mentioned the boxplot, we talked about robust summary statistics. First of all, what is a summary statistic?</p>
+<p>A Summary statistic describes a property of a distribution in one single number.</p>
+<p>For example:</p>
+<ul>
+<li>The <strong>mean</strong> represents the <strong>central tendency</strong> of a distribution.</li>
+<li>The <strong>standard deviation</strong> represents its <strong>dispersion</strong>.</li>
+</ul>
+<p><strong>None</strong> of these statistics is robust toward outliers.</p>
+</section>
+<section id="mean-and-standard-deviation" class="slide level2 scrollable">
+<h2>Mean and Standard Deviation</h2>
+<h3 id="mean">- Mean</h3>
+<div class="cell">
+
+</div>
+<div style="color:red;">
+<p><span class="math inline">\(mean(x) = \frac{1}{n} \sum_{i=i}^{n} x_{i}\)</span></p>
+</div>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-3-1.png" width="672"></p>
+</div>
+</div>
+</div>
+<h3 id="standatrd-deviation">- Standatrd Deviation</h3>
+<div style="color:red;">
+<p><span class="math inline">\(SD = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left(x_i - \bar{x}\right)^2}\)</span></p>
+</div>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-4-1.png" width="672"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="mean-and-sd-are-not-robust-to-outlier" class="slide level2">
+<h2>Mean and SD are not robust to outlier</h2>
+<p>What if I’m distracted and forget to write a comma when I collect the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>penguins<span class="sc">$</span>bill_depth_mm <span class="sc">%&gt;%</span> <span class="fu">range</span>(<span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.1 21.5</code></pre>
+</div>
+</div>
+<p>With this snipped we multiply the max value of <code>bill_depth_mm</code> by 10.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>penguins_bad <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>      <span class="at">bill_depth_mm =</span> bill_depth_mm <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5"></a>        {</span>
+<span id="cb3-6"><a href="#cb3-6"></a>          <span class="fu">if_else</span>(. <span class="sc">==</span> <span class="fu">max</span>(., <span class="at">na.rm =</span> T),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>                    <span class="at">true =</span> .<span class="sc">*</span><span class="dv">10</span>,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>                    <span class="at">false =</span> .)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        }</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With this chunk of code I’ve added an outlier at in the variable <code>bill_depth_mm</code> at 215 mm. Let’s see what happens.</p>
+<div class="cell">
+
+</div>
+</section>
+<section id="mean-and-sd-with-an-outlier-at-215-mm" class="slide level2 scrollable">
+<h2>Mean and SD with an outlier at 215 mm</h2>
+<p>I’ve added an outlier to the <code>Adelie</code> species, let’s see what happens graphically</p>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-8-1.png" width="672"></p>
+</div>
+</div>
+</div>
+<p>In the next plots I <strong>will not represent the outlier graphically</strong> because it stretches the x axis too much.</p>
+<p>Mean and SD are heavily influenced by the outlier.</p>
+<h3 id="the-mean-of-adelie-is-influenced-by-the-outlier-at-215-mm">The mean of Adelie is influenced by the outlier at 215 mm</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-9-1.png" width="672"></p>
+</div>
+</div>
+</div>
+<h3 id="the-sd-of-adelie-is-influenced-by-the-outlier-215-mm">The SD of Adelie is influenced by the outlier 215 mm</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="robust-summary-statistics" class="title-slide slide level1 center">
+<h1>Robust Summary Statistics</h1>
+
+</section>
+<section id="median-and-interquartile-range-iqr" class="slide level2">
+<h2>Median and Interquartile Range (IQR)</h2>
+<h3 id="median">Median</h3>
+<p>The median represents a the <strong>central tendency</strong> of a distribution, it is the value that splits the bigger 50% (half) of the data from the smaller half.</p>
+<h3 id="interquartile-range-iqr">Interquartile Range (IQR)</h3>
+<p>The IQR range represents how a distribution is <strong>dispersed</strong>, it is the range between the 1st and the 3rd quartile.</p>
+<ul>
+<li>The <strong>1st quartile</strong> splits the smaller 25% of a distribution from the rest.</li>
+<li>The <strong>3rd quartile</strong> splits the bigger 75% of a distribution from the rest.</li>
+</ul>
+</section>
+<section id="median-and-iqr-without-outlier" class="slide level2 scrollable">
+<h2>Median and IQR without outlier</h2>
+<h3 id="median-1">- Median</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-11-1.png" width="672"></p>
+</div>
+</div>
+</div>
+<h3 id="iqr">- IQR</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-12-1.png" width="672"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="median-and-iqr-with-an-outlier-at-215-mm" class="slide level2 scrollable">
+<h2>Median and IQR with an outlier at 215 mm</h2>
+<h3 id="the-median-is-not-influenced-by-the-outlier-at-215-mm">The median is not influenced by the outlier at 215 mm</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-13-1.png" width="672"></p>
+</div>
+</div>
+</div>
+<h3 id="the-median-is-not-influenced-by-the-outlier-at-215-mm-1">The median is not influenced by the outlier at 215 mm</h3>
+<div style="height: 750px; width: 1000px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="31-robust-stat_files/figure-revealjs/unnamed-chunk-14-1.png" width="672"></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="references" class="title-slide slide level1 center">
+<h1>References</h1>
+
+</section>
+<section id="referece---summaries" class="slide level2">
+<h2>Referece - Summaries</h2>
+<p>Summary statistic without outlier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>penguins_summarized</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  species       m    sd   med    q1    q3   iqr   mad
+  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Adelie     18.3 1.22   18.4  17.5  19    1.5   1.19
+2 Chinstrap  18.4 1.14   18.4  17.5  19.4  1.90  1.41
+3 Gentoo     15.0 0.981  15    14.2  15.7  1.5   1.19</code></pre>
+</div>
+</div>
+<p>Summary statistic with an outlier at 215 mm.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>penguins_bad_summarized</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  species       m     sd   med    q1    q3   iqr   mad
+  &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Adelie     19.6 16.0    18.4  17.5  19    1.5   1.19
+2 Chinstrap  18.4  1.14   18.4  17.5  19.4  1.90  1.41
+3 Gentoo     15.0  0.981  15    14.2  15.7  1.5   1.19</code></pre>
+</div>
+</div>
+</section>
+<section id="reference---functions" class="slide level2">
+<h2>Reference - Functions</h2>
+<ul>
+<li>Mean: <code>mean()</code></li>
+<li>Standard Deviation: <code>sd()</code></li>
+<li>Median: <code>median()</code> or <code>quantile()['50%']</code></li>
+<li>1st quartile: <code>quantile()['25%']</code></li>
+<li>3rd quartile: <code>quantile()['75%']</code></li>
+<li>IQR: <code>iqr()</code></li>
+</ul>
+<p>Use <code>na.rm = TRUE</code> with all those function to ignore <strong>missing values</strong>.</p>
+</section>
+<section id="take-home" class="slide level2">
+<h2>Take home</h2>
+<p>When we have many data, we often have to <strong>reduce</strong> them to simple indicators with summary statistics.</p>
+<p>No statisitic is perfect, some, such as mean and standard deviation are more precise, but they <strong>“break”</strong> easilt if the data with “non-ideal” data.</p>
+<p>Others are such as <strong>median</strong> and <strong>IQR</strong> are simpler and less sophisticated, but are better at capturing the essence of the data in “non-ideal” situation, i.e.&nbsp;<strong>robust</strong>.</p>
+<p>The word <strong>robust</strong> is often use to describe statistical methods. It means that the method is unlikely to break when the data are not perfect and the condition are worse than ideal.</p>
+<p><a href="https://rafalab.github.io/dsbook/robust-summaries.html">Read: Introduction to data science | Chapter 12 - Robust Summaries</a></p>
 
 <div class="footer footer-default">
 <p><a href="../index.html">Home</a> | <a href="https://www.summercompschool.mawazoinstitute.org/">2022 CBSER Summer School</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -541,6 +808,48 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
