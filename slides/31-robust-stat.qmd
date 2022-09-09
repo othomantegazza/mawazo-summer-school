@@ -1,13 +1,264 @@
 ---
-title: "Robust Statistics"
+title: "Robust Summary Statistics"
 author: "Otho Mantegazza"
 execute: 
   echo: true
 format:
   revealjs:
     theme: [simple, style/theme.scss]
-    incremental: true
     footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
 editor_options: 
   chunk_output_type: console
 ---
+
+```{r}
+#| include: false
+library(dplyr)
+library(readr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+library(readr)
+library(here)
+library(ggbeeswarm)
+
+theme_update(axis.title = element_text(size = 15),
+             axis.text = element_text(size = 15),
+             strip.text = element_text(size = 15))
+
+violet <- '#6d07a8'
+```
+
+# Summary Statistics
+
+## Concise summaries
+
+When we mentioned the boxplot, we talked about robust summary statistics. First of all, what is a summary statistic?
+
+A Summary statistic describes a property of a distribution in one single number.
+
+For example:
+
+- The **mean** represents the **central tendency** of a distribution.
+- The **standard deviation** represents its dispersion.
+
+**None** of these statistics is robust toward outliers.
+
+## Mean and Standard Deviation {.scrollable}
+
+### - Mean
+
+```{r}
+#| echo: false
+penguins_summary <- function(pengs) {
+  pengs %>% 
+    group_by(species) %>% 
+    summarise(m = mean(bill_depth_mm, na.rm = T),
+              sd = sd(bill_depth_mm, na.rm = T),
+              med = median(bill_depth_mm, na.rm = T),
+              iqr = IQR(bill_depth_mm, na.rm = T),
+              mad = mad(bill_depth_mm, na.rm = T))
+}
+
+penguins_summarized <- 
+  penguins %>% 
+  penguins_summary()
+
+p <- 
+  penguins %>% 
+  ggplot(aes(x = bill_depth_mm,
+             fill = species)) +
+  geom_histogram(binwidth = .4) +
+  labs(y = 'count') +
+  guides(fill = 'none') +
+  facet_grid(rows = 'species')
+```
+
+
+::: {style="color:red;"}
+
+$mean(x) = \frac{1}{n} \sum_{i=i}^{n} x_{i}$ 
+
+:::
+
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+
+p_mean <- 
+  p +
+  geom_vline(data = . %>% penguins_summary(),
+            aes(xintercept = m),
+            colour = 'red',
+            size = 2,
+            lty = '11') +
+  geom_label(data = . %>% penguins_summary(),
+            aes(x = m,
+                y = 1,
+                label = m %>% round(1)),
+            fill = 'white',
+            colour = 'red',
+            hjust = -0.2,
+            vjust = 0)
+
+p_mean
+```
+
+:::
+
+### - Standatrd Deviation
+
+::: {style="color:red;"}
+
+$SD = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left(x_i - \bar{x}\right)^2}$
+
+:::
+ 
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+
+p_sd <- 
+  p +
+  geom_segment(data = . %>% 
+              group_by(species) %>% 
+              summarise(m = mean(bill_depth_mm, na.rm = T),
+                        sd = sd(bill_depth_mm, na.rm = T)),
+            aes(x = m-sd/2,
+                xend = m+sd/2,
+                y = 15,
+                yend = 15),
+            lty = '11',
+            colour = 'red',
+            size = 2) +
+  geom_label(data = . %>% penguins_summary(),
+            aes(x = m,
+                y = 15,
+                label = sd %>% round(1)),
+            fill = 'white',
+            colour = 'red',
+            hjust = .5,
+            vjust = -.4) 
+p_sd
+```
+
+:::
+
+## Mean and SD are not robust to outlier
+
+What if I'm distracted and forget to write a comma when I collect the data.
+
+```{r}
+penguins$bill_depth_mm %>% range(na.rm = T)
+```
+
+With this snipped we multiply the max value of `bill_depth_mm` by 10.
+
+```{r}
+penguins_bad <- 
+  penguins %>% 
+    mutate(
+      bill_depth_mm = bill_depth_mm %>% 
+        {
+          if_else(. == max(., na.rm = T),
+                    true = .*10,
+                    false = .)
+        }
+    )
+```
+
+Let's see what happens to the mean and to the SD.
+
+## {.scrollable}
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+penguins_summary <- function(pengs) {
+  pengs %>% 
+    group_by(species) %>% 
+    summarise(m = mean(bill_depth_mm, na.rm = T),
+              sd = sd(bill_depth_mm, na.rm = T),
+              med = median(bill_depth_mm, na.rm = T),
+              mad = mad(bill_depth_mm, na.rm = T))
+}
+
+penguins_bad %>% 
+  ggplot(aes(x = bill_depth_mm,
+             fill = species)) +
+  geom_histogram(binwidth = .4) +
+  geom_vline(data = . %>% penguins_summary(),
+            aes(xintercept = m),
+            colour = 'red',
+            size = 2,
+            lty = '11') +
+  geom_label(data = . %>% penguins_summary(),
+            aes(x = m,
+                y = 1,
+                label = m %>% round(1)),
+            fill = 'white',
+            colour = 'red',
+            hjust = -0.2,
+            vjust = 0) +
+  guides(fill = 'none') +
+  facet_grid(rows = 'species')
+```
+
+:::
+
+### - Standard Deviation
+
+::: {style="color:#6d07a8;"}
+
+$SD(x) = \sqrt{\frac{1}{N-1} \sum_{i=1}^N \left(x_i - \bar{x}\right)^2}$
+
+:::
+ 
+::: {style="height: 750px; width: 1000px;"}
+ 
+```{r}
+#| echo: false
+#| fig.height: 7
+#| fig-width: 7
+penguins_bad %>% 
+  ggplot(aes(x = bill_depth_mm,
+             fill = species)) +
+  geom_histogram(binwidth = .4) +
+  geom_segment(data = . %>% 
+              group_by(species) %>% 
+              summarise(m = mean(bill_depth_mm, na.rm = T),
+                        sd = sd(bill_depth_mm, na.rm = T)),
+            aes(x = m-sd/2,
+                xend = m+sd/2,
+                y = 15,
+                yend = 15),
+            lty = '11',
+            colour = '#6d07a8',
+            size = 2) +
+  geom_label(data = . %>% penguins_summary(),
+            aes(x = m,
+                y = 15,
+                label = sd %>% round(1)),
+            fill = 'white',
+            colour = '#6d07a8',
+            hjust = .5,
+            vjust = -.4) +
+  guides(fill = 'none') +
+  facet_grid(rows = 'species')
+```
+
+:::
+
+## Reference
+
+https://rafalab.github.io/dsbook/robust-summaries.html
