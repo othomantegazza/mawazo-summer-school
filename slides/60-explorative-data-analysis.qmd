@@ -54,5 +54,316 @@ A set of AP2-like genes is associated with inflorescence branching and architect
 - [Paper](https://academic.oup.com/jxb/article/70/20/5617/5538968#supplementary-data)
 - [DOWNLOAD SUPPLEMENTARY TABLE S3 - 96Kb](https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/jxb/70/20/10.1093_jxb_erz340/1/erz340_suppl_supplementary_table_s3.xlsx?Expires=1665751089&Signature=FdtB9g67ZEnhTpZ4i9gUtQAl8OougNyi6k2JvxJJPUhg8kb-Su4RS0FdkGlvI7eQqb8WjVl0DEcLATVH0DspX5gB2Ri0MGwUjgPkht7-TuKbg39EZiGVBLF1eREDlu0a2~tSH-TfcHArHhEaBQaG8TvaN5bccn8-4lU-OVr7nEE9mmeVr~W3dLz2rODqQimvZawV9Uvd33uukyGYJ8X4J-VJjtZO7bBY0Hh12DDk95OY1Lv7aWhCcDJRQWi9inXtSzTNgL7iVAMwzW7WWximErO2RgxFP6krcvebYfBvSZsdwWBbfJYP46E4~XXPyI6g3~xehiy5uhbx71GaflUn2Q__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA) !It's a CSV file!
 
-## {}
+## {.scrollable}
+
+```{r}
+#| include: false
+
+library(dplyr)
+library(readr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+library(readr)
+library(here)
+library(stringr)
+library(broom)
+```
+
+```{r}
+rice <-  
+  here('data-int', 'rice.csv') %>% 
+  read_delim(delim = ';') %>% 
+  janitor::clean_names()
+```
+
+```{r}
+rice %>% 
+  glimpse()
+```
+
+```{r}
+rice %>% 
+  count(species, origine_continent, type_wild_cultivated)
+```
+
+- Ob: Oryza barthii | African | Wild
+- Og: Oryza glaberrima | African | Cultivated
+- Or: Oryza rufipogon | Asian | Wild
+- Os: Oryza sativa | Asian | Wild
+
+```{r}
+rice_colors <- 
+  c(Or = '#b5d4e9',
+    Os = '#1f74b4',
+    Ob = '#c0d787',
+    Og = '#349a37')
+```
+
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn)) +
+  geom_point()
+
+```
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn,
+             colour = species)) +
+  geom_point()
+```
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn,
+             colour = species)) +
+  geom_point(alpha = .4)
+``` 
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn,
+             colour = species)) +
+  geom_point(alpha = .4) +
+  facet_wrap(facets = 'species')
+```
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn)) +
+  geom_hex(bins = c(12, 3)) +
+  scale_fill_gradient(low = 'grey70', high = 'blue') +
+  facet_wrap(facets = 'species')
+```
+
+```{r}
+rice %>% 
+  select(species,
+         primary_branch_number_pbn,
+         secondary_branch_number_sbn) %>% 
+  pivot_longer(-species,
+               names_to = 'branch_type',
+               values_to = 'branch_count') %>% 
+  ggplot(aes(x = branch_type,
+             y = branch_count,
+             fill = species)) +
+  geom_boxplot()
+```
+
+
+```{r}
+rice %>% 
+  select(species,
+         primary_branch_number_pbn,
+         secondary_branch_number_sbn) %>% 
+  pivot_longer(-species,
+               names_to = 'branch_type',
+               values_to = 'branch_count') %>% 
+  ggplot(aes(x = branch_type,
+             y = branch_count,
+             fill = species)) +
+  geom_boxplot() +
+  scale_fill_manual(values = rice_colors)
+```
+
+# Linear Models
+
+# Linear Regression
+
+What is regression model?
+
+$$secondary_\branch\_number = intercept + slope * body\_mass\_g$$
+$$secondary\_branch\_number = intercept + slope * body\_mass\_g + error$$
+$$Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + error$$
+```{r}
+fit <- lm(secondary_branch_number_sbn ~ primary_branch_number_pbn, data = rice)
+```
+
+```{r}
+fit
+```
+
+```{r}
+fit %>% summary()
+```
+
+```{r}
+fit
+```
+
+```{r}
+```
+
+
+## Broom
+
+```{r}
+fit %>% glance()
+```
+
+```{r}
+fit_tidy <- fit %>% tidy()
+```
+
+```{r}
+fit_simple <- fit %>% augment()
+```
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn)) +
+  geom_point() +
+  geom_abline(intercept = fit_tidy$estimate[1],
+              slope = fit_tidy$estimate[2])
+```
+
+## Multiple Regression
+
+```{r}
+fit_multiple <- lm(
+  secondary_branch_number_sbn ~
+    species +
+    primary_branch_number_pbn,
+  data = rice)
+```
+
+```{r}
+fit_multiple %>%
+  glance()
+```
+
+```{r}
+anova(
+  fit,
+  fit_multiple
+)
+```
+
+```{r}
+
+```
+
+
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn,
+             colour = species)) +
+  geom_point(alpha = .4) +
+  geom_smooth(method = 'lm')
+
+```{r}
+fit_multiple_interaction <-
+  lm(secondary_branch_number_sbn ~
+       species +
+       primary_branch_number_pbn +
+       species*primary_branch_number_pbn,
+     data = rice)
+```
+
+```{r}
+anova(
+  fit,
+  fit_multiple,
+  fit_multiple_interaction
+)
+```
+
+
+```{r}
+fit_multiple %>% tidy()
+
+fit_multiple %>% augment()
+```
+
+```{r}
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = secondary_branch_number_sbn,
+             colour = species)) +
+  geom_point(alpha = .4) +
+  geom_smooth(method = 'lm')
+```
+
+```{r}
+rice_simple <- 
+  rice %>% 
+  sample_n(50)
+
+rice_simple %>% 
+  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
+  mutate(species = paste(species, 1:n())) %>% 
+  column_to_rownames('species') %>% 
+  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
+  dist() %>% 
+  hclust() %>% 
+  plot()
+```
+
+```{r}
+rice_simple %>% 
+  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
+  mutate(species = paste(species, 1:n())) %>% 
+  column_to_rownames('species') %>% 
+  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
+  as.matrix() %>% 
+  heatmap()
+```
+
+With superheat?
+
+```{r}
+rice_pc <- 
+  rice %>% 
+  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
+  mutate(species = paste(species, 1:n())) %>% 
+  column_to_rownames('species') %>% 
+  # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
+  prcomp(center = T, scale = T)
+  
+```
+
+```{r}
+rice_pc_data <- 
+  rice_pc %>% 
+  augment() %>% 
+  bind_cols(rice)
+```
+
+```{r}
+rice_pc_data %>% 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             colour = species)) +
+  geom_point() +
+  scale_color_manual(values = rice_colors)
+```
+
+```{r}
+rice_pc$sdev
+```
+
+
+```{r}
+rice_pc$rotation %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var = 'measurement') %>% 
+  pivot_longer(-measurement,
+               names_to = 'component',
+               values_to = 'rotation') %>% 
+  filter(component %in% c('PC1', 'PC2')) %>% 
+  ggplot(aes(y = measurement,
+             x = rotation)) +
+  geom_col() +
+  facet_grid(rows = vars(component)) 
+```
 
