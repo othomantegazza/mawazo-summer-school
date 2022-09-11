@@ -1,6 +1,6 @@
 ---
 title: 'Data Analysis in R'
-subtitle: '[Mawazo Institute- CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+subtitle: '[CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: 'Otho Mantegazza'
 format:
   html:
@@ -16,12 +16,13 @@ Introduction:
 Hands-on Lessons:
 
 1. [Meet R](slides/10-meet-r.html)
-2. [Manipulate Data](slides/20-manipulate.html)
-3. [Visualize Data](slides/30-visualize.html)
-3. [Robust Statistics](slides/31-robust-stat.html)
-4. [Get Data into R](slides/40-get.html)
-5. [Clean Data with R](slides/50-clean.html)
-6. [Explorative Data Analysis](slides/60-explorative-data-analysis.html)
+1. [Manipulate Data](slides/20-manipulate.html)
+1. [Visualize Data](slides/30-visualize.html)
+1. [Robust Statistics](slides/31-robust-stat.html)
+1. [Get Data into R](slides/40-get.html)
+1. [Clean Data with R](slides/50-clean.html)
+1. [Explorative Data Analysis](slides/60-explorative-data-analysis.html)
+1. [Explorative Statistical Models](slides/70-explorative-models.html)
 
 # Tools
 
@@ -94,3 +95,6 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 - Check out the [bookdown](https://bookdown.org/home/) repository for many more
 
+# Source Code
+
+The source code for this course is [available on Github](https://github.com/othomantegazza/mawazo-summer-school/).
