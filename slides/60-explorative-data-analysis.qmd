@@ -26,6 +26,10 @@ library(readr)
 library(here)
 library(stringr)
 library(broom)
+
+theme_update(axis.title = element_text(size = 15),
+             axis.text = element_text(size = 15),
+             strip.text = element_text(size = 15))
 ```
 
 # Putting it All Together
@@ -103,6 +107,8 @@ rice %>%
   count(species, origine_continent, type_wild_cultivated)
 ```
 
+## Goal of the paper
+
 Explore the phenotypic and transcripts of panicle development. 
 
 Traits of agronomic interest in the panicle:
@@ -111,24 +117,32 @@ Traits of agronomic interest in the panicle:
 - Number of Primary branches
 - Number of Seconday branches
 
-```{r}
-rice_colors <- 
-  c(Or = '#b5d4e9',
-    Os = '#1f74b4',
-    Ob = '#c0d787',
-    Og = '#349a37')
-```
+# Let's explore the data
+
+## {.scrollable}
 
 
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 5.5
+#| fig-width: 8.5
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = secondary_branch_number_sbn)) +
   geom_point()
 
 ```
+ 
+:::
 
+## {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 5.5
+#| fig-width: 9.2
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = secondary_branch_number_sbn,
@@ -136,7 +150,15 @@ rice %>%
   geom_point()
 ```
 
+:::
+
+## {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 5.5
+#| fig-width: 9.2
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = secondary_branch_number_sbn,
@@ -144,7 +166,15 @@ rice %>%
   geom_point(alpha = .4)
 ``` 
 
+:::
+
+## {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 7.5
+#| fig-width: 9.2
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = secondary_branch_number_sbn,
@@ -153,7 +183,16 @@ rice %>%
   facet_wrap(facets = 'species')
 ```
 
+:::
+
+## {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 7.5
+#| fig-width: 8.5
+
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = secondary_branch_number_sbn)) +
@@ -162,7 +201,15 @@ rice %>%
   facet_wrap(facets = 'species')
 ```
 
+:::
+
+## {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+ 
 ```{r}
+#| fig.height: 5.5
+#| fig-width: 8.5
 rice %>% 
   select(species,
          primary_branch_number_pbn,
@@ -176,8 +223,22 @@ rice %>%
   geom_boxplot()
 ```
 
+:::
+
+
+## {.scrollable}
+
+::: {style="height: 1000px; width: 1000px;"}
 
 ```{r}
+# define colors
+rice_colors <- 
+  c(Or = '#b5d4e9',
+    Os = '#1f74b4',
+    Ob = '#c0d787',
+    Og = '#349a37')
+
+# plot
 rice %>% 
   select(species,
          primary_branch_number_pbn,
@@ -191,6 +252,8 @@ rice %>%
   geom_boxplot() +
   scale_fill_manual(values = rice_colors)
 ```
+
+:::
 
 # Linear Models
 
