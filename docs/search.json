@@ -896,18 +896,144 @@
     "text": "Transcriptome and Phenotype of multiple Rice species\nA set of AP2-like genes is associated with inflorescence branching and architecture in domesticated rice.\n\n\nPaper\nDOWNLOAD SUPPLEMENTARY TABLE S3 - 96Kb !It’s a CSV file!"
   },
   {
+    "objectID": "slides/60-explorative-data-analysis.html#rice-accessions",
+    "href": "slides/60-explorative-data-analysis.html#rice-accessions",
+    "title": "Explorative Data Analysis",
+    "section": "4 rice accessions",
+    "text": "4 rice accessions\n\n\n\n\n\nspecies_id\nspecies\ncontinent\nstatus\n\n\n\n\nOb\nOryza barthii\nAfrican\nWild\n\n\nOg\nOryza glaberrima\nAfrican\nCultivated\n\n\nOr\nOryza rufipogon\nAsian\nWild\n\n\nOs\nOryza sativa\nAsian\nCultivated"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#lets-read-the-data",
+    "href": "slides/60-explorative-data-analysis.html#lets-read-the-data",
+    "title": "Explorative Data Analysis",
+    "section": "Let’s read the Data",
+    "text": "Let’s read the Data\n\nrice <-  \n   paste0('https://raw.githubusercontent.com/othomantegazza',\n           '/mawazo-summer-school/main/data-int/rice.csv') %>% \n  read_delim(delim = ';') %>% \n  janitor::clean_names()\n\n\nrice %>% \n  glimpse()\n\nRows: 1,140\nColumns: 18\n$ id                                                     <chr> \"Ob01\", \"Ob01\",…\n$ species                                                <chr> \"Ob\", \"Ob\", \"Ob…\n$ accession_name                                         <chr> \"B197\", \"B197\",…\n$ origine_continent                                      <chr> \"Africa\", \"Afri…\n$ type_wild_cultivated                                   <chr> \"Wild\", \"Wild\",…\n$ sowing_localisation                                    <chr> \"Cali-Colombia\"…\n$ replicate_nb_1_2                                       <dbl> 1, 1, 1, 1, 1, …\n$ plant_nb_1_to_3                                        <dbl> 1, 1, 1, 2, 2, …\n$ panicle_nb_1_to_3                                      <dbl> 1, 2, 3, 1, 2, …\n$ rachis_length_rl_in_cm                                 <dbl> 8.10, 6.51, 4.6…\n$ primary_branch_number_pbn                              <dbl> 5, 5, 4, 4, 4, …\n$ average_of_primary_branch_length_in_cm_pbl             <dbl> 6.73, 6.26, 6.9…\n$ average_of_internode_along_primary_branch_in_cm_pbil   <dbl> 2.03, 1.63, 1.5…\n$ secondary_branch_number_sbn                            <dbl> 5, 3, 2, 5, 1, …\n$ average_of_secondary_branch_length_in_cm_sbl           <dbl> 1.74, 1.51, 1.9…\n$ average_of_internode_along_secondary_branch_in_cm_sbil <dbl> 0.99, 0.72, 1.6…\n$ tertiary_branch_number_tbn                             <dbl> 0, 0, 0, 0, 0, …\n$ spikelet_number_sp_n                                   <dbl> 38, 38, 30, 35,…\n\n\n\nrice %>% \n  count(species, origine_continent, type_wild_cultivated)\n\n# A tibble: 4 × 4\n  species origine_continent type_wild_cultivated     n\n  <chr>   <chr>             <chr>                <int>\n1 Ob      Africa            Wild                   264\n2 Og      Africa            Cultivated             370\n3 Or      Asia              Wild                   215\n4 Os      Asia              Cultivated             291"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#goal-of-the-paper",
+    "href": "slides/60-explorative-data-analysis.html#goal-of-the-paper",
+    "title": "Explorative Data Analysis",
+    "section": "Goal of the paper",
+    "text": "Goal of the paper\nExplore the phenotypic and transcripts of panicle development.\nTraits of agronomic interest in the panicle:\n\nNumber of Spikelet,\nNumber of Primary branches\nNumber of Seconday branches"
+  },
+  {
     "objectID": "slides/60-explorative-data-analysis.html#section",
     "href": "slides/60-explorative-data-analysis.html#section",
     "title": "Explorative Data Analysis",
     "section": "",
-    "text": "Home | 2022 CBSER Summer School"
+    "text": "rice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn)) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-1",
+    "href": "slides/60-explorative-data-analysis.html#section-1",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "rice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-2",
+    "href": "slides/60-explorative-data-analysis.html#section-2",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "rice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point(alpha = .4)"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-3",
+    "href": "slides/60-explorative-data-analysis.html#section-3",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "rice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  facet_wrap(facets = 'species')"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-4",
+    "href": "slides/60-explorative-data-analysis.html#section-4",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "rice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn)) +\n  geom_hex(bins = c(12, 3)) +\n  scale_fill_gradient(low = 'grey70', high = 'blue') +\n  facet_wrap(facets = 'species')"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-5",
+    "href": "slides/60-explorative-data-analysis.html#section-5",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "rice %>% \n  select(species,\n         primary_branch_number_pbn,\n         secondary_branch_number_sbn) %>% \n  pivot_longer(-species,\n               names_to = 'branch_type',\n               values_to = 'branch_count') %>% \n  ggplot(aes(x = branch_type,\n             y = branch_count,\n             fill = species)) +\n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#section-6",
+    "href": "slides/60-explorative-data-analysis.html#section-6",
+    "title": "Explorative Data Analysis",
+    "section": "",
+    "text": "# define colors\nrice_colors <- \n  c(Or = '#b5d4e9',\n    Os = '#1f74b4',\n    Ob = '#c0d787',\n    Og = '#349a37')\n\n# plot\nrice %>% \n  select(species,\n         primary_branch_number_pbn,\n         secondary_branch_number_sbn) %>% \n  pivot_longer(-species,\n               names_to = 'branch_type',\n               values_to = 'branch_count') %>% \n  ggplot(aes(x = branch_type,\n             y = branch_count,\n             fill = species)) +\n  geom_boxplot() +\n  scale_fill_manual(values = rice_colors)"
+  },
+  {
+    "objectID": "slides/60-explorative-data-analysis.html#exercise",
+    "href": "slides/60-explorative-data-analysis.html#exercise",
+    "title": "Explorative Data Analysis",
+    "section": "Exercise",
+    "text": "Exercise\nExplore the rice panicle dataset.\nHow are the measured variable distributed? Do they correlate with each other?\nCan you find some of the traits that mark the differences between wild and domesticated varieties? And what about the differences between the Asian and African varieties.\nDid you manage to anwser all your questions with summary statistics and graphics? Note down questions that are still open and that you think should be tackled with more advanced statistics.\n\n\nHome | 2022 CBSER Summer School"
+  },
+  {
+    "objectID": "slides/70-explorative-models.html#lets-read-the-data",
+    "href": "slides/70-explorative-models.html#lets-read-the-data",
+    "title": "Explorative Models",
+    "section": "Let’s read the Data",
+    "text": "Let’s read the Data\n\nrice <-  \n   paste0('https://raw.githubusercontent.com/othomantegazza',\n           '/mawazo-summer-school/main/data-int/rice.csv') %>% \n  read_delim(delim = ';') %>% \n  janitor::clean_names()\n\n\n# define colors\nrice_colors <- \n  c(Or = '#b5d4e9',\n    Os = '#1f74b4',\n    Ob = '#c0d787',\n    Og = '#349a37')"
+  },
+  {
+    "objectID": "slides/70-explorative-models.html#broom",
+    "href": "slides/70-explorative-models.html#broom",
+    "title": "Explorative Models",
+    "section": "Broom",
+    "text": "Broom\n\nfit %>% glance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squ…¹ sigma stati…²   p.value    df logLik   AIC   BIC devia…³\n      <dbl>       <dbl> <dbl>   <dbl>     <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>\n1     0.435       0.434  11.6    876. 3.07e-143     1 -4408. 8822. 8837. 152346.\n# … with 2 more variables: df.residual <int>, nobs <int>, and abbreviated\n#   variable names ¹​adj.r.squared, ²​statistic, ³​deviance\n# ℹ Use `colnames()` to see all variable names\n\n\n\nfit_tidy <- fit %>% tidy()\n\n\nfit_simple <- fit %>% augment()\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn)) +\n  geom_point() +\n  geom_abline(intercept = fit_tidy$estimate[1],\n              slope = fit_tidy$estimate[2])"
+  },
+  {
+    "objectID": "slides/70-explorative-models.html#multiple-regression",
+    "href": "slides/70-explorative-models.html#multiple-regression",
+    "title": "Explorative Models",
+    "section": "Multiple Regression",
+    "text": "Multiple Regression\n\nfit_multiple <- lm(\n  secondary_branch_number_sbn ~\n    species +\n    primary_branch_number_pbn,\n  data = rice)\n\n\nfit_multiple %>%\n  glance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squ…¹ sigma stati…²   p.value    df logLik   AIC   BIC devia…³\n      <dbl>       <dbl> <dbl>   <dbl>     <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>\n1     0.733       0.732  7.96    780. Inf.e-324     4 -3980. 7972. 8003.  71944.\n# … with 2 more variables: df.residual <int>, nobs <int>, and abbreviated\n#   variable names ¹​adj.r.squared, ²​statistic, ³​deviance\n# ℹ Use `colnames()` to see all variable names\n\n\n\nanova(\n  fit,\n  fit_multiple\n)\n\nAnalysis of Variance Table\n\nModel 1: secondary_branch_number_sbn ~ primary_branch_number_pbn\nModel 2: secondary_branch_number_sbn ~ species + primary_branch_number_pbn\n  Res.Df    RSS Df Sum of Sq      F    Pr(>F)    \n1   1138 152346                                  \n2   1135  71944  3     80402 422.81 < 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\nrice %>% ggplot(aes(x = primary_branch_number_pbn, y = secondary_branch_number_sbn, colour = species)) + geom_point(alpha = .4) + geom_smooth(method = ‘lm’)\n\nfit_multiple_interaction <-\n  lm(secondary_branch_number_sbn ~\n       species +\n       primary_branch_number_pbn +\n       species*primary_branch_number_pbn,\n     data = rice)\n\n\nanova(\n  fit,\n  fit_multiple,\n  fit_multiple_interaction\n)\n\nAnalysis of Variance Table\n\nModel 1: secondary_branch_number_sbn ~ primary_branch_number_pbn\nModel 2: secondary_branch_number_sbn ~ species + primary_branch_number_pbn\nModel 3: secondary_branch_number_sbn ~ species + primary_branch_number_pbn + \n    species * primary_branch_number_pbn\n  Res.Df    RSS Df Sum of Sq        F Pr(>F)    \n1   1138 152346                                 \n2   1135  71944  3     80402 422.4313 <2e-16 ***\n3   1132  71818  3       126   0.6645 0.5739    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\nfit_multiple %>% tidy()\n\n# A tibble: 5 × 5\n  term                      estimate std.error statistic   p.value\n  <chr>                        <dbl>     <dbl>     <dbl>     <dbl>\n1 (Intercept)                  -1.79    0.683      -2.63 8.76e-  3\n2 speciesOg                    10.7     0.884      12.1  6.21e- 32\n3 speciesOr                    -2.02    0.769      -2.62 8.82e-  3\n4 speciesOs                    24.0     0.870      27.6  1.48e-128\n5 primary_branch_number_pbn     1.31    0.0946     13.8  2.87e- 40\n\nfit_multiple %>% augment()\n\n# A tibble: 1,140 × 9\n   secondary_bra…¹ species prima…² .fitted .resid    .hat .sigma .cooksd .std.…³\n             <dbl> <chr>     <dbl>   <dbl>  <dbl>   <dbl>  <dbl>   <dbl>   <dbl>\n 1               5 Ob            5    4.74  0.259 0.00379   7.97 8.10e-7  0.0326\n 2               3 Ob            5    4.74 -1.74  0.00379   7.96 3.65e-5 -0.219 \n 3               2 Ob            4    3.43 -1.43  0.00394   7.97 2.57e-5 -0.180 \n 4               5 Ob            4    3.43  1.57  0.00394   7.96 3.07e-5  0.197 \n 5               1 Ob            4    3.43 -2.43  0.00394   7.96 7.42e-5 -0.306 \n 6               2 Ob            4    3.43 -1.43  0.00394   7.97 2.57e-5 -0.180 \n 7               3 Ob            4    3.43 -0.434 0.00394   7.97 2.36e-6 -0.0546\n 8               1 Ob            3    2.13 -1.13  0.00437   7.97 1.77e-5 -0.142 \n 9               4 Ob            3    2.13  1.87  0.00437   7.96 4.88e-5  0.236 \n10               3 Ob            6    6.05 -3.05  0.00392   7.96 1.16e-4 -0.384 \n# … with 1,130 more rows, and abbreviated variable names\n#   ¹​secondary_branch_number_sbn, ²​primary_branch_number_pbn, ³​.std.resid\n# ℹ Use `print(n = ...)` to see more rows\n\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  geom_smooth(method = 'lm')\n\n\n\n\n\nrice_simple <- \n  rice %>% \n  sample_n(50)\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  dist() %>% \n  hclust() %>% \n  plot()\n\n\n\n\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  as.matrix() %>% \n  heatmap()\n\n\n\n\nWith superheat?\n\nrice_pc <- \n  rice %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  prcomp(center = T, scale = T)\n\n\nrice_pc_data <- \n  rice_pc %>% \n  augment() %>% \n  bind_cols(rice)\n\n\nrice_pc_data %>% \n  ggplot(aes(x = .fittedPC1,\n             y = .fittedPC2,\n             colour = species)) +\n  geom_point() +\n  scale_color_manual(values = rice_colors)\n\n\n\n\n\nrice_pc$sdev\n\n[1] 2.0456555 1.2842683 1.0533272 0.9646701 0.7491605 0.5211812 0.4553862\n[8] 0.2487671 0.1540413\n\n\n\nrice_pc$rotation %>% \n  as.data.frame() %>% \n  rownames_to_column(var = 'measurement') %>% \n  pivot_longer(-measurement,\n               names_to = 'component',\n               values_to = 'rotation') %>% \n  filter(component %in% c('PC1', 'PC2')) %>% \n  ggplot(aes(y = measurement,\n             x = rotation)) +\n  geom_col() +\n  facet_grid(rows = vars(component))"
+  },
+  {
+    "objectID": "slides/70-explorative-models.html#exercise",
+    "href": "slides/70-explorative-models.html#exercise",
+    "title": "Explorative Models",
+    "section": "Exercise",
+    "text": "Exercise\n\n\nHome | 2022 CBSER Summer School"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction"
+    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis"
+  },
+  {
+    "objectID": "index.html#r-and-rstudio",
+    "href": "index.html#r-and-rstudio",
+    "title": "Data Analysis in R",
+    "section": "R and Rstudio",
+    "text": "R and Rstudio\nYou can run within Visual Studio Code, in the docker container provided by the summer school organizers.\nOtherwise, you can also:\n\nInstall R from CRAN.\nInstall the Rstudio interface.\n\nRemeber! R works with packages."
+  },
+  {
+    "objectID": "index.html#install-a-package",
+    "href": "index.html#install-a-package",
+    "title": "Data Analysis in R",
+    "section": "Install a package",
+    "text": "Install a package\nFirst install the package with install.packages() (you only have to do it once)."
+  },
+  {
+    "objectID": "index.html#load-a-package",
+    "href": "index.html#load-a-package",
+    "title": "Data Analysis in R",
+    "section": "Load a package",
+    "text": "Load a package\nThen load it with library(), to make it’s functions available. (you have to do it at the beginning of each of your scripts)."
+  },
+  {
+    "objectID": "index.html#packages-that-we-are-going-to-use",
+    "href": "index.html#packages-that-we-are-going-to-use",
+    "title": "Data Analysis in R",
+    "section": "Packages that we are going to use:",
+    "text": "Packages that we are going to use:\nPlease install this packages:\ninstall.packages(c('tidyverse', 'palmerpenguins', 'here', 'broom', 'janitor'))\nand place this snippet of code in front of all your scripts.\nlibrary(tidyverse)\nlibrary(here)\nlibrary(palmerpenguins)\nlibrary(broom)\nlibrary(janitor)"
   },
   {
     "objectID": "index.html#r",
