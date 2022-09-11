@@ -231,6 +231,9 @@ rice %>%
 ::: {style="height: 1000px; width: 1000px;"}
 
 ```{r}
+#| fig.height: 5.5
+#| fig-width: 8.5
+
 # define colors
 rice_colors <- 
   c(Or = '#b5d4e9',

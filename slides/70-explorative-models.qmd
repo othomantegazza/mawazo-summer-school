@@ -31,26 +31,6 @@ theme_update(axis.title = element_text(size = 15),
              strip.text = element_text(size = 15))
 ```
 
-# Why Statistical Models
-
-
-## Why?
-
-When we look for **insights** in complex datasets, sometimes we want to know:
-
-- Is there a **multivariate pattern** in the data? One that is evident only when we compare multiple variables at once.
-- Are the patterns that we observe in data there **by chance**? Or are they **caused** by something.
-
-## Which models?
-
-### Supervised models
-
-We will use **linear models**, to see if the number of primary and secondary branches could be useful to **"predict"** the number of spikelets. 
-
-## Unsupervised models
-
-We will use **clustering** and **Principal Component Analysis** to detect multivariate patterns in the data.
-
 ## Data
 
 We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968).
@@ -71,17 +51,77 @@ rice_colors <-
     Og = '#349a37')
 ```
 
+
+# Why Statistical Models
+
+
+## Why?
+
+When we look for **insights** in complex datasets, sometimes we want to know:
+
+- Is there a **multivariate pattern** in the data? One that is evident only when we compare multiple variables at once.
+- Are the patterns that we observe in data there **by chance**? Or are they **caused** by something.
+
+## Which models?
+
+### Supervised models
+
+We will use **linear models** to see if we could **"predict"** the number of secondary branches from the number primary branches. 
+
+### Unsupervised models
+
+We will use **clustering** and **Principal Component Analysis** to detect multivariate patterns in the data.
+
+
 # Linear Models
 
-# Linear Regression
+## Primary branches and spikelets {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+
+```{r}
+#| fig.height: 5.5
+#| fig-width: 8.5
+
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = spikelet_number_sp_n,
+             colour = species)) +
+  geom_point(alpha = .4) 
+```
+
+:::
+
+## Primary branches and spikelets {.scrollable}
+
+::: {style="height: 700px; width: 1000px;"}
+
+```{r}
+#| fig.height: 7.5
+#| fig-width: 8.5
+
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = spikelet_number_sp_n,
+             colour = species)) +
+  geom_point(alpha = .4) +
+  facet_wrap(facets = 'species')
+```
+
+:::
+
+
+
+## Linear Regression {.scrollable}
+
 
 What is regression model?
 
-$$secondary_\branch\_number = intercept + slope * body\_mass\_g$$
+$$secondary\_branch\_number = intercept + slope * body\_mass\_g$$
 $$secondary\_branch\_number = intercept + slope * body\_mass\_g + error$$
 $$Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + error$$
 ```{r}
-fit <- lm(secondary_branch_number_sbn ~ primary_branch_number_pbn, data = rice)
+fit <- lm(spikelet_number_sp_n ~ primary_branch_number_pbn, data = rice)
 ```
 
 ```{r}
@@ -117,7 +157,7 @@ fit_simple <- fit %>% augment()
 ```{r}
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
-             y = secondary_branch_number_sbn)) +
+             y = spikelet_number_sp_n)) +
   geom_point() +
   geom_abline(intercept = fit_tidy$estimate[1],
               slope = fit_tidy$estimate[2])
@@ -127,7 +167,7 @@ rice %>%
 
 ```{r}
 fit_multiple <- lm(
-  secondary_branch_number_sbn ~
+  spikelet_number_sp_n ~
     species +
     primary_branch_number_pbn,
   data = rice)
@@ -159,7 +199,7 @@ rice %>%
 
 ```{r}
 fit_multiple_interaction <-
-  lm(secondary_branch_number_sbn ~
+  lm(spikelet_number_sp_n ~
        species +
        primary_branch_number_pbn +
        species*primary_branch_number_pbn,
