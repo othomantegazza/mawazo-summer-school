@@ -12,6 +12,22 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| include: false
+
+library(dplyr)
+library(readr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+library(readr)
+library(here)
+library(stringr)
+library(broom)
+```
+
 # Putting it All Together
 
 ## The steps of EDA
@@ -54,27 +70,25 @@ A set of AP2-like genes is associated with inflorescence branching and architect
 - [Paper](https://academic.oup.com/jxb/article/70/20/5617/5538968#supplementary-data)
 - [DOWNLOAD SUPPLEMENTARY TABLE S3 - 96Kb](https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/jxb/70/20/10.1093_jxb_erz340/1/erz340_suppl_supplementary_table_s3.xlsx?Expires=1665751089&Signature=FdtB9g67ZEnhTpZ4i9gUtQAl8OougNyi6k2JvxJJPUhg8kb-Su4RS0FdkGlvI7eQqb8WjVl0DEcLATVH0DspX5gB2Ri0MGwUjgPkht7-TuKbg39EZiGVBLF1eREDlu0a2~tSH-TfcHArHhEaBQaG8TvaN5bccn8-4lU-OVr7nEE9mmeVr~W3dLz2rODqQimvZawV9Uvd33uukyGYJ8X4J-VJjtZO7bBY0Hh12DDk95OY1Lv7aWhCcDJRQWi9inXtSzTNgL7iVAMwzW7WWximErO2RgxFP6krcvebYfBvSZsdwWBbfJYP46E4~XXPyI6g3~xehiy5uhbx71GaflUn2Q__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA) !It's a CSV file!
 
-## {.scrollable}
+## 4 rice accessions
 
 ```{r}
-#| include: false
-
-library(dplyr)
-library(readr)
-library(magrittr)
-library(tidyr)
-library(palmerpenguins)
-library(tibble)
-library(ggplot2)
-library(readr)
-library(here)
-library(stringr)
-library(broom)
+#| echo: false
+tribble(
+  ~species_id, ~species, ~continent, ~status,
+   'Ob', 'Oryza barthii', 'African', 'Wild',
+   'Og', 'Oryza glaberrima', 'African', 'Cultivated',
+   'Or', 'Oryza rufipogon', 'Asian', 'Wild',
+   'Os', 'Oryza sativa', 'Asian', 'Cultivated'
+) %>% knitr::kable()
 ```
+
+## Let's read the Data {.scrollable}
 
 ```{r}
 rice <-  
-  here('data-int', 'rice.csv') %>% 
+   paste0('https://raw.githubusercontent.com/othomantegazza',
+           '/mawazo-summer-school/main/data-int/rice.csv') %>% 
   read_delim(delim = ';') %>% 
   janitor::clean_names()
 ```
@@ -89,10 +103,13 @@ rice %>%
   count(species, origine_continent, type_wild_cultivated)
 ```
 
-- Ob: Oryza barthii | African | Wild
-- Og: Oryza glaberrima | African | Cultivated
-- Or: Oryza rufipogon | Asian | Wild
-- Os: Oryza sativa | Asian | Wild
+Explore the phenotypic and transcripts of panicle development. 
+
+Traits of agronomic interest in the panicle:
+
+- Number of Spikelet,
+- Number of Primary branches
+- Number of Seconday branches
 
 ```{r}
 rice_colors <- 
