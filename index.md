@@ -2,13 +2,18 @@
 title: 'Data Analysis in R'
 subtitle: '[Mawazo Institute- CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
 author: 'Otho Mantegazza'
+format:
+  html:
+    toc: true
 ---
 
-# Introduction
+# Slides
+
+Introduction:
 
 1. [Introduction](slides/00-intro.html)
 
-# Hands-on Lessons 
+Hands-on Lessons:
 
 1. [Meet R](slides/10-meet-r.html)
 2. [Manipulate Data](slides/20-manipulate.html)
@@ -20,12 +25,46 @@ author: 'Otho Mantegazza'
 
 # Tools
 
+## R and Rstudio
+
 You can run within Visual Studio Code, in the docker container provided by the summer school organizers.
 
 Otherwise, you can also:
 
 - Install R from [CRAN](https://cran.r-project.org/).
 - Install the [Rstudio](https://www.rstudio.com/) interface. 
+
+
+Remeber! R works with packages.
+
+## Install a package
+
+First install the package with `install.packages()` (you only have to do it once).
+
+
+## Load a package
+
+Then load it with `library()`, to make it's functions available. (you have to do it at the beginning of each of your scripts).
+
+
+
+## Packages that we are going to use:
+
+Please install this packages:
+
+```r
+install.packages(c('tidyverse', 'palmerpenguins', 'here', 'broom', 'janitor'))
+```
+
+and place this snippet of code in front of all your scripts.
+
+```r
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(broom)
+library(janitor)
+```
 
 # Books
 
