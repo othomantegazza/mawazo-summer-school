@@ -375,13 +375,6 @@
     "href": "slides/20-manipulate.html#exercise-2",
     "title": "Manipulate Data",
     "section": "Exercise",
-    "text": "Exercise\nMove all the defined variable of the penguins dataset (species, island, sex, year) to the left of the measured variables.\nDoes any of the defined variables has missing data? In case remove the corresponding row.\nThen group the dataset by all of those variable defined variables and estimate the minimum for each measured variable of each group."
-  },
-  {
-    "objectID": "slides/20-manipulate.html#exercise-3",
-    "href": "slides/20-manipulate.html#exercise-3",
-    "title": "Manipulate Data",
-    "section": "Exercise",
     "text": "Exercise\nHow many penguins have bill_length_mm above average?\nRepeat the analysis for each species.\n\n\nHome | 2022 CBSER Summer School"
   },
   {
