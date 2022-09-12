@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.38">
 
   <meta name="author" content="Otho Mantegazza">
-  <title>Explorative Models</title>
+  <title>Explore your Data with Models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -383,12 +383,13 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Explorative Models</h1>
+  <h1 class="title">Explore your Data with Models</h1>
   <p class="author">Otho Mantegazza</p>
 </section>
 
-<section id="lets-read-the-data" class="slide level2 scrollable">
-<h2>Let’s read the Data</h2>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<p>We will keep working on the <a href="https://academic.oup.com/jxb/article/70/20/5617/5538968">rice dataset</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>rice <span class="ot">&lt;-</span>  </span>
 <span id="cb1-2"><a href="#cb1-2"></a>   <span class="fu">paste0</span>(<span class="st">'https://raw.githubusercontent.com/othomantegazza'</span>,</span>
@@ -405,69 +406,119 @@
 <span id="cb1-13"><a href="#cb1-13"></a>    <span class="at">Og =</span> <span class="st">'#349a37'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section>
+<section id="why-statistical-models" class="title-slide slide level1 center">
+<h1>Why Statistical Models</h1>
+
+</section>
+<section id="why" class="slide level2">
+<h2>Why?</h2>
+<p>When we look for <strong>insights</strong> in complex datasets, sometimes we want to know:</p>
+<ul>
+<li>Is there a <strong>multivariate pattern</strong> in the data? One that is evident only when we compare multiple variables at once.</li>
+<li>Are the patterns that we observe in data there <strong>by chance</strong>? Or are they <strong>caused</strong> by something.</li>
+</ul>
+</section>
+<section id="which-models" class="slide level2">
+<h2>Which models?</h2>
+<h3 id="supervised-models">Supervised models</h3>
+<p>We will use <strong>linear models</strong> to see if we could <strong>“predict”</strong> the number of secondary branches from the number primary branches.</p>
+<h3 id="unsupervised-models">Unsupervised models</h3>
+<p>We will use <strong>clustering</strong> and <strong>Principal Component Analysis</strong> to detect multivariate patterns in the data.</p>
+</section></section>
+<section>
 <section id="linear-models" class="title-slide slide level1 center">
 <h1>Linear Models</h1>
 
 </section>
-
-<section>
-<section id="linear-regression" class="title-slide slide level1 center">
-<h1>Linear Regression</h1>
+<section id="primary-branches-and-spikelets" class="slide level2 scrollable">
+<h2>Primary branches and spikelets</h2>
+<div style="height: 700px; width: 1000px;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>             <span class="at">y =</span> spikelet_number_sp_n,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-3-1.png" width="816"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="primary-branches-and-spikelets-1" class="slide level2 scrollable">
+<h2>Primary branches and spikelets</h2>
+<div style="height: 700px; width: 1000px;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>             <span class="at">y =</span> spikelet_number_sp_n,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-4-1.png" width="816"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-regression" class="slide level2 scrollable">
+<h2>Linear Regression</h2>
 <p>What is regression model?</p>
-<p><span class="math display">\[secondary_\branch\_number = intercept + slope * body\_mass\_g\]</span></p>
+<p><span class="math display">\[secondary\_branch\_number = intercept + slope * body\_mass\_g\]</span></p>
 <p><span class="math display">\[secondary\_branch\_number = intercept + slope * body\_mass\_g + error\]</span></p>
 <p><span class="math display">\[Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + error\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(secondary_branch_number_sbn <span class="sc">~</span> primary_branch_number_pbn, <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(spikelet_number_sp_n <span class="sc">~</span> primary_branch_number_pbn, <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = secondary_branch_number_sbn ~ primary_branch_number_pbn, 
+lm(formula = spikelet_number_sp_n ~ primary_branch_number_pbn, 
     data = rice)
 
 Coefficients:
               (Intercept)  primary_branch_number_pbn  
-                   -6.153                      2.805  </code></pre>
+                   -20.44                      15.60  </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fit <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>fit <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = secondary_branch_number_sbn ~ primary_branch_number_pbn, 
+lm(formula = spikelet_number_sp_n ~ primary_branch_number_pbn, 
     data = rice)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--35.918  -7.492  -2.066   5.758  40.496 
+-134.11  -28.79  -11.35   19.07  209.47 
 
 Coefficients:
                           Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)               -6.15317    0.92508  -6.652  4.5e-11 ***
-primary_branch_number_pbn  2.80474    0.09476  29.598  &lt; 2e-16 ***
+(Intercept)               -20.4391     4.0043  -5.104 3.89e-07 ***
+primary_branch_number_pbn  15.5966     0.4102  38.023  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 11.57 on 1138 degrees of freedom
-Multiple R-squared:  0.435, Adjusted R-squared:  0.4345 
-F-statistic:   876 on 1 and 1138 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 50.08 on 1138 degrees of freedom
+Multiple R-squared:  0.5596,    Adjusted R-squared:  0.5592 
+F-statistic:  1446 on 1 and 1138 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = secondary_branch_number_sbn ~ primary_branch_number_pbn, 
+lm(formula = spikelet_number_sp_n ~ primary_branch_number_pbn, 
     data = rice)
 
 Coefficients:
               (Intercept)  primary_branch_number_pbn  
-                   -6.153                      2.805  </code></pre>
+                   -20.44                      15.60  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -477,68 +528,68 @@ Coefficients:
 <section id="broom" class="slide level2">
 <h2>Broom</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit <span class="sc">%&gt;%</span> <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
-  r.squared adj.r.squ…¹ sigma stati…²   p.value    df logLik   AIC   BIC devia…³
-      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     0.435       0.434  11.6    876. 3.07e-143     1 -4408. 8822. 8837. 152346.
+  r.squared adj.r.s…¹ sigma stati…²   p.value    df logLik    AIC    BIC devia…³
+      &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     0.560     0.559  50.1   1446. 7.52e-205     1 -6078. 12162. 12177.  2.85e6
 # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance
 # ℹ Use `colnames()` to see all variable names</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit_tidy <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>fit_tidy <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit_simple <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> <span class="fu">augment</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit_simple <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> <span class="fu">augment</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>rice <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
-<span id="cb13-3"><a href="#cb13-3"></a>             <span class="at">y =</span> secondary_branch_number_sbn)) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> fit_tidy<span class="sc">$</span>estimate[<span class="dv">1</span>],</span>
-<span id="cb13-6"><a href="#cb13-6"></a>              <span class="at">slope =</span> fit_tidy<span class="sc">$</span>estimate[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>             <span class="at">y =</span> spikelet_number_sp_n)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> fit_tidy<span class="sc">$</span>estimate[<span class="dv">1</span>],</span>
+<span id="cb15-6"><a href="#cb15-6"></a>              <span class="at">slope =</span> fit_tidy<span class="sc">$</span>estimate[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section id="multiple-regression" class="slide level2">
 <h2>Multiple Regression</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  secondary_branch_number_sbn <span class="sc">~</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>    species <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>    primary_branch_number_pbn,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  spikelet_number_sp_n <span class="sc">~</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>    species <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>    primary_branch_number_pbn,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>fit_multiple <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit_multiple <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">glance</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
-  r.squared adj.r.squ…¹ sigma stati…²   p.value    df logLik   AIC   BIC devia…³
-      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     0.733       0.732  7.96    780. Inf.e-324     4 -3980. 7972. 8003.  71944.
+  r.squared adj.r.squ…¹ sigma stati…² p.value    df logLik    AIC    BIC devia…³
+      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     0.766       0.766  36.5    931.       0     4 -5717. 11445. 11475.  1.51e6
 # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance
 # ℹ Use `colnames()` to see all variable names</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">anova</span>(</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  fit,</span>
-<span id="cb17-3"><a href="#cb17-3"></a>  fit_multiple</span>
-<span id="cb17-4"><a href="#cb17-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">anova</span>(</span>
+<span id="cb19-2"><a href="#cb19-2"></a>  fit,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  fit_multiple</span>
+<span id="cb19-4"><a href="#cb19-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: secondary_branch_number_sbn ~ primary_branch_number_pbn
-Model 2: secondary_branch_number_sbn ~ species + primary_branch_number_pbn
-  Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-1   1138 152346                                  
-2   1135  71944  3     80402 422.81 &lt; 2.2e-16 ***
+Model 1: spikelet_number_sp_n ~ primary_branch_number_pbn
+Model 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn
+  Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+1   1138 2854478                                  
+2   1135 1513427  3   1341051 335.24 &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -548,154 +599,154 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>rice %&gt;% ggplot(aes(x = primary_branch_number_pbn, y = secondary_branch_number_sbn, colour = species)) + geom_point(alpha = .4) + geom_smooth(method = ‘lm’)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>fit_multiple_interaction <span class="ot">&lt;-</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">lm</span>(secondary_branch_number_sbn <span class="sc">~</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>       species <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>       primary_branch_number_pbn <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>       species<span class="sc">*</span>primary_branch_number_pbn,</span>
-<span id="cb19-6"><a href="#cb19-6"></a>     <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit_multiple_interaction <span class="ot">&lt;-</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">lm</span>(spikelet_number_sp_n <span class="sc">~</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>       species <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>       primary_branch_number_pbn <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>       species<span class="sc">*</span>primary_branch_number_pbn,</span>
+<span id="cb21-6"><a href="#cb21-6"></a>     <span class="at">data =</span> rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">anova</span>(</span>
-<span id="cb20-2"><a href="#cb20-2"></a>  fit,</span>
-<span id="cb20-3"><a href="#cb20-3"></a>  fit_multiple,</span>
-<span id="cb20-4"><a href="#cb20-4"></a>  fit_multiple_interaction</span>
-<span id="cb20-5"><a href="#cb20-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">anova</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  fit,</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  fit_multiple,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  fit_multiple_interaction</span>
+<span id="cb22-5"><a href="#cb22-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: secondary_branch_number_sbn ~ primary_branch_number_pbn
-Model 2: secondary_branch_number_sbn ~ species + primary_branch_number_pbn
-Model 3: secondary_branch_number_sbn ~ species + primary_branch_number_pbn + 
+Model 1: spikelet_number_sp_n ~ primary_branch_number_pbn
+Model 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn
+Model 3: spikelet_number_sp_n ~ species + primary_branch_number_pbn + 
     species * primary_branch_number_pbn
-  Res.Df    RSS Df Sum of Sq        F Pr(&gt;F)    
-1   1138 152346                                 
-2   1135  71944  3     80402 422.4313 &lt;2e-16 ***
-3   1132  71818  3       126   0.6645 0.5739    
+  Res.Df     RSS Df Sum of Sq        F Pr(&gt;F)    
+1   1138 2854478                                 
+2   1135 1513427  3   1341051 337.0531 &lt;2e-16 ***
+3   1132 1501316  3     12111   3.0439  0.028 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit_multiple <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit_multiple <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 5
   term                      estimate std.error statistic   p.value
   &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)                  -1.79    0.683      -2.63 8.76e-  3
-2 speciesOg                    10.7     0.884      12.1  6.21e- 32
-3 speciesOr                    -2.02    0.769      -2.62 8.82e-  3
-4 speciesOs                    24.0     0.870      27.6  1.48e-128
-5 primary_branch_number_pbn     1.31    0.0946     13.8  2.87e- 40</code></pre>
+1 (Intercept)                  -1.92     3.13     -0.612 5.41e-  1
+2 speciesOg                    51.3      4.06     12.6   2.40e- 34
+3 speciesOr                    -5.56     3.53     -1.58  1.15e-  1
+4 speciesOs                   101.       3.99     25.3   3.23e-112
+5 primary_branch_number_pbn     9.00     0.434    20.7   2.63e- 81</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit_multiple <span class="sc">%&gt;%</span> <span class="fu">augment</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit_multiple <span class="sc">%&gt;%</span> <span class="fu">augment</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,140 × 9
-   secondary_bra…¹ species prima…² .fitted .resid    .hat .sigma .cooksd .std.…³
-             &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1               5 Ob            5    4.74  0.259 0.00379   7.97 8.10e-7  0.0326
- 2               3 Ob            5    4.74 -1.74  0.00379   7.96 3.65e-5 -0.219 
- 3               2 Ob            4    3.43 -1.43  0.00394   7.97 2.57e-5 -0.180 
- 4               5 Ob            4    3.43  1.57  0.00394   7.96 3.07e-5  0.197 
- 5               1 Ob            4    3.43 -2.43  0.00394   7.96 7.42e-5 -0.306 
- 6               2 Ob            4    3.43 -1.43  0.00394   7.97 2.57e-5 -0.180 
- 7               3 Ob            4    3.43 -0.434 0.00394   7.97 2.36e-6 -0.0546
- 8               1 Ob            3    2.13 -1.13  0.00437   7.97 1.77e-5 -0.142 
- 9               4 Ob            3    2.13  1.87  0.00437   7.96 4.88e-5  0.236 
-10               3 Ob            6    6.05 -3.05  0.00392   7.96 1.16e-4 -0.384 
-# … with 1,130 more rows, and abbreviated variable names
-#   ¹​secondary_branch_number_sbn, ²​primary_branch_number_pbn, ³​.std.resid
+   spikelet_n…¹ species prima…² .fitted   .resid    .hat .sigma .cooksd .std.r…³
+          &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  
+ 2           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  
+ 3           30 Ob            4    34.1  -4.07   0.00394   36.5 9.85e-6 -0.112  
+ 4           35 Ob            4    34.1   0.932  0.00394   36.5 5.17e-7  0.0256 
+ 5           22 Ob            4    34.1 -12.1    0.00394   36.5 8.67e-5 -0.331  
+ 6           28 Ob            4    34.1  -6.07   0.00394   36.5 2.19e-5 -0.167  
+ 7           34 Ob            4    34.1  -0.0682 0.00394   36.5 2.77e-9 -0.00187
+ 8           18 Ob            3    25.1  -7.07   0.00437   36.5 3.31e-5 -0.194  
+ 9           29 Ob            3    25.1   3.93   0.00437   36.5 1.02e-5  0.108  
+10           38 Ob            6    52.1 -14.1    0.00392   36.5 1.17e-4 -0.386  
+# … with 1,130 more rows, and abbreviated variable names ¹​spikelet_number_sp_n,
+#   ²​primary_branch_number_pbn, ³​.std.resid
 # ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>rice <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
-<span id="cb26-3"><a href="#cb26-3"></a>             <span class="at">y =</span> secondary_branch_number_sbn,</span>
-<span id="cb26-4"><a href="#cb26-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-19-1.png" width="960"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>rice_simple <span class="ot">&lt;-</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  rice <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
-<span id="cb27-4"><a href="#cb27-4"></a></span>
-<span id="cb27-5"><a href="#cb27-5"></a>rice_simple <span class="sc">%&gt;%</span> </span>
-<span id="cb27-6"><a href="#cb27-6"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-8"><a href="#cb27-8"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-9"><a href="#cb27-9"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-10"><a href="#cb27-10"></a>  <span class="fu">dist</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb27-11"><a href="#cb27-11"></a>  <span class="fu">hclust</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb27-12"><a href="#cb27-12"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">heatmap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
+<span id="cb28-3"><a href="#cb28-3"></a>             <span class="at">y =</span> secondary_branch_number_sbn,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rice_simple <span class="ot">&lt;-</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  rice <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a></span>
+<span id="cb29-5"><a href="#cb29-5"></a>rice_simple <span class="sc">%&gt;%</span> </span>
+<span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-7"><a href="#cb29-7"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-8"><a href="#cb29-8"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-9"><a href="#cb29-9"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-10"><a href="#cb29-10"></a>  <span class="fu">dist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-11"><a href="#cb29-11"></a>  <span class="fu">hclust</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-12"><a href="#cb29-12"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-7"><a href="#cb30-7"></a>  <span class="fu">heatmap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+</div>
+</div>
 <p>With superheat?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rice_pc <span class="ot">&lt;-</span> </span>
-<span id="cb29-2"><a href="#cb29-2"></a>  rice <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-6"><a href="#cb29-6"></a>  <span class="co"># mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %&gt;% </span></span>
-<span id="cb29-7"><a href="#cb29-7"></a>  <span class="fu">prcomp</span>(<span class="at">center =</span> T, <span class="at">scale =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>rice_pc <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  rice <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="co"># mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %&gt;% </span></span>
+<span id="cb31-7"><a href="#cb31-7"></a>  <span class="fu">prcomp</span>(<span class="at">center =</span> T, <span class="at">scale =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>rice_pc_data <span class="ot">&lt;-</span> </span>
-<span id="cb30-2"><a href="#cb30-2"></a>  rice_pc <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">bind_cols</span>(rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>rice_pc_data <span class="ot">&lt;-</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  rice_pc <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">bind_cols</span>(rice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>rice_pc_data <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fittedPC1,</span>
-<span id="cb31-3"><a href="#cb31-3"></a>             <span class="at">y =</span> .fittedPC2,</span>
-<span id="cb31-4"><a href="#cb31-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> rice_colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>rice_pc_data <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fittedPC1,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>             <span class="at">y =</span> .fittedPC2,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> rice_colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>rice_pc<span class="sc">$</span>sdev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>rice_pc<span class="sc">$</span>sdev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.0456555 1.2842683 1.0533272 0.9646701 0.7491605 0.5211812 0.4553862
 [8] 0.2487671 0.1540413</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>rice_pc<span class="sc">$</span>rotation <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'measurement'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>measurement,</span>
-<span id="cb34-5"><a href="#cb34-5"></a>               <span class="at">names_to =</span> <span class="st">'component'</span>,</span>
-<span id="cb34-6"><a href="#cb34-6"></a>               <span class="at">values_to =</span> <span class="st">'rotation'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-7"><a href="#cb34-7"></a>  <span class="fu">filter</span>(component <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'PC1'</span>, <span class="st">'PC2'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-8"><a href="#cb34-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> measurement,</span>
-<span id="cb34-9"><a href="#cb34-9"></a>             <span class="at">x =</span> rotation)) <span class="sc">+</span></span>
-<span id="cb34-10"><a href="#cb34-10"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb34-11"><a href="#cb34-11"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(component)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>rice_pc<span class="sc">$</span>rotation <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'measurement'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>measurement,</span>
+<span id="cb36-5"><a href="#cb36-5"></a>               <span class="at">names_to =</span> <span class="st">'component'</span>,</span>
+<span id="cb36-6"><a href="#cb36-6"></a>               <span class="at">values_to =</span> <span class="st">'rotation'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-7"><a href="#cb36-7"></a>  <span class="fu">filter</span>(component <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'PC1'</span>, <span class="st">'PC2'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-8"><a href="#cb36-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> measurement,</span>
+<span id="cb36-9"><a href="#cb36-9"></a>             <span class="at">x =</span> rotation)) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(component)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+<p><img data-src="70-explorative-models_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </div>
 </div>
 </section>
