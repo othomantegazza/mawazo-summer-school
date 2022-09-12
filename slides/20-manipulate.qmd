@@ -367,17 +367,6 @@ Get help from:
 - [Dplyr's website](https://dplyr.tidyverse.org/).
 - The [Data Wrangling Chapter]() of R4DS.
 
-
-## Exercise {.exercise}
-
-Move all the defined variable of the `penguins` dataset (`species`, `island`, `sex`, `year`) to the left of the measured variables.
-
-Does any of the defined variables has missing data? In case remove the corresponding row.
-
-Then group the dataset by all of those variable defined variables and estimate the minimum for each measured variable of each group. 
-
-
-
 ## Exercise {.exercise}
 
 How many penguins have `bill_length_mm` above average?
