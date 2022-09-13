@@ -66,7 +66,7 @@ When we look for **insights** in complex datasets, sometimes we want to know:
 
 ### Supervised models
 
-We will use **linear models** to see if we could **"predict"** the number of secondary branches from the number primary branches. 
+We will use **linear models** to see if we could **"predict"** the number of spikelets from the number primary branches. 
 
 ### Unsupervised models
 
@@ -110,37 +110,67 @@ rice %>%
 
 :::
 
+## {.big}
 
+Can we draw a line through the data that explains how many spikelets we do expect according to the number of primary branch?
 
-## Linear Regression {.scrollable}
+# Linear Regrssion
 
+## Linear Regression in R{.scrollable}
 
-What is regression model?
+Writing a linear model in R?
 
-$$secondary\_branch\_number = intercept + slope * body\_mass\_g$$
-$$secondary\_branch\_number = intercept + slope * body\_mass\_g + error$$
-$$Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n + error$$
+$$Y = a + b * X + error$$
+$$Y \sim a + b * X$$
+
+$$spikelets = intercept + slope * primary\_branches + error$$
+
+$$spikelets \sim intercept + slope * primary\_branches$$
+$$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$
+## Declare and evaluate the model
+
+Declaring and evaluating a linear model in R with the function `lm()`.
+
 ```{r}
-fit <- lm(spikelet_number_sp_n ~ primary_branch_number_pbn, data = rice)
+fit <-
+  lm(
+    formula = spikelet_number_sp_n ~ primary_branch_number_pbn,
+     data = rice
+    )
 ```
 
 ```{r}
 fit
 ```
+
+## Explore the results
+
 
 ```{r}
 fit %>% summary()
 ```
 
-```{r}
-fit
-```
+## Tidy the results with `broom`
 
-```{r}
-```
+:::: {.columns}
 
+::: {.column width="40%"}
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/broom.svg)
+:::
 
-## Broom
+::: {.column width="60%"}
+
+[broom](https://broom.tidymodels.org/) summarizes key information about models in tidy `tibble()`s. broom provides three verbs to make it convenient to interact with model objects:
+
+- `tidy()` summarizes information about model components.
+- `glance()` reports information about the entire model.
+- `augment()` adds information about observations to a dataset.
+
+:::
+
+::::
+
+## Tidy the results of the linear regression
 
 ```{r}
 fit %>% glance()
@@ -176,6 +206,10 @@ fit_multiple <- lm(
 ```{r}
 fit_multiple %>%
   glance()
+
+augmented_fit <- 
+  fit_multiple %>% 
+  augment()
 ```
 
 ```{r}
@@ -186,16 +220,14 @@ anova(
 ```
 
 ```{r}
-
-```
-
-
-rice %>% 
+augmented_fit %>% 
   ggplot(aes(x = primary_branch_number_pbn,
-             y = secondary_branch_number_sbn,
+             y = spikelet_number_sp_n,
              colour = species)) +
   geom_point(alpha = .4) +
-  geom_smooth(method = 'lm')
+  geom_line(aes(y = .fitted))
+```
+
 
 ```{r}
 fit_multiple_interaction <-
