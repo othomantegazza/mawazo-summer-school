@@ -455,4 +455,115 @@ Use `na.rm = TRUE` with all those function to ignore **missing values**.
 
 Read: [Introduction to data science | Chapter 12 - Robust Summaries](https://rafalab.github.io/dsbook/robust-summaries.html)
 
-:::
+::: 
+
+## Exercise {.exercise .smallish}
+
+The `storm` dataset is loaded in R with the tidyverse. It stores attributes from hurricanes in the US over the years 1975-2020.
+
+- What are the mean and the median `wind` speed?
+- What are the mean and the median air `pressure` in the storm center?
+
+Investigate the `wind` and `pressure` variables with histograms and boxplots, how are the data distributed? are there any outlier?
+
+What if you stratify those two variables by `status`, do you see some interesting pattern?
+
+Stratify the data by `name`, extract the 5 hurricanes with the highest mean wind speed the 5 hurricanes with highest median wind speed. Are they the same?
+
+
+```{r}
+#| eval: false
+#| echo: false
+storms %>% 
+  ggplot(aes(x = wind)) +
+  geom_histogram()
+
+storms$wind %>% mean()
+storms$wind %>% median()
+
+storms %>% 
+  ggplot(aes(x = pressure)) +
+  geom_histogram()
+
+storms$pressure %>% mean()
+storms$pressure %>% median()
+
+storms %>% 
+  ggplot(aes(x = wind,
+             y = pressure)) +
+  geom_point()
+  
+
+storms %>% 
+  ggplot(aes(x = wind,
+             y = pressure)) +
+  # geom_point() +
+  geom_boxplot(aes(group = cut_width(wind, 4))) 
+
+storms %>% 
+  ggplot(aes(x = status,
+             y = wind))  +
+  geom_boxplot()
+
+storms %>% 
+  ggplot(aes(x = status,
+             y = pressure))  +
+  geom_boxplot()
+
+storms %>% 
+  ggplot(aes(x = pressure))  +
+  geom_histogram() +
+  facet_grid(rows  = 'status')
+
+storms %>% 
+  ggplot(aes(x = wind))  +
+  geom_histogram() +
+  facet_grid(rows  = 'status')
+
+storms %>% 
+  ggplot(aes(x = lat,
+             y = wind,
+             group = cut_width(lat, width = 2))) +
+  geom_boxplot()
+
+
+storms %>% 
+  ggplot(aes(x = long,
+             y = lat)) +
+  geom_hex() +
+  facet_wrap(facets = 'status', ncol = 2)
+
+storms %>% 
+  ggplot(aes(x = wind)) +
+  geom_histogram() +
+  facet_grid(facets = 'month')
+
+storms %>% 
+  ggplot(aes(x = long,
+             y = lat,
+             colour = wind)) +
+  geom_point()
+
+strongest_storms <- 
+  storms %>% 
+  group_by(name) %>% 
+  summarise(median_wind = median(wind),
+            n = n()) %>% 
+  arrange(desc(median_wind)) %>% 
+  slice(1:30)
+
+storms %>% 
+  filter(name %in% strongest_storms$name) %>% 
+  ggplot(aes(x = wind)) +
+  geom_histogram() +
+  facet_wrap(facets = 'name')
+
+storms %>% 
+  filter(name %in% strongest_storms$name) %>% 
+  ggplot(aes(x = long,
+             y = lat,
+             colour = wind)) +
+  geom_point() +
+  facet_wrap(facets = 'name')
+```
+
