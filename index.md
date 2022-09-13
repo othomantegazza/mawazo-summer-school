@@ -91,7 +91,7 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 - [Data Visualization - A practical introduction](https://socviz.co/index.html#preface) Visualize data in R.
 
-## Extra
+## More Books at Bookdown
 
 - Check out the [bookdown](https://bookdown.org/home/) repository for many more
 
