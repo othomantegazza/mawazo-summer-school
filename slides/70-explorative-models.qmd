@@ -170,21 +170,48 @@ fit %>% summary()
 
 ::::
 
-## Tidy the results of the linear regression
+## Glance the results of the linear regression {.scrollable}
+
+`glance()` reports information about the entire model.
 
 ```{r}
-fit %>% glance()
+fit %>%
+  glance() %>%
+  glimpse()
 ```
 
-```{r}
-fit_tidy <- fit %>% tidy()
-```
+
+## Tidy the results of the linear regression {.scrollable}
+
+`tidy()` summarizes information about model components.
+
 
 ```{r}
-fit_simple <- fit %>% augment()
+fit_tidy <-
+  fit %>%
+  tidy()
+
+fit_tidy
 ```
 
+## Augment the results of the linear regression {.scrollable}
+
 ```{r}
+fit_augmented <-
+  fit %>%
+  augment()
+
+fit_augmented
+```
+
+## Visualize the results of the linear regression {.scrollable}
+
+::: {style="height: 1000px; width: 1000px;"}
+
+```{r}
+#| fig.height: 7
+#| fig-width: 8.5
+
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = spikelet_number_sp_n)) +
@@ -192,6 +219,8 @@ rice %>%
   geom_abline(intercept = fit_tidy$estimate[1],
               slope = fit_tidy$estimate[2])
 ```
+
+:::
 
 ## Multiple Regression
 
