@@ -254,6 +254,7 @@ It states that most graphics are composed of:
 We take dataset (`penguins`) and decide that we want to map a set of **variables** to **aesthetics** specification...
 
 :::: {.columns}
+
 ::: {.column width="50%"}
 
 ### Variables
@@ -264,6 +265,7 @@ We take dataset (`penguins`) and decide that we want to map a set of **variables
 - `sex`
 
 :::
+
 ::: {.column width="50%"}
 
 ### Aesthetics
@@ -274,30 +276,8 @@ We take dataset (`penguins`) and decide that we want to map a set of **variables
 - shape
 
 ::: 
+
 ::::
-
-## Let's put it in practice 
-
-```{mermaid}
-%%| fig-width: 5
-flowchart LR
-  bill_length_mm --> x
-  bill_depth_mm --> y
-  island --> colour
-  sex --> shape
-  subgraph Variable
-  bill_length_mm
-  bill_depth_mm
-  island
-  sex
-  end
-  subgraph aesthetics
-  x
-  y
-  colour
-  shape
-  end
-```
 
 
 ## {auto-animate="true"}
@@ -325,7 +305,6 @@ p <-
 #| echo: false
 p
 ```
-
 
 :::
 
