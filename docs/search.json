@@ -378,6 +378,62 @@
     "text": "Exercise\nHow many penguins have bill_length_mm above average?\nRepeat the analysis for each species.\n\n\nHome | 2022 CBSER Summer School"
   },
   {
+    "objectID": "slides/25-missing-values.html#what-is-a-missing-value",
+    "href": "slides/25-missing-values.html#what-is-a-missing-value",
+    "title": "Missing Values",
+    "section": "What is a missing value?",
+    "text": "What is a missing value?\nA missing value is a data point that’s missing, no one knows what the value was, so you can’t conduct any operation on it.\nIn R missing values are written NA."
+  },
+  {
+    "objectID": "slides/25-missing-values.html#operation-on-missing-values",
+    "href": "slides/25-missing-values.html#operation-on-missing-values",
+    "title": "Missing Values",
+    "section": "Operation on missing values",
+    "text": "Operation on missing values\nMost operation on missing values return NAs.\nAsk yourself what is one plus “a number that I don’t know” (NA). The anwser is “I dont know” (NA).\n\nNA + 1\n\n[1] NA\n\n\n\nNA / 4\n\n[1] NA\n\n\n\nNA == 1\n\n[1] NA\n\n\n\nNA == NA\n\n[1] NA"
+  },
+  {
+    "objectID": "slides/25-missing-values.html#testing-if-a-value-is-missing",
+    "href": "slides/25-missing-values.html#testing-if-a-value-is-missing",
+    "title": "Missing Values",
+    "section": "Testing if a value is missing",
+    "text": "Testing if a value is missing\nTo test if an element is a missing value we must use the function is.na().\n\n1 %>% is.na()\n\n[1] FALSE\n\n\n\n'hello' %>% is.na()\n\n[1] FALSE\n\n\n\nTRUE %>% is.na()\n\n[1] FALSE\n\n\n\nNA %>% is.na()\n\n[1] TRUE"
+  },
+  {
+    "objectID": "slides/25-missing-values.html#missing-values-in-a-vector",
+    "href": "slides/25-missing-values.html#missing-values-in-a-vector",
+    "title": "Missing Values",
+    "section": "Missing values in a vector",
+    "text": "Missing values in a vector\nWe can assign missing values to a variable and I can place them in a vector.\n\nmissing_value <- NA\n\n\nmissing_value %>% is.na()\n\n[1] TRUE\n\n\nWhen we use is.na() on a vector, it returns a vector of booleans, with TRUE in the position where the values are missing.\n\nvector_with_na <- c(1,5,NA, 10)\n\n\nvector_with_na %>% is.na()\n\n[1] FALSE FALSE  TRUE FALSE\n\n\nWe can count missing values in a vector with sum().\n\nvector_with_na %>% is.na() %>% sum()\n\n[1] 1"
+  },
+  {
+    "objectID": "slides/25-missing-values.html#operating-on-missing-values",
+    "href": "slides/25-missing-values.html#operating-on-missing-values",
+    "title": "Missing Values",
+    "section": "Operating on missing values",
+    "text": "Operating on missing values\nMost functions such as mean(), median(), sd() give you the chance to remove missing values with the argument na.rm = TRUE.\n\nvector_with_na %>% mean()\n\n[1] NA\n\n\n\nvector_with_na %>% mean(na.rm = T)\n\n[1] 5.333333\n\n\nAlso, ggplots functio remove NAs automatically for us, if they would hinder computations."
+  },
+  {
+    "objectID": "slides/25-missing-values.html#data-with-missing-values",
+    "href": "slides/25-missing-values.html#data-with-missing-values",
+    "title": "Missing Values",
+    "section": "Data with missing values",
+    "text": "Data with missing values\nOften data have NAs in them, for example the penguins dataset does.\nTo count missing values per each column, use this lines of code:\n\npenguins %>% \n  summarise(\n    across(\n      everything(),\n      ~is.na(.) %>% sum()\n    )\n  )\n\n# A tibble: 1 × 8\n  species island bill_length_mm bill_depth_mm flipper_leng…¹ body_…²   sex  year\n    <int>  <int>          <int>         <int>          <int>   <int> <int> <int>\n1       0      0              2             2              2       2    11     0\n# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g"
+  },
+  {
+    "objectID": "slides/25-missing-values.html#data-with-missing-values-1",
+    "href": "slides/25-missing-values.html#data-with-missing-values-1",
+    "title": "Missing Values",
+    "section": "Data with missing values",
+    "text": "Data with missing values\nWe can also count them stratified by the fixed variables, for example:\n\npenguins %>% \n  group_by(island) %>% \n  summarise(\n    across(\n      everything(),\n      ~is.na(.) %>% sum()\n    )\n  )\n\n# A tibble: 3 × 8\n  island    species bill_length_mm bill_depth_mm flipper_l…¹ body_…²   sex  year\n  <fct>       <int>          <int>         <int>       <int>   <int> <int> <int>\n1 Biscoe          0              1             1           1       1     5     0\n2 Dream           0              0             0           0       0     1     0\n3 Torgersen       0              1             1           1       1     5     0\n# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g"
+  },
+  {
+    "objectID": "slides/25-missing-values.html#strategy-for-missing-values",
+    "href": "slides/25-missing-values.html#strategy-for-missing-values",
+    "title": "Missing Values",
+    "section": "Strategy for missing values",
+    "text": "Strategy for missing values\nOften data have missing values.\nThe most important thing, when you get new data is to figure out how many missing values it contains, and where they are.\nAfterward you can decide if you want to remove them, or to impute them.\nLearn more about missing values at R4DS.\n\n\nHome | 2022 CBSER Summer School"
+  },
+  {
     "objectID": "slides/30-visualize.html#we-are-bad-at-recognizing-pattern-from-raw-data",
     "href": "slides/30-visualize.html#we-are-bad-at-recognizing-pattern-from-raw-data",
     "title": "Data Visualization",
@@ -1082,7 +1138,7 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models"
+    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models"
   },
   {
     "objectID": "index.html#r-and-rstudio",
