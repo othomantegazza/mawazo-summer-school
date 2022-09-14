@@ -1138,7 +1138,7 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models"
+    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nVisualize Data\nMissing Values\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models"
   },
   {
     "objectID": "index.html#r-and-rstudio",
