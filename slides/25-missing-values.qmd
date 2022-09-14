@@ -1,0 +1,164 @@
+---
+title: "Missing Values"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  revealjs:
+    theme: [simple, style/theme.scss]
+    footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| include: false
+
+library(dplyr)
+library(readr)
+library(magrittr)
+library(tidyr)
+library(palmerpenguins)
+library(tibble)
+library(ggplot2)
+library(readr)
+library(here)
+library(stringr)
+library(broom)
+
+theme_update(axis.title = element_text(size = 15),
+             axis.text = element_text(size = 15),
+             strip.text = element_text(size = 15))
+```
+
+## What is a missing value?
+
+A missing value is a data point that's missing, no one knows what the value was, so you can't conduct any operation on it.
+
+In R missing values are written `NA`.
+
+## Operation on missing values
+
+Most operation on missing values return NAs.
+
+Ask yourself what is one plus "a number that I don't know" (`NA`). The anwser is "I dont know" (`NA`). 
+
+```{r}
+NA + 1
+```
+
+```{r}
+NA / 4
+```
+
+```{r}
+NA == 1
+```
+
+```{r}
+NA == NA
+```
+
+## Testing if a value is missing
+
+To test if an element is a missing value we must use the function `is.na()`.
+
+```{r}
+1 %>% is.na()
+```
+
+```{r}
+'hello' %>% is.na()
+```
+
+```{r}
+TRUE %>% is.na()
+```
+
+```{r}
+NA %>% is.na()
+```
+
+## Missing values in a vector
+
+We can assign missing values to a variable and I can place them in a vector.
+
+```{r}
+missing_value <- NA
+```
+
+```{r}
+missing_value %>% is.na()
+```
+
+When we use `is.na()` on a vector, it returns a vector of booleans, with `TRUE` in the position where the values are missing.
+
+```{r}
+vector_with_na <- c(1,5,NA, 10)
+```
+
+```{r}
+vector_with_na %>% is.na()
+```
+
+We can count missing values in a vector with `sum()`.
+
+```{r}
+vector_with_na %>% is.na() %>% sum()
+```
+
+## Operating on missing values
+
+Most functions such as `mean()`, `median()`, `sd()` give you the chance to remove missing values with the argument `na.rm = TRUE`.
+
+```{r}
+vector_with_na %>% mean()
+```
+
+```{r}
+vector_with_na %>% mean(na.rm = T)
+```
+
+Also, `ggplot`s functio  remove NAs automatically for us, if they would hinder computations.
+
+## Data with missing values
+
+Often data have NAs in them, for example the `penguins` dataset does.
+
+To count missing values per each column, use this lines of code:
+
+```{r}
+penguins %>% 
+  summarise(
+    across(
+      everything(),
+      ~is.na(.) %>% sum()
+    )
+  )
+```
+
+## Data with missing values
+
+We can also count them stratified by the fixed variables, for example:
+
+```{r}
+penguins %>% 
+  group_by(island) %>% 
+  summarise(
+    across(
+      everything(),
+      ~is.na(.) %>% sum()
+    )
+  )
+```
+
+## Strategy for missing values
+
+Often data have missing values.
+
+The most important thing, when you get new data is to figure out how many missing values it contains, and where they are.
+
+Afterward you can decide if you want to remove them, or to impute them.
+
+**Learn more** about missing values at [R4DS](https://r4ds.had.co.nz/transform.html#missing-values).
