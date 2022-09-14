@@ -17,7 +17,7 @@ Hands-on Lessons:
 
 1. [Meet R](slides/10-meet-r.html)
 1. [Manipulate Data](slides/20-manipulate.html)
-1. [Missing Values](slides/025-missing-values.html)
+1. [Missing Values](slides/25-missing-values.html)
 1. [Visualize Data](slides/30-visualize.html)
 1. [Robust Statistics](slides/31-robust-stat.html)
 1. [Get Data into R](slides/40-get.html)
