@@ -1,5 +1,5 @@
 ---
-title: "Explore your Data with Models"
+title: "Explore your Data with Models !!!WORK IN PROGRESS!!!"
 author: "Otho Mantegazza"
 execute: 
   echo: true
@@ -222,7 +222,19 @@ rice %>%
 
 :::
 
-## Multiple Regression
+## Conclusions from the model and from the graph 
+
+- The model suggests that the number of spikelets grows with the number of primary branches.
+- the variance grows when the x grows, so at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
+- Might be that the number of spikelets grows exponentially with the number of primary branches, instead of linearly.
+ 
+# Multiple Regression
+
+## What if we want to use more than one predictor {.scrollable}
+
+Let's try to fit the spikelet number as a funtion of both primary branch number and species.
+
+
 
 ```{r}
 fit_multiple <- lm(
