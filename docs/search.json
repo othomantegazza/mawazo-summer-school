@@ -1024,112 +1024,119 @@
   {
     "objectID": "slides/70-explorative-models.html#data",
     "href": "slides/70-explorative-models.html#data",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Data",
     "text": "Data\nWe will keep working on the rice dataset.\n\nrice <-  \n   paste0('https://raw.githubusercontent.com/othomantegazza',\n           '/mawazo-summer-school/main/data-int/rice.csv') %>% \n  read_delim(delim = ';') %>% \n  janitor::clean_names()\n\n\n# define colors\nrice_colors <- \n  c(Or = '#b5d4e9',\n    Os = '#1f74b4',\n    Ob = '#c0d787',\n    Og = '#349a37')"
   },
   {
     "objectID": "slides/70-explorative-models.html#why",
     "href": "slides/70-explorative-models.html#why",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Why?",
     "text": "Why?\nWhen we look for insights in complex datasets, sometimes we want to know:\n\nIs there a multivariate pattern in the data? One that is evident only when we compare multiple variables at once.\nAre the patterns that we observe in data there by chance? Or are they caused by something."
   },
   {
     "objectID": "slides/70-explorative-models.html#which-models",
     "href": "slides/70-explorative-models.html#which-models",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Which models?",
     "text": "Which models?\nSupervised models\nWe will use linear models to see if we could “predict” the number of spikelets from the number primary branches.\nUnsupervised models\nWe will use clustering and Principal Component Analysis to detect multivariate patterns in the data."
   },
   {
     "objectID": "slides/70-explorative-models.html#primary-branches-and-spikelets",
     "href": "slides/70-explorative-models.html#primary-branches-and-spikelets",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Primary branches and spikelets",
     "text": "Primary branches and spikelets\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = spikelet_number_sp_n,\n             colour = species)) +\n  geom_point(alpha = .4)"
   },
   {
     "objectID": "slides/70-explorative-models.html#primary-branches-and-spikelets-1",
     "href": "slides/70-explorative-models.html#primary-branches-and-spikelets-1",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Primary branches and spikelets",
     "text": "Primary branches and spikelets\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = spikelet_number_sp_n,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  facet_wrap(facets = 'species')"
   },
   {
     "objectID": "slides/70-explorative-models.html#section",
     "href": "slides/70-explorative-models.html#section",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "",
     "text": "Can we draw a line through the data that explains how many spikelets we do expect according to the number of primary branch?"
   },
   {
     "objectID": "slides/70-explorative-models.html#linear-regression-in-r",
     "href": "slides/70-explorative-models.html#linear-regression-in-r",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Linear Regression in R",
     "text": "Linear Regression in R\nWriting a linear model in R?\n\\[Y = a + b * X + error\\]\n\\[Y \\sim a + b * X\\]\n\\[spikelets = intercept + slope * primary\\_branches + error\\]\n\\[spikelets \\sim intercept + slope * primary\\_branches\\]\n\\[Y = a + b_1X_1 + b\\_2X_2 + ... + b\\_nX_n + error\\]"
   },
   {
     "objectID": "slides/70-explorative-models.html#declare-and-evaluate-the-model",
     "href": "slides/70-explorative-models.html#declare-and-evaluate-the-model",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Declare and evaluate the model",
     "text": "Declare and evaluate the model\nDeclaring and evaluating a linear model in R with the function lm().\n\nfit <-\n  lm(\n    formula = spikelet_number_sp_n ~ primary_branch_number_pbn,\n     data = rice\n    )\n\n\nfit\n\n\nCall:\nlm(formula = spikelet_number_sp_n ~ primary_branch_number_pbn, \n    data = rice)\n\nCoefficients:\n              (Intercept)  primary_branch_number_pbn  \n                   -20.44                      15.60"
   },
   {
     "objectID": "slides/70-explorative-models.html#explore-the-results",
     "href": "slides/70-explorative-models.html#explore-the-results",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Explore the results",
     "text": "Explore the results\n\nfit %>% summary()\n\n\nCall:\nlm(formula = spikelet_number_sp_n ~ primary_branch_number_pbn, \n    data = rice)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-134.11  -28.79  -11.35   19.07  209.47 \n\nCoefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)               -20.4391     4.0043  -5.104 3.89e-07 ***\nprimary_branch_number_pbn  15.5966     0.4102  38.023  < 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 50.08 on 1138 degrees of freedom\nMultiple R-squared:  0.5596,    Adjusted R-squared:  0.5592 \nF-statistic:  1446 on 1 and 1138 DF,  p-value: < 2.2e-16"
   },
   {
     "objectID": "slides/70-explorative-models.html#tidy-the-results-with-broom",
     "href": "slides/70-explorative-models.html#tidy-the-results-with-broom",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Tidy the results with broom",
     "text": "Tidy the results with broom\n\n\n\n\nbroom summarizes key information about models in tidy tibble()s. broom provides three verbs to make it convenient to interact with model objects:\n\ntidy() summarizes information about model components.\nglance() reports information about the entire model.\naugment() adds information about observations to a dataset."
   },
   {
     "objectID": "slides/70-explorative-models.html#glance-the-results-of-the-linear-regression",
     "href": "slides/70-explorative-models.html#glance-the-results-of-the-linear-regression",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Glance the results of the linear regression",
     "text": "Glance the results of the linear regression\nglance() reports information about the entire model.\n\nfit %>%\n  glance() %>%\n  glimpse()\n\nRows: 1\nColumns: 12\n$ r.squared     <dbl> 0.5595511\n$ adj.r.squared <dbl> 0.559164\n$ sigma         <dbl> 50.08321\n$ statistic     <dbl> 1445.727\n$ p.value       <dbl> 7.518553e-205\n$ df            <dbl> 1\n$ logLik        <dbl> -6078.191\n$ AIC           <dbl> 12162.38\n$ BIC           <dbl> 12177.5\n$ deviance      <dbl> 2854478\n$ df.residual   <int> 1138\n$ nobs          <int> 1140"
   },
   {
     "objectID": "slides/70-explorative-models.html#tidy-the-results-of-the-linear-regression",
     "href": "slides/70-explorative-models.html#tidy-the-results-of-the-linear-regression",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Tidy the results of the linear regression",
     "text": "Tidy the results of the linear regression\ntidy() summarizes information about model components.\n\nfit_tidy <-\n  fit %>%\n  tidy()\n\nfit_tidy\n\n# A tibble: 2 × 5\n  term                      estimate std.error statistic   p.value\n  <chr>                        <dbl>     <dbl>     <dbl>     <dbl>\n1 (Intercept)                  -20.4     4.00      -5.10 3.89e-  7\n2 primary_branch_number_pbn     15.6     0.410     38.0  7.52e-205"
   },
   {
     "objectID": "slides/70-explorative-models.html#augment-the-results-of-the-linear-regression",
     "href": "slides/70-explorative-models.html#augment-the-results-of-the-linear-regression",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Augment the results of the linear regression",
     "text": "Augment the results of the linear regression\n\nfit_augmented <-\n  fit %>%\n  augment()\n\nfit_augmented\n\n# A tibble: 1,140 × 8\n   spikelet_number_sp_n primary_…¹ .fitted .resid    .hat .sigma .cooksd .std.…²\n                  <dbl>      <dbl>   <dbl>  <dbl>   <dbl>  <dbl>   <dbl>   <dbl>\n 1                   38          5    57.5 -19.5  0.00199   50.1 1.52e-4 -0.391 \n 2                   38          5    57.5 -19.5  0.00199   50.1 1.52e-4 -0.391 \n 3                   30          4    41.9 -11.9  0.00260   50.1 7.44e-5 -0.239 \n 4                   35          4    41.9  -6.95 0.00260   50.1 2.51e-5 -0.139 \n 5                   22          4    41.9 -19.9  0.00260   50.1 2.07e-4 -0.399 \n 6                   28          4    41.9 -13.9  0.00260   50.1 1.01e-4 -0.279 \n 7                   34          4    41.9  -7.95 0.00260   50.1 3.29e-5 -0.159 \n 8                   18          3    26.4  -8.35 0.00335   50.1 4.68e-5 -0.167 \n 9                   29          3    26.4   2.65 0.00335   50.1 4.71e-6  0.0530\n10                   38          6    73.1 -35.1  0.00151   50.1 3.72e-4 -0.702 \n# … with 1,130 more rows, and abbreviated variable names\n#   ¹​primary_branch_number_pbn, ²​.std.resid\n# ℹ Use `print(n = ...)` to see more rows"
   },
   {
     "objectID": "slides/70-explorative-models.html#visualize-the-results-of-the-linear-regression",
     "href": "slides/70-explorative-models.html#visualize-the-results-of-the-linear-regression",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Visualize the results of the linear regression",
     "text": "Visualize the results of the linear regression\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = spikelet_number_sp_n)) +\n  geom_point() +\n  geom_abline(intercept = fit_tidy$estimate[1],\n              slope = fit_tidy$estimate[2])"
   },
   {
-    "objectID": "slides/70-explorative-models.html#multiple-regression",
-    "href": "slides/70-explorative-models.html#multiple-regression",
-    "title": "Explore your Data with Models",
-    "section": "Multiple Regression",
-    "text": "Multiple Regression\n\nfit_multiple <- lm(\n  spikelet_number_sp_n ~\n    species +\n    primary_branch_number_pbn,\n  data = rice)\n\n\nfit_multiple %>%\n  glance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squ…¹ sigma stati…² p.value    df logLik    AIC    BIC devia…³\n      <dbl>       <dbl> <dbl>   <dbl>   <dbl> <dbl>  <dbl>  <dbl>  <dbl>   <dbl>\n1     0.766       0.766  36.5    931.       0     4 -5717. 11445. 11475.  1.51e6\n# … with 2 more variables: df.residual <int>, nobs <int>, and abbreviated\n#   variable names ¹​adj.r.squared, ²​statistic, ³​deviance\n# ℹ Use `colnames()` to see all variable names\n\naugmented_fit <- \n  fit_multiple %>% \n  augment()\n\n\nanova(\n  fit,\n  fit_multiple\n)\n\nAnalysis of Variance Table\n\nModel 1: spikelet_number_sp_n ~ primary_branch_number_pbn\nModel 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn\n  Res.Df     RSS Df Sum of Sq      F    Pr(>F)    \n1   1138 2854478                                  \n2   1135 1513427  3   1341051 335.24 < 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\naugmented_fit %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = spikelet_number_sp_n,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  geom_line(aes(y = .fitted))\n\n\n\n\n\nfit_multiple_interaction <-\n  lm(spikelet_number_sp_n ~\n       species +\n       primary_branch_number_pbn +\n       species*primary_branch_number_pbn,\n     data = rice)\n\n\nanova(\n  fit,\n  fit_multiple,\n  fit_multiple_interaction\n)\n\nAnalysis of Variance Table\n\nModel 1: spikelet_number_sp_n ~ primary_branch_number_pbn\nModel 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn\nModel 3: spikelet_number_sp_n ~ species + primary_branch_number_pbn + \n    species * primary_branch_number_pbn\n  Res.Df     RSS Df Sum of Sq        F Pr(>F)    \n1   1138 2854478                                 \n2   1135 1513427  3   1341051 337.0531 <2e-16 ***\n3   1132 1501316  3     12111   3.0439  0.028 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\nfit_multiple %>% tidy()\n\n# A tibble: 5 × 5\n  term                      estimate std.error statistic   p.value\n  <chr>                        <dbl>     <dbl>     <dbl>     <dbl>\n1 (Intercept)                  -1.92     3.13     -0.612 5.41e-  1\n2 speciesOg                    51.3      4.06     12.6   2.40e- 34\n3 speciesOr                    -5.56     3.53     -1.58  1.15e-  1\n4 speciesOs                   101.       3.99     25.3   3.23e-112\n5 primary_branch_number_pbn     9.00     0.434    20.7   2.63e- 81\n\nfit_multiple %>% augment()\n\n# A tibble: 1,140 × 9\n   spikelet_n…¹ species prima…² .fitted   .resid    .hat .sigma .cooksd .std.r…³\n          <dbl> <chr>     <dbl>   <dbl>    <dbl>   <dbl>  <dbl>   <dbl>    <dbl>\n 1           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  \n 2           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  \n 3           30 Ob            4    34.1  -4.07   0.00394   36.5 9.85e-6 -0.112  \n 4           35 Ob            4    34.1   0.932  0.00394   36.5 5.17e-7  0.0256 \n 5           22 Ob            4    34.1 -12.1    0.00394   36.5 8.67e-5 -0.331  \n 6           28 Ob            4    34.1  -6.07   0.00394   36.5 2.19e-5 -0.167  \n 7           34 Ob            4    34.1  -0.0682 0.00394   36.5 2.77e-9 -0.00187\n 8           18 Ob            3    25.1  -7.07   0.00437   36.5 3.31e-5 -0.194  \n 9           29 Ob            3    25.1   3.93   0.00437   36.5 1.02e-5  0.108  \n10           38 Ob            6    52.1 -14.1    0.00392   36.5 1.17e-4 -0.386  \n# … with 1,130 more rows, and abbreviated variable names ¹​spikelet_number_sp_n,\n#   ²​primary_branch_number_pbn, ³​.std.resid\n# ℹ Use `print(n = ...)` to see more rows\n\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  geom_smooth(method = 'lm')\n\n\n\n\n\nrice_simple <- \n  rice %>% \n  sample_n(50)\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  dist() %>% \n  hclust() %>% \n  plot()\n\n\n\n\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  as.matrix() %>% \n  heatmap()\n\n\n\n\nWith superheat?\n\nrice_pc <- \n  rice %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  prcomp(center = T, scale = T)\n\n\nrice_pc_data <- \n  rice_pc %>% \n  augment() %>% \n  bind_cols(rice)\n\n\nrice_pc_data %>% \n  ggplot(aes(x = .fittedPC1,\n             y = .fittedPC2,\n             colour = species)) +\n  geom_point() +\n  scale_color_manual(values = rice_colors)\n\n\n\n\n\nrice_pc$sdev\n\n[1] 2.0456555 1.2842683 1.0533272 0.9646701 0.7491605 0.5211812 0.4553862\n[8] 0.2487671 0.1540413\n\n\n\nrice_pc$rotation %>% \n  as.data.frame() %>% \n  rownames_to_column(var = 'measurement') %>% \n  pivot_longer(-measurement,\n               names_to = 'component',\n               values_to = 'rotation') %>% \n  filter(component %in% c('PC1', 'PC2')) %>% \n  ggplot(aes(y = measurement,\n             x = rotation)) +\n  geom_col() +\n  facet_grid(rows = vars(component))"
+    "objectID": "slides/70-explorative-models.html#conclusions-from-the-model-and-from-the-graph",
+    "href": "slides/70-explorative-models.html#conclusions-from-the-model-and-from-the-graph",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
+    "section": "Conclusions from the model and from the graph",
+    "text": "Conclusions from the model and from the graph\n\nThe model suggests that the number of spikelets grows with the number of primary branches.\nthe variance grows when the x grows, so at high number of primary branches we can expect our predictions of spikelet number to be more approximated.\nMight be that the number of spikelets grows exponentially with the number of primary branches, instead of linearly."
+  },
+  {
+    "objectID": "slides/70-explorative-models.html#what-if-we-want-to-use-more-than-one-predictor",
+    "href": "slides/70-explorative-models.html#what-if-we-want-to-use-more-than-one-predictor",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
+    "section": "What if we want to use more than one predictor",
+    "text": "What if we want to use more than one predictor\nLet’s try to fit the spikelet number as a funtion of both primary branch number and species.\n\nfit_multiple <- lm(\n  spikelet_number_sp_n ~\n    species +\n    primary_branch_number_pbn,\n  data = rice)\n\n\nfit_multiple %>%\n  glance()\n\n# A tibble: 1 × 12\n  r.squared adj.r.squ…¹ sigma stati…² p.value    df logLik    AIC    BIC devia…³\n      <dbl>       <dbl> <dbl>   <dbl>   <dbl> <dbl>  <dbl>  <dbl>  <dbl>   <dbl>\n1     0.766       0.766  36.5    931.       0     4 -5717. 11445. 11475.  1.51e6\n# … with 2 more variables: df.residual <int>, nobs <int>, and abbreviated\n#   variable names ¹​adj.r.squared, ²​statistic, ³​deviance\n# ℹ Use `colnames()` to see all variable names\n\naugmented_fit <- \n  fit_multiple %>% \n  augment()\n\n\nanova(\n  fit,\n  fit_multiple\n)\n\nAnalysis of Variance Table\n\nModel 1: spikelet_number_sp_n ~ primary_branch_number_pbn\nModel 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn\n  Res.Df     RSS Df Sum of Sq      F    Pr(>F)    \n1   1138 2854478                                  \n2   1135 1513427  3   1341051 335.24 < 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\naugmented_fit %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = spikelet_number_sp_n,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  geom_line(aes(y = .fitted))\n\n\n\n\n\nfit_multiple_interaction <-\n  lm(spikelet_number_sp_n ~\n       species +\n       primary_branch_number_pbn +\n       species*primary_branch_number_pbn,\n     data = rice)\n\n\nanova(\n  fit,\n  fit_multiple,\n  fit_multiple_interaction\n)\n\nAnalysis of Variance Table\n\nModel 1: spikelet_number_sp_n ~ primary_branch_number_pbn\nModel 2: spikelet_number_sp_n ~ species + primary_branch_number_pbn\nModel 3: spikelet_number_sp_n ~ species + primary_branch_number_pbn + \n    species * primary_branch_number_pbn\n  Res.Df     RSS Df Sum of Sq        F Pr(>F)    \n1   1138 2854478                                 \n2   1135 1513427  3   1341051 337.0531 <2e-16 ***\n3   1132 1501316  3     12111   3.0439  0.028 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\nfit_multiple %>% tidy()\n\n# A tibble: 5 × 5\n  term                      estimate std.error statistic   p.value\n  <chr>                        <dbl>     <dbl>     <dbl>     <dbl>\n1 (Intercept)                  -1.92     3.13     -0.612 5.41e-  1\n2 speciesOg                    51.3      4.06     12.6   2.40e- 34\n3 speciesOr                    -5.56     3.53     -1.58  1.15e-  1\n4 speciesOs                   101.       3.99     25.3   3.23e-112\n5 primary_branch_number_pbn     9.00     0.434    20.7   2.63e- 81\n\nfit_multiple %>% augment()\n\n# A tibble: 1,140 × 9\n   spikelet_n…¹ species prima…² .fitted   .resid    .hat .sigma .cooksd .std.r…³\n          <dbl> <chr>     <dbl>   <dbl>    <dbl>   <dbl>  <dbl>   <dbl>    <dbl>\n 1           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  \n 2           38 Ob            5    43.1  -5.06   0.00379   36.5 1.47e-5 -0.139  \n 3           30 Ob            4    34.1  -4.07   0.00394   36.5 9.85e-6 -0.112  \n 4           35 Ob            4    34.1   0.932  0.00394   36.5 5.17e-7  0.0256 \n 5           22 Ob            4    34.1 -12.1    0.00394   36.5 8.67e-5 -0.331  \n 6           28 Ob            4    34.1  -6.07   0.00394   36.5 2.19e-5 -0.167  \n 7           34 Ob            4    34.1  -0.0682 0.00394   36.5 2.77e-9 -0.00187\n 8           18 Ob            3    25.1  -7.07   0.00437   36.5 3.31e-5 -0.194  \n 9           29 Ob            3    25.1   3.93   0.00437   36.5 1.02e-5  0.108  \n10           38 Ob            6    52.1 -14.1    0.00392   36.5 1.17e-4 -0.386  \n# … with 1,130 more rows, and abbreviated variable names ¹​spikelet_number_sp_n,\n#   ²​primary_branch_number_pbn, ³​.std.resid\n# ℹ Use `print(n = ...)` to see more rows\n\n\n\nrice %>% \n  ggplot(aes(x = primary_branch_number_pbn,\n             y = secondary_branch_number_sbn,\n             colour = species)) +\n  geom_point(alpha = .4) +\n  geom_smooth(method = 'lm')\n\n\n\n\n\nrice_simple <- \n  rice %>% \n  sample_n(50)\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  dist() %>% \n  hclust() %>% \n  plot()\n\n\n\n\n\nrice_simple %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  as.matrix() %>% \n  heatmap()\n\n\n\n\nWith superheat?\n\nrice_pc <- \n  rice %>% \n  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% \n  mutate(species = paste(species, 1:n())) %>% \n  column_to_rownames('species') %>% \n  # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% \n  prcomp(center = T, scale = T)\n\n\nrice_pc_data <- \n  rice_pc %>% \n  augment() %>% \n  bind_cols(rice)\n\n\nrice_pc_data %>% \n  ggplot(aes(x = .fittedPC1,\n             y = .fittedPC2,\n             colour = species)) +\n  geom_point() +\n  scale_color_manual(values = rice_colors)\n\n\n\n\n\nrice_pc$sdev\n\n[1] 2.0456555 1.2842683 1.0533272 0.9646701 0.7491605 0.5211812 0.4553862\n[8] 0.2487671 0.1540413\n\n\n\nrice_pc$rotation %>% \n  as.data.frame() %>% \n  rownames_to_column(var = 'measurement') %>% \n  pivot_longer(-measurement,\n               names_to = 'component',\n               values_to = 'rotation') %>% \n  filter(component %in% c('PC1', 'PC2')) %>% \n  ggplot(aes(y = measurement,\n             x = rotation)) +\n  geom_col() +\n  facet_grid(rows = vars(component))"
   },
   {
     "objectID": "slides/70-explorative-models.html#exercise",
     "href": "slides/70-explorative-models.html#exercise",
-    "title": "Explore your Data with Models",
+    "title": "Explore your Data with Models !!!WORK IN PROGRESS!!!",
     "section": "Exercise",
     "text": "Exercise\n\n\nHome | 2022 CBSER Summer School"
   },
@@ -1138,7 +1145,7 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models"
+    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models !!!WORK IN PROGRESS!!!"
   },
   {
     "objectID": "index.html#r-and-rstudio",

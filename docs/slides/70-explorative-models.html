@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.38">
 
   <meta name="author" content="Otho Mantegazza">
-  <title>Explore your Data with Models</title>
+  <title>Explore your Data with Models !!!WORK IN PROGRESS!!!</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -383,7 +383,7 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Explore your Data with Models</h1>
+  <h1 class="title">Explore your Data with Models !!!WORK IN PROGRESS!!!</h1>
   <p class="author">Otho Mantegazza</p>
 </section>
 
@@ -633,8 +633,22 @@ $ nobs          &lt;int&gt; 1140</code></pre>
 </div>
 </div>
 </section>
-<section id="multiple-regression" class="slide level2">
-<h2>Multiple Regression</h2>
+<section id="conclusions-from-the-model-and-from-the-graph" class="slide level2">
+<h2>Conclusions from the model and from the graph</h2>
+<ul>
+<li>The model suggests that the number of spikelets grows with the number of primary branches.</li>
+<li>the variance grows when the x grows, so at high number of primary branches we can expect our predictions of spikelet number to be more approximated.</li>
+<li>Might be that the number of spikelets grows exponentially with the number of primary branches, instead of linearly.</li>
+</ul>
+</section></section>
+<section>
+<section id="multiple-regression" class="title-slide slide level1 center">
+<h1>Multiple Regression</h1>
+
+</section>
+<section id="what-if-we-want-to-use-more-than-one-predictor" class="slide level2 scrollable">
+<h2>What if we want to use more than one predictor</h2>
+<p>Let’s try to fit the spikelet number as a funtion of both primary branch number and species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb16-2"><a href="#cb16-2"></a>  spikelet_number_sp_n <span class="sc">~</span></span>
