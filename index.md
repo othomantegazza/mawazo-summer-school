@@ -23,7 +23,7 @@ Hands-on Lessons:
 1. [Get Data into R](slides/40-get.html)
 1. [Clean Data with R](slides/50-clean.html)
 1. [Explorative Data Analysis](slides/60-explorative-data-analysis.html)
-1. [Explorative Statistical Models](slides/70-explorative-models.html)
+1. [Explorative Statistical Models](slides/70-explorative-models.html) !!!WORK IN PROGRESS!!!
 
 
 # Tools
