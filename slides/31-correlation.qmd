@@ -160,7 +160,7 @@ Find more examples on the [R Graph Gallery](https://r-graph-gallery.com/199-corr
 
 Correlation is a descriptive statistics. When you measure it, you reduce a complex bivariate distribution to a single number. This reductive approach is generally useful, but might be misleading in several cases .
 
-The main caveats to keep in mind are :
+The main caveats to keep in mind are:
 
 - **Visualize the distribution**. In many specific cases, for example when there are outliers in the dataset, a high correlation scores does not translate into any evident association between the two variables.
 - **Correlation does not mean causation**. Even if two variable strongly correlate, this is no evidence that changes in one variable is causing an effect on the other. Correlation alone might be a hint to causation, but it is in no way at all a proof of it.
