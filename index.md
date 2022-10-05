@@ -19,6 +19,7 @@ Hands-on Lessons:
 1. [Manipulate Data](slides/20-manipulate.html)
 1. [Missing Values](slides/25-missing-values.html)
 1. [Visualize Data](slides/30-visualize.html)
+1. [Notes on Correlation](slides/31-correlation.html)
 1. [Robust Statistics](slides/31-robust-stat.html)
 1. [Get Data into R](slides/40-get.html)
 1. [Clean Data with R](slides/50-clean.html)

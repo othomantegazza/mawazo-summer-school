@@ -1,0 +1,174 @@
+---
+title: "Notes on Correlation"
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  html:
+    theme: [style/page.scss]
+    toc: true
+    number-sections: true
+    footer:  '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+editor_options: 
+  chunk_output_type: console
+---
+
+# Generic intro
+
+For a generic intro to correlation check the links below:
+
+- [Making Sense of Data With R - Correlation](https://bookdown.org/yshang/book/correlation.html)
+- [Toward Data Science - Pearson vs Spearman Correlation Coefficient](https://towardsdatascience.com/clearly-explained-pearson-v-s-spearman-correlation-coefficient-ada2f473b8)
+
+# Correlation in R
+
+You can estimate the Pearson or Spearman correlation coefficient between two numerical vectors or matrices with the function [`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor).
+
+# Example on  Palmer Penguins
+
+Let's check an example on the Penguins dataset:
+
+```{r, message=FALSE}
+library(tidyverse)
+library(palmerpenguins)
+library(corrplot)
+library(GGally)
+```
+
+Remember the [palmer penguins](https://allisonhorst.github.io/palmerpenguins/) dataset?
+
+```{r}
+penguins
+```
+
+## Visualize first
+
+Let's say that i would like to measure the correlation between the two variables `flipper_length_mm` and `body_mass_g`.
+
+Let's visualize them in a scatterplot first:
+
+```{r}
+penguins %>% 
+  ggplot() +
+  aes(x = flipper_length_mm,
+      y = body_mass_g,
+      colour = species) +
+  geom_point()
+```
+
+Il looks like there's strong overall correlation between the two variables, which might be weaker in the Adelie species.
+
+## Estimate the correlation coefficient
+
+Let's estimate the Pearson correlation coefficient with the function `cor()`.
+
+```{r}
+cor(
+  x = penguins$flipper_length_mm,
+  y = penguins$body_mass_g,
+  use = 'pairwise.complete.obs',
+  method = 'pearson'
+)
+```
+
+We use the argument `use = 'pairwise.complete.obs'` to remove observation that have missing values in x or y.
+
+The two variables are highly correlated, with a score of 0.87.
+
+## Stratify by species
+
+We can also use the group_by-summarize paradigm to estimate the same Pearson correlation coefficient, together with the Spearman correlation coefficient, stratified by species.
+
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(
+    pearson_corr = cor(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      use = 'pairwise.complete.obs',
+      method = 'pearson'
+    ),
+    spearman_corr = cor(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      use = 'pairwise.complete.obs',
+      method = 'spearman'
+    )
+  )
+```
+
+The coefficient separated by species are smaller than the one taking all the penguins together. Probably because the trend between body mass and flipper length is conserved across species on a wide range of body mass.
+
+## Correlation matrices
+
+You can use the function `cor()` to measure the correlation of multiple variable at once, producing a correlation matrix.
+
+For example, if we want to check how each continuous variable in the Palmer Penguins dataset correlates with each other:
+
+```{r}
+cor_mat <- 
+  penguins %>%
+  select_if(is.numeric) %>% 
+  # let's remove the 'year' variable
+  select(-year) %>% 
+  cor(use = 'pairwise.complete.obs')
+
+cor_mat
+```
+
+
+# Useful visual packages
+
+R has a couple (or more) useful packages that let you explore how multiple variables correlate across each other.
+
+## corrplot
+
+[corrplot](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html) let's you explore visually correlation matrices.
+
+For example, let's visualize the correlation matrix that we have stored in the variable `cor_mat` in the [section above](#correlation-matrices).
+
+```{r}
+cor_mat %>% corrplot(diag = FALSE)
+```
+
+```{r}
+cor_mat %>% corrplot(method = 'number', diag = FALSE)
+```
+
+Don't take all these correlation values for granted. As we learn in the section [caveats on correlation](#caveats-on-correlation), they might hide some spurious correlation value.
+
+## Pair Plot with GGally
+
+Let's use the `ggpairs()` function from the package [GGally](https://ggobi.github.io/ggally/reference/ggpairs.html) to explore at the same time the scatterplots and the correlation coefficient.
+
+```{r}
+#| message: false
+
+penguins %>%
+  select_if(is.numeric) %>% 
+  # let's remove the 'year' variable
+  select(-year) %>% 
+  # let's drop na's
+  drop_na() %>% 
+  ggpairs()
+```
+
+Find more examples on the [R Graph Gallery](https://r-graph-gallery.com/199-correlation-matrix-with-ggally.html).
+
+# Caveats on Correlation
+
+Correlation is a descriptive statistics. When you measure it, you reduce a complex bivariate distribution to a single number. This reductive approach is generally useful, but might be misleading in several cases .
+
+The main caveats to keep in mind are :
+
+- **Visualize the distribution**. In many specific cases, for example when there are outliers in the dataset, a high correlation scores does not translate into any evident association between the two variables.
+- **Correlation does not mean causation**. Even if two variable strongly correlate, this is no evidence that changes in one variable is causing an effect on the other. Correlation alone might be a hint to causation, but it is in no way at all a proof of it.
+
+⚠️⚠️⚠️ For a detailed explanation of the caveats of correlation, check [Chapter 19 of the book Introduction to Statistics with R](http://tester01.dfci.harvard.edu/dsbook/association-is-not-causation.html) by Rafael A. Irizarry 🙏🙏🙏.
+
+# Exercise
+
+`bill_depth_mm` and `bill_length_mm` correlate negatively with a Pearson correlation coefficient of `-0.235`. Is this correlation true or spurious? Why?
+
+Can you find a stratifying variable that solves this issue?
