@@ -1145,7 +1145,7 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models !!!WORK IN PROGRESS!!!"
+    "text": "Introduction:\n\nIntroduction\n\nHands-on Lessons:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nNotes on Correlation\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\nExplorative Statistical Models !!!WORK IN PROGRESS!!!"
   },
   {
     "objectID": "index.html#r-and-rstudio",
@@ -1202,5 +1202,68 @@
     "title": "Data Analysis in R",
     "section": "More Books at Bookdown",
     "text": "More Books at Bookdown\n\nCheck out the bookdown repository for many more"
+  },
+  {
+    "objectID": "slides/31-correlation.html",
+    "href": "slides/31-correlation.html",
+    "title": "Notes on Correlation",
+    "section": "",
+    "text": "For a generic intro to correlation check the links below:\n\nMaking Sense of Data With R - Correlation\nToward Data Science - Pearson vs Spearman Correlation Coefficient"
+  },
+  {
+    "objectID": "slides/31-correlation.html#visualize-first",
+    "href": "slides/31-correlation.html#visualize-first",
+    "title": "Notes on Correlation",
+    "section": "3.1 Visualize first",
+    "text": "3.1 Visualize first\nLet’s say that i would like to measure the correlation between the two variables flipper_length_mm and body_mass_g.\nLet’s visualize them in a scatterplot first:\n\npenguins %>% \n  ggplot() +\n  aes(x = flipper_length_mm,\n      y = body_mass_g,\n      colour = species) +\n  geom_point()\n\nWarning: Removed 2 rows containing missing values (geom_point).\n\n\n\n\n\nIl looks like there’s strong overall correlation between the two variables, which might be weaker in the Adelie species."
+  },
+  {
+    "objectID": "slides/31-correlation.html#estimate-the-correlation-coefficient",
+    "href": "slides/31-correlation.html#estimate-the-correlation-coefficient",
+    "title": "Notes on Correlation",
+    "section": "3.2 Estimate the correlation coefficient",
+    "text": "3.2 Estimate the correlation coefficient\nLet’s estimate the Pearson correlation coefficient with the function cor().\n\ncor(\n  x = penguins$flipper_length_mm,\n  y = penguins$body_mass_g,\n  use = 'pairwise.complete.obs',\n  method = 'pearson'\n)\n\n[1] 0.8712018\n\n\nWe use the argument use = 'pairwise.complete.obs' to remove observation that have missing values in x or y.\nThe two variables are highly correlated, with a score of 0.87."
+  },
+  {
+    "objectID": "slides/31-correlation.html#stratify-by-species",
+    "href": "slides/31-correlation.html#stratify-by-species",
+    "title": "Notes on Correlation",
+    "section": "3.3 Stratify by species",
+    "text": "3.3 Stratify by species\nWe can also use the group_by-summarize paradigm to estimate the same Pearson correlation coefficient, together with the Spearman correlation coefficient, stratified by species.\n\npenguins %>% \n  group_by(species) %>% \n  summarise(\n    pearson_corr = cor(\n      x = flipper_length_mm,\n      y = body_mass_g,\n      use = 'pairwise.complete.obs',\n      method = 'pearson'\n    ),\n    spearman_corr = cor(\n      x = flipper_length_mm,\n      y = body_mass_g,\n      use = 'pairwise.complete.obs',\n      method = 'spearman'\n    )\n  )\n\n# A tibble: 3 × 3\n  species   pearson_corr spearman_corr\n  <fct>            <dbl>         <dbl>\n1 Adelie           0.468         0.475\n2 Chinstrap        0.642         0.670\n3 Gentoo           0.703         0.717\n\n\nThe coefficient separated by species are smaller than the one taking all the penguins together. Probably because the trend between body mass and flipper length is conserved across species on a wide range of body mass."
+  },
+  {
+    "objectID": "slides/31-correlation.html#section",
+    "href": "slides/31-correlation.html#section",
+    "title": "Notes on Correlation",
+    "section": "4.1 ",
+    "text": "4.1"
+  },
+  {
+    "objectID": "slides/31-correlation.html#corrplot",
+    "href": "slides/31-correlation.html#corrplot",
+    "title": "Notes on Correlation",
+    "section": "4.1 corrplot",
+    "text": "4.1 corrplot\ncorrplot let’s you explore visually correlation matrices.\nFor example, let’s visualize the correlation matrix that we have stored in the variable cor_mat in the section above.\n\ncor_mat %>% corrplot(diag = FALSE)\n\n\n\n\n\ncor_mat %>% corrplot(method = 'number', diag = FALSE)\n\n\n\n\nDon’t take all these correlation values for granted. As we learn in the section caveats on correlation, they might hide some spurious correlation value."
+  },
+  {
+    "objectID": "slides/31-correlation.html#correlation-matrices",
+    "href": "slides/31-correlation.html#correlation-matrices",
+    "title": "Notes on Correlation",
+    "section": "3.4 Correlation matrices",
+    "text": "3.4 Correlation matrices\nYou can use the function cor() to measure the correlation of multiple variable at once, producing a correlation matrix.\nFor example, if we want to check how each continuous variable in the Palmer Penguins dataset correlates with each other:\n\ncor_mat <- \n  penguins %>%\n  select_if(is.numeric) %>% \n  # let's remove the 'year' variable\n  select(-year) %>% \n  cor(use = 'pairwise.complete.obs')\n\ncor_mat\n\n                  bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\nbill_length_mm         1.0000000    -0.2350529         0.6561813   0.5951098\nbill_depth_mm         -0.2350529     1.0000000        -0.5838512  -0.4719156\nflipper_length_mm      0.6561813    -0.5838512         1.0000000   0.8712018\nbody_mass_g            0.5951098    -0.4719156         0.8712018   1.0000000"
+  },
+  {
+    "objectID": "slides/31-correlation.html#ggally",
+    "href": "slides/31-correlation.html#ggally",
+    "title": "Notes on Correlation",
+    "section": "4.2 GGally",
+    "text": "4.2 GGally"
+  },
+  {
+    "objectID": "slides/31-correlation.html#pair-plot-with-ggally",
+    "href": "slides/31-correlation.html#pair-plot-with-ggally",
+    "title": "Notes on Correlation",
+    "section": "4.2 Pair Plot with GGally",
+    "text": "4.2 Pair Plot with GGally\nLet’s use the ggpairs() function from the package GGally to explore at the same time the scatterplots and the correlation coefficient.\n\npenguins %>%\n  select_if(is.numeric) %>% \n  # let's remove the 'year' variable\n  select(-year) %>% \n  # let's drop na's\n  drop_na() %>% \n  ggpairs()\n\n\n\n\nFind more examples on the R Graph Gallery."
   }
 ]
