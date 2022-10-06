@@ -1,5 +1,6 @@
 ---
 title: "Notes on Correlation"
+subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
   echo: true
@@ -8,7 +9,6 @@ format:
     theme: [style/page.scss]
     toc: true
     number-sections: true
-    footer:  '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
 editor_options: 
   chunk_output_type: console
 ---
