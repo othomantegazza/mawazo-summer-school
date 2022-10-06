@@ -87,7 +87,7 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 ## Python
 
-- [The Python Data Science Handbook](https://jakevdp.github.io/WhirlwindTourOfPython/)
+- [The Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
 - [A Whirlwind Introduction to Python](https://jakevdp.github.io/WhirlwindTourOfPython/)
 
 ## Dataviz Design
