@@ -28,6 +28,7 @@ library(readr)
 library(here)
 library(stringr)
 library(broom)
+library(parsnip)
 
 theme_update(axis.title = element_text(size = 15),
              axis.text = element_text(size = 15),
@@ -269,5 +270,23 @@ rice %>%
   geom_point(alpha = .4) +
   geom_smooth(method = 'lm')
 ```
+
+```{r}
+mod <- linear_reg() %>% set_engine('lm') 
+
+mod %>% translate()
+
+
+mod_fit <- 
+  mod %>% 
+  fit(
+    formula = spikelet_number_sp_n ~ primary_branch_number_pbn,
+    data = rice
+  )
+
+tidy(mod_fit)
+
+```
+
 
 
