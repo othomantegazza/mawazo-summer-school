@@ -13,7 +13,7 @@ Introduction:
 
 1. [Introduction](slides/00-intro.html)
 
-Hands-on Lessons:
+Hands on data with R:
 
 1. [Meet R](slides/10-meet-r.html)
 1. [Manipulate Data](slides/20-manipulate.html)
@@ -24,7 +24,12 @@ Hands-on Lessons:
 1. [Get Data into R](slides/40-get.html)
 1. [Clean Data with R](slides/50-clean.html)
 1. [Explorative Data Analysis](slides/60-explorative-data-analysis.html)
-1. [Explorative Statistical Models](slides/70-explorative-models.html) !!!WORK IN PROGRESS!!!
+
+Explore your data with statistical models:
+
+1. [A Few Words on Statistical Models](slides/70-intro-to-models.html)
+1. [Supervised Models - A glance to Linear Models](slides/73-supervised.qmd)
+1. [Unsupervised Models - Explore your Data with Clustering and PCA](slides/76-unsupervised.qmd)
 
 
 # Tools

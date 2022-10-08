@@ -1,0 +1,35 @@
+---
+title: "A Few words on Statistical Models"
+subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
+author: "Otho Mantegazza"
+execute: 
+  echo: true
+format:
+  html:
+    toc: true
+    number-sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Why Statistical Models
+
+When you reach the limit of what graphical exploration and summary statistics can tell you, you can use statistical models to explore your data.
+
+## Why?
+
+When we look for **insights** in complex datasets, sometimes we want to know:
+
+- Is there a **multivariate pattern** in the data? One that is evident only when we compare multiple variables at once.
+- Are the patterns that we observe in data there **by chance**? Or are they **caused** by something.
+
+## Which models?
+
+### Supervised models
+
+We will use **linear models** to see if we could **"predict"** the number of spikelets from the number primary branches. 
+
+### Unsupervised models
+
+We will use **clustering** and **Principal Component Analysis** to detect multivariate patterns in the data.
+

@@ -1,18 +1,21 @@
 ---
-title: "Explore your Data with Models !!!WORK IN PROGRESS!!!"
+title: "A glance to Linear Models"
+subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
   echo: true
 format:
-  revealjs:
-    theme: [simple, style/theme.scss]
-    footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+  html:
+    toc: true
+    number-sections: true
 editor_options: 
   chunk_output_type: console
 ---
 
+
+# Use Statistical Models to Explore Your Data
+
 ```{r}
-#| include: false
 
 library(dplyr)
 library(readr)
@@ -51,26 +54,6 @@ rice_colors <-
     Og = '#349a37')
 ```
 
-
-# Why Statistical Models
-
-
-## Why?
-
-When we look for **insights** in complex datasets, sometimes we want to know:
-
-- Is there a **multivariate pattern** in the data? One that is evident only when we compare multiple variables at once.
-- Are the patterns that we observe in data there **by chance**? Or are they **caused** by something.
-
-## Which models?
-
-### Supervised models
-
-We will use **linear models** to see if we could **"predict"** the number of spikelets from the number primary branches. 
-
-### Unsupervised models
-
-We will use **clustering** and **Principal Component Analysis** to detect multivariate patterns in the data.
 
 
 # Linear Models
@@ -302,80 +285,5 @@ rice %>%
   geom_point(alpha = .4) +
   geom_smooth(method = 'lm')
 ```
-
-```{r}
-rice_simple <- 
-  rice %>% 
-  sample_n(50)
-
-rice_simple %>% 
-  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
-  mutate(species = paste(species, 1:n())) %>% 
-  column_to_rownames('species') %>% 
-  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
-  dist() %>% 
-  hclust() %>% 
-  plot()
-```
-
-```{r}
-rice_simple %>% 
-  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
-  mutate(species = paste(species, 1:n())) %>% 
-  column_to_rownames('species') %>% 
-  mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
-  as.matrix() %>% 
-  heatmap()
-```
-
-With superheat?
-
-```{r}
-rice_pc <- 
-  rice %>% 
-  select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
-  mutate(species = paste(species, 1:n())) %>% 
-  column_to_rownames('species') %>% 
-  # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
-  prcomp(center = T, scale = T)
-  
-```
-
-```{r}
-rice_pc_data <- 
-  rice_pc %>% 
-  augment() %>% 
-  bind_cols(rice)
-```
-
-```{r}
-rice_pc_data %>% 
-  ggplot(aes(x = .fittedPC1,
-             y = .fittedPC2,
-             colour = species)) +
-  geom_point() +
-  scale_color_manual(values = rice_colors)
-```
-
-```{r}
-rice_pc$sdev
-```
-
-
-```{r}
-rice_pc$rotation %>% 
-  as.data.frame() %>% 
-  rownames_to_column(var = 'measurement') %>% 
-  pivot_longer(-measurement,
-               names_to = 'component',
-               values_to = 'rotation') %>% 
-  filter(component %in% c('PC1', 'PC2')) %>% 
-  ggplot(aes(y = measurement,
-             x = rotation)) +
-  geom_col() +
-  facet_grid(rows = vars(component)) 
-```
-
-## Exercise {.exercise}
 
 
