@@ -35,7 +35,7 @@ In the lesson on [unsupervised models](76-unsupervised.qmd), we will use **clust
 
 # Resources
 
-I will give you an overview on these topics, but the best resources to study them in detail are the books below:
+I will give you an overview on the topics mentioned above, but the best resources to study them in detail are the books in this list or any other book that you feel comfortable using:
 
 - [Introduction to Statistical Learning](https://www.statlearning.com).
 - [Introduction to Data Science](https://rafalab.github.io/dsbook/).
