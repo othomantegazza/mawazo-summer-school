@@ -21,15 +21,22 @@ When you reach the limit of what graphical exploration and summary statistics ca
 When we look for **insights** in complex datasets, sometimes we want to know:
 
 - Is there a **multivariate pattern** in the data? One that is evident only when we compare multiple variables at once.
-- Are the patterns that we observe in data there **by chance**? Or are they **caused** by something.
+- Are the patterns that we observe in data there **by chance**? If it they are not, we can start hypothesizing and exploring if they are **caused** by something.
 
 ## Which models?
 
 ### Supervised models
 
-We will use **linear models** to see if we could **"predict"** the number of spikelets from the number primary branches. 
+In the lesson on [supervised models](73-supervised.qmd), we will use **linear models** to test if we could **"predict"** the number of spikelets from the number primary branches and other features of rice panicles, i.e. to test if we could predict a **response** from a collection of **predictors**. 
 
 ### Unsupervised models
 
-We will use **clustering** and **Principal Component Analysis** to detect multivariate patterns in the data.
+In the lesson on [unsupervised models](76-unsupervised.qmd), we will use **clustering** and **Principal Component Analysis** to explore if we can use multiple phenotypic features to group rice panicle in distinct sets that behave similarly; i.e. to detect multivariate patterns in the data.
 
+# Resources
+
+I will give you an overview on these topics, but the best resources to study them in detail are the books below:
+
+- [Introduction to Statistical Learning](https://www.statlearning.com).
+- [Introduction to Data Science](https://rafalab.github.io/dsbook/).
+- [Tidy Modeling with R](https://www.tmwr.org/).
