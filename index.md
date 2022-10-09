@@ -83,7 +83,7 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 - [R for Data Science](https://r4ds.had.co.nz/): An introduction to data analysis with R/Tidyverse.
   - ([2nd edition](https://r4ds.hadley.nz/)  coming out soon). 
-- [Introduction to Data Science](https://rafalab.github.io/dsbook/) - A detailed introduction to Data science by a biostatistician.
+- [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/) - A detailed introduction to Data science by a biostatistician.
 - [Advanced R](https://adv-r.hadley.nz//) - All you wish to know about programming in R.
 - [Introduction to Statistical Learning](https://www.statlearning.com)  - A detailed introductio  to modern statistical methods, implemented in R.
 - [Text Mining in R](https://www.tidytextmining.com/index.html) Analyzing natural language and written text in R.
