@@ -1,5 +1,5 @@
 ---
-title: "A glance to Linear Models"
+title: "A glimpse to Linear Models"
 subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
@@ -12,8 +12,22 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Linear Models
 
-# Use Statistical Models to Explore Your Data
+Linear model are historically the first type of supervised model that is encountered when studying statistical learning, and probably are still the most used in biology and ecology. The most simple form of linear model is linear regression.
+
+You can use linear model to test if a combination of one or more predictor variables can "explain" or predict a response variable.
+
+For reference on linear models check:
+
+- Chapters 3 to 7 of [ISLR](https://www.statlearning.com).
+- Chapters 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
+
+Let's try linear regression in R.
+
+# Packages
+
+First let's load a selection of packages that we have been using throughout the lessons.
 
 ```{r}
 #| message: false
@@ -21,45 +35,97 @@ library(dplyr)
 library(readr)
 library(magrittr)
 library(tidyr)
-library(palmerpenguins)
 library(tibble)
 library(ggplot2)
 library(readr)
 library(here)
 library(stringr)
+```
+
+Then, let's load a couple of packages specific for statistical modeling from the [tidymodels](https://www.tidymodels.org/) framework.
+
+```{r}
+#| message: false
 library(broom)
 library(parsnip)
+```
 
+```{r}
 theme_update(axis.title = element_text(size = 15),
              axis.text = element_text(size = 15),
              strip.text = element_text(size = 15))
 ```
 
-## Data
 
-We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968).
+# The rice dataset
+
+We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968), introduced in the [slides on explorative data analysis](60-explorative-data-analysis.html#/practice-dataset).
+
+## Load and check
+
+### Read the data
+
+I've mirrored the data on my instance of github, let's read them from there.
 
 ```{r}
 rice <-  
-   paste0('https://raw.githubusercontent.com/othomantegazza',
-           '/mawazo-summer-school/main/data-int/rice.csv') %>% 
+  paste0(
+    'https://raw.githubusercontent.com/othomantegazza',
+    '/mawazo-summer-school/main/data-int/rice.csv'
+  ) %>% 
   read_delim(delim = ';') %>% 
   janitor::clean_names()
+```
 
+### Structure of the data
 
-# define colors
-rice_colors <- 
-  c(Or = '#b5d4e9',
-    Os = '#1f74b4',
-    Ob = '#c0d787',
-    Og = '#349a37')
+Let's also check how the data look like:
+
+```{r}
+rice
+```
+
+```{r}
+rice %>% glimpse()
+```
+
+```{r}
+rice %>% count(species)
+```
+
+```{r}
+rice %>% pull(accession_name) %>% n_distinct()
 ```
 
 
+### Content and aim of the data
 
-# Linear Models
+The dataset contains phenotypic measurements of 1140 rice panicle measurements from 91 rice accessions of 4 different rice species.
 
-## Primary branches and spikelets
+The aim of of the paper is to compare panicles at a phenotypic and transcriptomic level for a combination of 4 African and Asian, wild and domesticated rice species. 
+
+```{r}
+#| echo: false
+tribble(
+  ~species_id, ~species, ~continent, ~status,
+   'Ob', 'Oryza barthii', 'African', 'Wild',
+   'Og', 'Oryza glaberrima', 'African', 'Cultivated',
+   'Or', 'Oryza rufipogon', 'Asian', 'Wild',
+   'Os', 'Oryza sativa', 'Asian', 'Cultivated'
+) %>% knitr::kable()
+```
+
+In the picture below, from the [original article (*CC-BY-NC*)](https://academic.oup.com/jxb/article/70/20/5617/5538968) you can find a graphical explanation of the features measured in the rice dataset.
+
+![](img/rice-panicle.png)
+
+## Question
+
+Let's try to anwser the question: Can we use the number of branches (PB e SB) on a panicle to explain the number of spikelets (SP) on the same panicle? In case how?
+
+## Visualize the data first
+
+To anwser the question, let's first visualize the data to get an idea of how they are distributed.
 
 ```{r}
 rice %>% 
@@ -69,8 +135,9 @@ rice %>%
   geom_point(alpha = .4) 
 ```
 
+It seems that the number of spikelets grows with the number of branches on a panicle. The pattern might not be perfectly linear, and there might be some variation among different rice species. 
 
-## Primary branches and spikelets
+Let's also visualize the same data divided in facets, to get a clearer idea of how different species behave.
 
 ```{r}
 rice %>% 
@@ -81,24 +148,45 @@ rice %>%
   facet_wrap(facets = 'species')
 ```
 
-##
+The data points are more dispersed vertically in Og (Oryza glaberrima) and Oryza sativa. Those two species are domesticated species, they produce many secondary branches, this "uncouples" the number of spikelets from the number of primary branches.
 
-Can we draw a line through the data that explains how many spikelets we do expect according to the number of primary branch?
+Can we describe this observation with a statistical model using linear regression?
 
-# Linear Regrssion
+# A syntax for models
 
-## Linear Regression in R
+How do we define a model in R? Let's start from a generic regression. 
 
-Writing a linear model in R?
+## Generic linear regression
+
+In a simple linear model, such as regression, we are modelling the response variable `Y` as a combination two coefficients `a` and `b` that define the intercept and the slope of the line, the predictor `X` and an `error` term that, in absence of a better explanation, we hypothesize as being random gaussian.
 
 $$Y = a + b * X + error$$
+
+We can express the same concept with a tilde `~` formula.
+
 $$Y \sim a + b * X$$
+If we subsitute the generic terms of the equation above with the variables from the rice dataset ones, we can say that, in the rice problem, we are trying to guess the `intercept` and `slope` coefficients for this equation.
 
 $$spikelets = intercept + slope * primary\_branches + error$$
+Let's use a tilde formula again.
 
 $$spikelets \sim intercept + slope * primary\_branches$$
+
+With this syntax we can express models with any number of predictors, or any mathematical combination of them.
+
 $$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$
-## Declare and evaluate the model
+## Model formulas in R
+
+R has adopted the tilde model formula definition that we have seen above to define models within it's function. So, for example, the formula:
+
+```{r}
+#| eval: false
+spikelet_number_sp_n ~ primary_branch_number_pbn
+```
+
+will use the variable `spikelet_number_sp_n` as response and the `primary_branch_number_pbn` as predictor. The intercept and the slope get's calculated autmatically when we provide this formula and the appropriate data to the function `lm()`
+
+# Declare and evaluate the model
 
 Declaring and evaluating a linear model in R with the function `lm()`.
 
@@ -200,13 +288,11 @@ rice %>%
 
 ## What if we want to use more than one predictor {.scrollable}
 
-Let's try to fit the spikelet number as a funtion of both primary branch number and species.
-
-
+Let's try to fit the spikelet number as a function of both primary branch number and species.
 
 ```{r}
 fit_multiple <- lm(
-  spikelet_number_sp_n ~
+  formula = spikelet_number_sp_n ~
     species +
     primary_branch_number_pbn,
   data = rice)
@@ -240,7 +326,7 @@ augmented_fit %>%
 
 ```{r}
 fit_multiple_interaction <-
-  lm(spikelet_number_sp_n ~
+  lm(formula = spikelet_number_sp_n ~
        species +
        primary_branch_number_pbn +
        species*primary_branch_number_pbn,
@@ -254,7 +340,6 @@ anova(
   fit_multiple_interaction
 )
 ```
-
 
 ```{r}
 fit_multiple %>% tidy()
@@ -272,6 +357,38 @@ rice %>%
 ```
 
 ```{r}
+fit_pbn_sbn <- 
+  lm(formula = spikelet_number_sp_n ~
+       species +
+       primary_branch_number_pbn +
+       secondary_branch_number_sbn,
+     data = rice
+     )
+```
+
+```{r}
+fit_pbn_sbn %>% summary()
+```
+
+```{r}
+fit_pbn_sbn %>% tidy()
+```
+
+```{r}
+anova(
+  fit,
+  fit_multiple,
+  fit_pbn_sbn
+)
+```
+
+
+```{r}
+
+```
+
+
+```{r}
 mod <- linear_reg() %>% set_engine('lm') 
 
 mod %>% translate()
@@ -280,7 +397,8 @@ mod %>% translate()
 mod_fit <- 
   mod %>% 
   fit(
-    formula = spikelet_number_sp_n ~ primary_branch_number_pbn,
+    formula = spikelet_number_sp_n ~ 
+      primary_branch_number_pbn,
     data = rice
   )
 
