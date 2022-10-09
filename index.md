@@ -28,7 +28,7 @@ Hands on data with R:
 Explore your data with statistical models:
 
 1. [A Few Words on Statistical Models](slides/70-intro-to-models.html)
-1. [Supervised Models - A glance to Linear Models](slides/73-supervised.qmd)
+1. [Supervised Models - A glimpse to Linear Models](slides/73-supervised.qmd)
 1. [Unsupervised Models - Explore your Data with Clustering and PCA](slides/76-unsupervised.qmd)
 
 
