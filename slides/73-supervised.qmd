@@ -205,14 +205,17 @@ Just by calling the object fit, we can print on screen the slope and intercept e
 fit
 ```
 
-There are many tools to get more information and diagnostics from the model.
+In the next sessions we will explore the many available tools to get more information and diagnostics from the model.
 
 ## Explore the results
 
+The [`summary()` method](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/summary.lm) prints the coefficients that we've seen above, together with statistics measuring their relevance, and scores of the overall model.
 
 ```{r}
 fit %>% summary()
 ```
+
+To access those coefficients and statistics systematically, what better choice than to tidy them in a tibble with the package [broom](https://broom.tidymodels.org/)
 
 ## Tidy the results with `broom`
 
@@ -237,7 +240,9 @@ fit %>% summary()
 
 ::::
 
-## Glance the results of the linear regression {.scrollable}
+Let's check broom's main functions.
+
+### Glance the results of the linear regression {.scrollable}
 
 `glance()` reports information about the entire model.
 
@@ -248,9 +253,9 @@ fit %>%
 ```
 
 
-## Tidy the results of the linear regression {.scrollable}
+### Tidy the results of the linear regression {.scrollable}
 
-`tidy()` summarizes information about model components.
+`tidy()` summarizes information about model components in a tibble.
 
 
 ```{r}
@@ -261,7 +266,9 @@ fit_tidy <-
 fit_tidy
 ```
 
-## Augment the results of the linear regression {.scrollable}
+### Augment the results of the linear regression {.scrollable}
+
+`augment()` returns a tibble with the fitted and residuals values for every observation that was used to train the model.
 
 ```{r}
 fit_augmented <-
