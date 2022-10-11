@@ -177,18 +177,17 @@ With this syntax we can express models with any number of predictors, or any mat
 $$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$
 ## Model formulas in R
 
-R has adopted the tilde model formula definition that we have seen above to define models within it's function. So, for example, the formula:
+R has adopted the tilde model formula definition that we have seen above to define models within it's function. So, for example, the formula: `spikelet_number_sp_n ~ primary_branch_number_pb` will use:
 
-```{r}
-#| eval: false
-spikelet_number_sp_n ~ primary_branch_number_pbn
-```
+- The variable `spikelet_number_sp_n` as response.
+- The `primary_branch_number_pbn` as predictor. 
+- The intercept and the slope get's calculated autmatically when we provide this formula and the associated data to the function `lm()`
 
-will use the variable `spikelet_number_sp_n` as response and the `primary_branch_number_pbn` as predictor. The intercept and the slope get's calculated autmatically when we provide this formula and the appropriate data to the function `lm()`
-
-# Declare and evaluate the model
+# Run the model
 
 Declaring and evaluating a linear model in R with the function `lm()`.
+
+Let's run it with the formula mentioned above on the `rice` data.
 
 ```{r}
 fit <-
@@ -198,9 +197,15 @@ fit <-
     )
 ```
 
+We have run a linear regression of `spikelet_number_sp_n` over `primary_branch_number_pbn`. And associated the results to the object `fit`. How do we see the results?
+
+Just by calling the object fit, we can print on screen the slope and intercept estimated by the model.
+
 ```{r}
 fit
 ```
+
+There are many tools to get more information and diagnostics from the model.
 
 ## Explore the results
 
