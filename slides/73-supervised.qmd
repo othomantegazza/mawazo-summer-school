@@ -209,15 +209,28 @@ In the next sessions we will explore the many available tools to get more inform
 
 ## Explore the results
 
-The [`summary()` method](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/summary.lm) prints the coefficients that we've seen above, together with statistics measuring their relevance, and scores of the overall model.
+The [`summary()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/summary.lm) prints:
+
+- The **coefficients** that we've seen above (in this case the slope and the intercept of the linear regression line) with the associated T-statistics.
+- **R-squared** and **F-statistics** measuring and scoring the overall model.
 
 ```{r}
 fit %>% summary()
 ```
 
-To access those coefficients and statistics systematically, what better choice than to tidy them in a tibble with the package [broom](https://broom.tidymodels.org/)
+If you use the [`plot()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/plot.lm) method on a fitted `lm` object, R prints a selection of [4 diagnostic plots](https://www.r-bloggers.com/2019/11/the-hidden-diagnostic-plots-for-the-lm-object/).
+
+```{r}
+#| fig-height: 7
+par(mfrow = c(2, 2)) # organize the plots in a 2x2 grid
+plot(fit)
+```
+
+Instead, if you want to access the 
 
 ## Tidy the results with `broom`
+
+To access the coefficients and statistics of the model systematically, what better choice than to tidy them in a tibble with the package [broom](https://broom.tidymodels.org/)
 
 :::: {.columns}
 
@@ -244,18 +257,18 @@ Let's check broom's main functions.
 
 ### Glance the results of the linear regression {.scrollable}
 
-`glance()` reports information about the entire model.
+`glance()` reports information about the entire model, similar to what we have seen in the last lines of the output of summary, but in a tibble.
 
 ```{r}
 fit %>%
-  glance() %>%
+  glance() %>% 
   glimpse()
 ```
 
 
 ### Tidy the results of the linear regression {.scrollable}
 
-`tidy()` summarizes information about model components in a tibble.
+`tidy()` summarizes information about model coefficients and their statistics in a tibble.
 
 
 ```{r}
