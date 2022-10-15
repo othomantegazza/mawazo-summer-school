@@ -88,12 +88,20 @@ These are the books that I use as a daily reference. They are all openly accessi
 - [Introduction to Statistical Learning](https://www.statlearning.com)  - A detailed introductio  to modern statistical methods, implemented in R.
 - [Text Mining in R](https://www.tidytextmining.com/index.html) Analyzing natural language and written text in R.
 - [Tidy Modeling with R](https://www.tmwr.org/) R's machine learning framework.
-- [Designing and Building Data Science Solutions](https://datasciencedesign.com/) how to set up a data science project.
 
 ## Python
 
 - [The Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
 - [A Whirlwind Introduction to Python](https://jakevdp.github.io/WhirlwindTourOfPython/)
+
+## Git / Github
+
+- [Pro Git Book](https://git-scm.com/book/en/v2), don't worry, it starts from the basics.
+- [Github Skills](https://skills.github.com/) A set of practical exercise to learn Github.
+
+## Project management
+
+- [Designing and Building Data Science Solutions](https://datasciencedesign.com/) how to set up a data science project.
 
 ## Dataviz Design
 
