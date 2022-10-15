@@ -12,10 +12,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+🚧**Work in Progress**⚠️
+
 # Use Statistical Models to Explore Your Data
 
 ```{r}
-
+#| message: false
 library(dplyr)
 library(readr)
 library(magrittr)
