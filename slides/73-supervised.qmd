@@ -1,5 +1,5 @@
 ---
-title: "A glimpse to Linear Models"
+title: "A Glimpse to Linear Models"
 subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
@@ -325,7 +325,7 @@ rice %>%
 - We can see visually that the variance of the response variable `spikelet_number_sp_n` grows when the predictor `primary_branch_number_pbn` grows. So at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
 - You can see from the [diagnostic plot](#diagnostic-plots), that the relationship between number of spikelets and primary branches might not be perfectly linear. One educated hypothesis to explain this behaviour might be that the species that produce most spikelets rely heavily on secondary branches, and not only on primary branches.
  
-# Multiple Regression
+# Multiple regression
 
 ## What if we want to use more than one predictor
 
@@ -405,25 +405,51 @@ But you can learn more effective ways to select and test if your linear model is
 - Chapter 5 "Resampling Methods" and chapter 6 "Linear Model Selection and Regularization" of [Introduction to Statistical Learning](https://www.statlearning.com/).
 - Chapter 10 to 15 of [Tidy Modeling with R](https://www.tmwr.org/).
 
-# The Tidymodels Framework
+# Tidymodels
+
+We had a glimpse of what you can do in R with linear models. 
+
+The main function modeling function that we have used is `lm()` from the [`stats`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html) package (which is loaded in R at start up, and that's why we did't have to load it calling `library(stats)`).
+
+R has many other packages dedicated to modeling, provided access to a multitude of advanced and secotrial modeling methods, each with a dedicated interface and diagnostic tools.
+
+To unify and ease access to this multitude and to encourage good modeling practices through suggested and standardized workflow, the R community recently published the [`tidymodels`](https://www.tidymodels.org/) framework.  
+
+Just as we load all tidyverse packages at once by calling `library(tidyverse)`, we can load every tidymodels package calling `library(tidymodels)` (remember that first you have to install them with `install.packages("tidymodels")`).
+
+We have already used the `broom` package from tidymodels, installing it and loading it separately from the whole framework.
+
+## Example with linear regression
+
+Let's load also the tidymodel package [parsnip](https://parsnip.tidymodels.org/) and use it to fit the same linear regression that we have seen above. 
 
 ```{r}
-mod <- linear_reg() %>% set_engine('lm') 
+library(parsnip)
+```
 
-mod %>% translate()
+First let's define a linear regression model and declare that we are using `lm()` as the modelling engine.
 
+```{r}
+mod <-
+  linear_reg() %>%
+  set_engine('lm')
+```
 
+Then, let's fit the model 
+
+```{r}
 mod_fit <- 
   mod %>% 
   fit(
-    formula = spikelet_number_sp_n ~ 
-      primary_branch_number_pbn,
+    formula = spikelet_number_sp_n ~ primary_branch_number_pbn,
     data = rice
   )
 
 tidy(mod_fit)
-
 ```
 
+## A unified framework
 
+We have achieved the same as when we where calling `lm()`. Although we have used more lines of code, if you get used to the tidymodels syntax, you will have access to advanced modeling methods and workflows easily, because the same standardized syntax will apply to all modeling methods that you want to apply.
 
+Check the [Tidymodels with R](https://www.tmwr.org/index.html) book to take your next step in the statistical modeling world with R.
