@@ -177,7 +177,7 @@ With this syntax we can express models with any number of predictors, or any mat
 $$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$
 ## Model formulas in R
 
-R has adopted the tilde model formula definition that we have seen above to define models within it's function. So, for example, the formula: `spikelet_number_sp_n ~ primary_branch_number_pb` will use:
+R has adopted the [tilde model formula definition](https://thomasleeper.com/Rcourse/Tutorials/formulae.html) that we have seen above to define models within it's function. So, for example, the formula: `spikelet_number_sp_n ~ primary_branch_number_pb` will use:
 
 - The variable `spikelet_number_sp_n` as response.
 - The `primary_branch_number_pbn` as predictor. 
@@ -185,7 +185,7 @@ R has adopted the tilde model formula definition that we have seen above to defi
 
 # Run the model
 
-Declaring and evaluating a linear model in R with the function `lm()`.
+We can declare and evaluate a linear model in R with the function `lm()`.
 
 Let's run it with the formula mentioned above on the `rice` data.
 
@@ -225,8 +225,6 @@ If you use the [`plot()`](https://www.rdocumentation.org/packages/stats/versions
 par(mfrow = c(2, 2)) # organize the plots in a 2x2 grid
 plot(fit)
 ```
-
-Instead, if you want to access the 
 
 ## Tidy the results with `broom`
 
@@ -293,21 +291,37 @@ fit_augmented
 
 ## Visualize the results of the linear regression
 
+Once we have extracted the model coefficients with broom, we can use ggplot to represent the regression line graphically.
+
+```{r}
+
+mod_intercept <- fit_tidy %>% slice(1) %>% pull(estimate)
+mod_slope <- fit_tidy %>% slice(2) %>% pull(estimate)
+
+rice %>% 
+  ggplot(aes(x = primary_branch_number_pbn,
+             y = spikelet_number_sp_n)) +
+  geom_point(alpha = .2) +
+  geom_abline(intercept = mod_intercept,
+              slope = mod_slope)
+```
+
+It's basically the same result that we get if we add a `geom_smooth()` to the graphic, with the paramete `method = 'lm'`.
 
 ```{r}
 rice %>% 
   ggplot(aes(x = primary_branch_number_pbn,
              y = spikelet_number_sp_n)) +
-  geom_point() +
-  geom_abline(intercept = fit_tidy$estimate[1],
-              slope = fit_tidy$estimate[2])
+  geom_point(alpha = .2) +
+  geom_smooth(method = 'lm')
 ```
+
 
 ## Conclusions from the model and from the graph 
 
-- The model suggests that the number of spikelets grows with the number of primary branches.
-- the variance grows when the x grows, so at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
-- Might be that the number of spikelets grows exponentially with the number of primary branches, instead of linearly.
+- The model suggests that the number of spikelets grows with the number of primary branches. More precisely, the model estimates that on average, you get `r mod_slope %>% round(2)` spikelets evey new primary branch. 
+- We can see visually that the variance of the response variable `spikelet_number_sp_n` grows when the predictor `primary_branch_number_pbn` grows. So at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
+- You can see from the diagnostic plot, that the relationship between number of spikelets and primary branches might not be perfectly linear, also because the species that produce most spikelet rely heavily on secondary branches.
  
 # Multiple Regression
 
