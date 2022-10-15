@@ -96,6 +96,7 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 ## Git / Github
 
+- [Happy Git and Github for useR](https://happygitwithr.com/index.html) by Jenny Brian and Jim Hester.
 - [Pro Git Book](https://git-scm.com/book/en/v2), don't worry, it starts from the basics.
 - [Github Skills](https://skills.github.com/) A set of practical exercise to learn Github.
 
