@@ -21,7 +21,7 @@ You can use linear model to test if a combination of one or more predictor varia
 For reference on linear models check:
 
 - Chapters 3 to 7 of [ISLR](https://www.statlearning.com).
-- Chapters 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
+- Chapters 16, 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
 
 Let's try linear regression in R.
 
@@ -325,107 +325,76 @@ rice %>%
  
 # Multiple Regression
 
-## What if we want to use more than one predictor {.scrollable}
+## What if we want to use more than one predictors
 
-Let's try to fit the spikelet number as a function of both primary branch number and species.
+We can specify any type of formula, including both continuous and categorical variables or any type of mathematical transformation of such variables.
+
+See chapter 3 and 7 of [Introduction to Statistical Learning](https://www.statlearning.com/) to learn in detail about multiple regression and moving beyond linearity.
+
+Let's try to fit the spikelet number as a function of both primary and secondary branch number. To achieve this we can add the variable `secondary_branch_number_sbn` to the model formula that we have seen above.
+
+`spikelet_number_sp_n ~ primary_branch_number_pbn + secondary_branch_number_sbn`
 
 ```{r}
 fit_multiple <- lm(
   formula = spikelet_number_sp_n ~
-    species +
-    primary_branch_number_pbn,
+    primary_branch_number_pbn +
+    secondary_branch_number_sbn,
   data = rice)
 ```
 
+Let's explore the results of the fit:
+
 ```{r}
 fit_multiple %>%
-  glance()
-
-augmented_fit <- 
-  fit_multiple %>% 
-  augment()
+  glance() %>% 
+  glimpse()
 ```
 
 ```{r}
+fit_multiple %>% 
+  tidy()
+```
+
+The p-value of the new term `secondary_branch_number_sbn` has an incredibly low p-value (approximating at 0), a hint that the this term is adding information to the model and is helping us buinding a better function that connects the spikelet number to the branch number.
+
+We can use the diagnostic plot to check how this model is performing.
+
+```{r}
+par(mfrow = c(2, 2)) # organize the plots in a 2x2 grid
+fit_multiple %>% plot()
+```
+
+
+You can extend this reasoning to any variable in the dataset.
+
+For example, try:
+
+`spikelet_number_sp_n ~ primary_branch_number_pbn + secondary_branch_number_sbn + species`
+
+## Comparing models
+
+As our model become more and more nuanced and complicated, it gets harder to understand the output intuitively, and to visualize the results.
+
+And it gets harder to anwser vital questions such as:
+
+- which combination and transformation of predictors should I include in the model,
+- which model is best to encapsulate the signal in my data, succesfully excluding the noise.
+
+Predictor and model selection is an incredibly important and wide field in modelling and the method might change wether you're aim is inference or predicton.
+
+A very basic example of way to compare model is to run an anova to check if the model with an added term is explaining more variance then the simpler one.
+
+```{r}
 anova(
-  fit,
+  fit, 
   fit_multiple
 )
 ```
 
-```{r}
-augmented_fit %>% 
-  ggplot(aes(x = primary_branch_number_pbn,
-             y = spikelet_number_sp_n,
-             colour = species)) +
-  geom_point(alpha = .4) +
-  geom_line(aes(y = .fitted))
-```
+But you can learn more effective ways to select and test if your linear model is working properly in chapter 5 "Resampling Methods" and chapter 6 "Linear Model Selection and Regularization" of [Introduction to Statistical Learning](https://www.statlearning.com/) and in chapter 10 to 15 of [Tidy Modeling with R](https://www.tmwr.org/).
 
-
-```{r}
-fit_multiple_interaction <-
-  lm(formula = spikelet_number_sp_n ~
-       species +
-       primary_branch_number_pbn +
-       species*primary_branch_number_pbn,
-     data = rice)
-```
-
-```{r}
-anova(
-  fit,
-  fit_multiple,
-  fit_multiple_interaction
-)
-```
-
-```{r}
-fit_multiple %>% tidy()
-
-fit_multiple %>% augment()
-```
-
-```{r}
-rice %>% 
-  ggplot(aes(x = primary_branch_number_pbn,
-             y = secondary_branch_number_sbn,
-             colour = species)) +
-  geom_point(alpha = .4) +
-  geom_smooth(method = 'lm')
-```
-
-```{r}
-fit_pbn_sbn <- 
-  lm(formula = spikelet_number_sp_n ~
-       species +
-       primary_branch_number_pbn +
-       secondary_branch_number_sbn,
-     data = rice
-     )
-```
-
-```{r}
-fit_pbn_sbn %>% summary()
-```
-
-```{r}
-fit_pbn_sbn %>% tidy()
-```
-
-```{r}
-anova(
-  fit,
-  fit_multiple,
-  fit_pbn_sbn
-)
-```
-
-
-```{r}
-
-```
-
+# The Tidymodels Framework
 
 ```{r}
 mod <- linear_reg() %>% set_engine('lm') 
