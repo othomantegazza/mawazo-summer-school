@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Otho Mantegazza">
+
+<title>A Few words on Statistical Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-statistical-models" id="toc-why-statistical-models" class="nav-link active" data-scroll-target="#why-statistical-models"> <span class="header-section-number">1</span> Why Statistical Models</a>
+  <ul class="collapse">
+  <li><a href="#why" id="toc-why" class="nav-link" data-scroll-target="#why"> <span class="header-section-number">1.1</span> Why?</a></li>
+  <li><a href="#which-models" id="toc-which-models" class="nav-link" data-scroll-target="#which-models"> <span class="header-section-number">1.2</span> Which models?</a>
+  <ul class="collapse">
+  <li><a href="#supervised-models" id="toc-supervised-models" class="nav-link" data-scroll-target="#supervised-models"> <span class="header-section-number">1.2.1</span> Supervised models</a></li>
+  <li><a href="#unsupervised-models" id="toc-unsupervised-models" class="nav-link" data-scroll-target="#unsupervised-models"> <span class="header-section-number">1.2.2</span> Unsupervised models</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"> <span class="header-section-number">2</span> Resources</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">A Few words on Statistical Models</h1>
+<p class="subtitle lead"><a href="../index.html">Home</a> | <a href="https://www.summercompschool.mawazoinstitute.org/">CBSER Summer School by Mawazo Institute</a></p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Otho Mantegazza </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="why-statistical-models" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Why Statistical Models</h1>
+<p>When you reach the limit of what graphical exploration and summary statistics can tell you, you can use statistical models to explore your data.</p>
+<section id="why" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why"><span class="header-section-number">1.1</span> Why?</h2>
+<p>When we look for <strong>insights</strong> in complex datasets, sometimes we want to know:</p>
+<ul>
+<li>Is there a <strong>multivariate pattern</strong> in the data? One that is evident only when we compare multiple variables at once.</li>
+<li>Are the patterns that we observe in data there <strong>by chance</strong>? If it they are not, we can start hypothesizing and exploring if they are <strong>caused</strong> by something.</li>
+</ul>
+</section>
+<section id="which-models" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="which-models"><span class="header-section-number">1.2</span> Which models?</h2>
+<section id="supervised-models" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="supervised-models"><span class="header-section-number">1.2.1</span> Supervised models</h3>
+<p>In the lesson on <a href="../slides/73-supervised.html">supervised models</a>, we will use <strong>linear models</strong> to test if we could <strong>“predict”</strong> the number of spikelets from the number primary branches and other features of rice panicles, i.e.&nbsp;to test if we could predict a <strong>response</strong> from a collection of <strong>predictors</strong>.</p>
+</section>
+<section id="unsupervised-models" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="unsupervised-models"><span class="header-section-number">1.2.2</span> Unsupervised models</h3>
+<p>In the lesson on <a href="../slides/76-unsupervised.html">unsupervised models</a>, we will use <strong>clustering</strong> and <strong>Principal Component Analysis</strong> to explore if we can use multiple phenotypic features to group rice panicle in distinct sets that behave similarly; i.e.&nbsp;to detect multivariate patterns in the data.</p>
+</section>
+</section>
+</section>
+<section id="resources" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Resources</h1>
+<p>I will give you an overview on the topics mentioned above, but the best resources to study them in detail are the books in this list or any other book that you feel comfortable using:</p>
+<ul>
+<li><a href="https://www.statlearning.com">Introduction to Statistical Learning</a>.</li>
+<li><a href="https://rafalab.github.io/dsbook/">Introduction to Data Science</a>.</li>
+<li><a href="https://www.tmwr.org/">Tidy Modeling with R</a>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
