@@ -108,6 +108,10 @@ These are the books that I use as a daily reference. They are all openly accessi
 
 - [Data Visualization - A practical introduction](https://socviz.co/index.html#preface) Visualize data in R.
 
+## Dashboards
+
+- [Dashboards with R + Docker + Github Actions](https://github.com/RamiKrispin/deploy-flex-actions) by Rami Krispin, head of data science at Apple.
+
 ## More Books at Bookdown
 
 - Check out the [bookdown](https://bookdown.org/home/) repository for many more

@@ -1267,6 +1267,13 @@
     "text": "Dataviz Design\n\nData Visualization - A practical introduction Visualize data in R."
   },
   {
+    "objectID": "index.html#dashboards",
+    "href": "index.html#dashboards",
+    "title": "Data Analysis in R",
+    "section": "Dashboards",
+    "text": "Dashboards\n\nDashboards with R + Docker + Github Actions by Rami Krispin, head of data science at Apple."
+  },
+  {
     "objectID": "index.html#more-books-at-bookdown",
     "href": "index.html#more-books-at-bookdown",
     "title": "Data Analysis in R",
