@@ -14,6 +14,14 @@ editor_options:
 
 🚧**Work in Progress**⚠️
 
+Why unsupervised learning, why dimension reduction?
+
+References:
+
+- Chapters 33 and 34 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/large-datasets.html)
+- Chapter 12 of [Introduction to Statistical Learning](https://www.statlearning.com)
+- Chapter 16 of [Tidy Modeling with R](https://www.tmwr.org/dimensionality.html)
+
 # Use Statistical Models to Explore Your Data
 
 ```{r}
