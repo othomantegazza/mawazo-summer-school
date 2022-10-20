@@ -1243,7 +1243,7 @@
     "href": "index.html#python",
     "title": "Data Analysis in R",
     "section": "Python",
-    "text": "Python\n\nThe Python Data Science Handbook\nA Whirlwind Introduction to Python"
+    "text": "Python\n\nThe Python Data Science Handbook, foundation of python for data science, by Jake VanderPlas.\nA Whirlwind Introduction to Python, a fast paced introduction to python, by Jake VanderPlas.\nPython for Data Analysis, the basics of data analysis in Python, with numpy and pandas, by Wes McKinney.\nVisualization Curriculum Data Visualization with Python, through Vega-Lite and Altair. Available also for javascript."
   },
   {
     "objectID": "index.html#git-github",
