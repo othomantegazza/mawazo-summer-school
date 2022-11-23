@@ -1075,14 +1075,14 @@
     "href": "slides/70-intro-to-models.html",
     "title": "A Few words on Statistical Models",
     "section": "",
-    "text": "2 Resources\nI will give you an overview on the topics mentioned above, but the best resources to study them in detail are the books in this list or any other book that you feel comfortable using:\n\nIntroduction to Statistical Learning.\nIntroduction to Data Science.\nTidy Modeling with R."
+    "text": "When you reach the limit of what graphical exploration and summary statistics can tell you, you can use statistical models to explore your data.\n\n\nWhen we look for insights in complex datasets, sometimes we want to know:\n\nIs there a multivariate pattern in the data? One that is evident only when we compare multiple variables at once.\nAre the patterns that we observe in data there by chance? If it they are not, we can start hypothesizing and exploring if they are caused by something.\n\n\n\n\n\n\nIn the lesson on supervised models, we will use linear models to test if we could “predict” the number of spikelets from the number primary branches and other features of rice panicles, i.e. to test if we could predict a response from a collection of predictors.\n\n\n\nIn the lesson on unsupervised models, we will use clustering and Principal Component Analysis to explore if we can use multiple phenotypic features to group rice panicle in distinct sets that behave similarly; i.e. to detect multivariate patterns in the data."
   },
   {
     "objectID": "slides/73-supervised.html",
     "href": "slides/73-supervised.html",
     "title": "A Glimpse to Linear Models",
     "section": "",
-    "text": "Linear model are historically the first type of supervised model that is encountered when studying statistical learning, and probably still the most used in biology, ecology and plenty of other fields. The most simple form of linear model is linear regression.\nYou can use linear model to test if a combination of one or more predictor variables can “explain”, infer or predict a response variable.\nFor reference on linear models check:\n\nChapters 3 to 7 of ISLR.\nChapters 16, 17 and 18 of Introduction to Data Science.\n\nLet’s try linear regression in R."
+    "text": "Linear model are historically the first type of supervised model that is encountered when studying statistical learning, and are still probably the most used in biology, ecology and plenty of other fields. The most simple form of linear model is linear regression.\nYou can use linear model to test if a combination of one or more predictor variables can “explain”, infer or predict a response variable.\nFor reference on linear models check:\n\nChapters 3 to 7 of ISLR.\nChapters 16, 17 and 18 of Introduction to Data Science.\nAnalising Data Using Linear Models, for students in social, behavioural and management science, by Stéphanie M. van den Berg, basically the whole book.\n\nLet’s try linear regression in R."
   },
   {
     "objectID": "slides/73-supervised.html#load-and-check",
@@ -1110,14 +1110,7 @@
     "href": "slides/73-supervised.html#generic-linear-regression",
     "title": "A Glimpse to Linear Models",
     "section": "4.1 Generic linear regression",
-    "text": "4.1 Generic linear regression\nIn a simple linear model, such as linear regression, we are modelling the response variable Y as a combination two coefficients a and b that define the intercept and the slope of the line, the predictor X and an error term that, in absence of a better explanation, we hypothesize as being random gaussian.\n\\[Y = a + b * X + error\\]\nWe can express the same concept with a tilde ~ formula.\n\\[Y \\sim a + b * X\\]\nIf we subsitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the intercept and slope coefficients for this equation.\n\\[spikelets = intercept + slope * primary\\_branches + error\\]\nLet’s use a tilde formula again.\n\\[spikelets \\sim intercept + slope * primary\\_branches\\]\nWith this syntax we can express models with any number of predictors, or any mathematical combination of them.\n\\[Y = a + b_1X_1 + b\\_2X_2 + ... + b\\_nX_n + error\\]"
-  },
-  {
-    "objectID": "slides/73-supervised.html#model-formulas-in-r",
-    "href": "slides/73-supervised.html#model-formulas-in-r",
-    "title": "A Glimpse to Linear Models",
-    "section": "4.2 Model formulas in R",
-    "text": "4.2 Model formulas in R\nR has adopted the tilde model formula definition that we have seen above to define models within it’s function, such as lm(). So, for example, the formula: spikelet_number_sp_n ~ primary_branch_number_pb will use:\n\nThe variable spikelet_number_sp_n as response.\nThe primary_branch_number_pbn as predictor.\nThe intercept and the slope get’s calculated autmatically when we provide this formula and the associated data to the function lm()"
+    "text": "4.1 Generic linear regression\nIn a simple linear model, such as linear regression, we are modelling the response variable Y as a combination two coefficients a and b that define the intercept and the slope of the line, the predictor X and an error term that, in absence of a better explanation, we hypothesize as being random gaussian.\n\\[Y = a + b * X + error\\]\nWe can express the same concept with a tilde ~ formula.\n\\[Y \\sim a + b * X\\] If we subsitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the intercept and slope coefficients for this equation.\n\\[spikelets = intercept + slope * primary\\_branches + error\\] Let’s use a tilde formula again.\n\\[spikelets \\sim intercept + slope * primary\\_branches\\]\nWith this syntax we can express models with any number of predictors, or any mathematical combination of them.\n\\[Y = a + b_1X_1 + b\\_2X_2 + ... + b\\_nX_n + error\\] ## Model formulas in R\nR has adopted the tilde model formula definition that we have seen above to define models within it’s function, such as lm(). So, for example, the formula: spikelet_number_sp_n ~ primary_branch_number_pb will use:\n\nThe variable spikelet_number_sp_n as response.\nThe primary_branch_number_pbn as predictor.\nThe intercept and the slope get’s calculated autmatically when we provide this formula and the associated data to the function lm()"
   },
   {
     "objectID": "slides/73-supervised.html#explore-the-results",
