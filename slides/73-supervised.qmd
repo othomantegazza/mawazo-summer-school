@@ -14,7 +14,7 @@ editor_options:
 
 # Linear Models
 
-Linear model are historically the first type of supervised model that is encountered when studying statistical learning, and probably still the most used in biology, ecology and plenty of other fields. The most simple form of linear model is linear regression.
+Linear model are historically the first type of supervised model that is encountered when studying statistical learning, and are still probably the most used in biology, ecology and plenty of other fields. The most simple form of linear model is linear regression.
 
 You can use linear model to test if a combination of one or more predictor variables can "explain", infer or predict a response variable.
 
@@ -22,6 +22,7 @@ For reference on linear models check:
 
 - Chapters 3 to 7 of [ISLR](https://www.statlearning.com).
 - Chapters 16, 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
+- [Analising Data Using Linear Models](https://bookdown.org/pingapang9/linear_models_bookdown/), for students in social, behavioural and management science, by Stéphanie M. van den Berg, basically the whole book.
 
 Let's try linear regression in R.
 
@@ -47,6 +48,8 @@ Then, let's load a couple of packages specific for statistical modeling from the
 library(broom)
 library(parsnip)
 ```
+
+And let's tweak the ggplot theme so graphics are easier to read on this page.
 
 ```{r}
 theme_update(axis.title = element_text(size = 15),
