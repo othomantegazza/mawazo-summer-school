@@ -1,5 +1,5 @@
 ---
-title: "Explore your Data with Clustering and PCA"
+title: "Unsupervised Methods - Explore your Data with Clustering and PCA"
 subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
@@ -14,7 +14,20 @@ editor_options:
 
 🚧**Work in Progress**⚠️
 
-# Use Statistical Models to Explore Your Data
+# Introduction to Unsupervised Models
+
+Unsupervised model, often also called "dimension reduction" methods can help you explore and search for patterns in high dimensional data.
+
+The unsupervised methods that you have already heard about are probably:
+
+- Clustering.
+- Principal Component Analysis.
+
+Your references for unsupervised learning are:
+
+- [Introduction to Statistical Learning](https://www.statlearning.com), chapter 12.
+- [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html): [chapter 34](http://rafalab.dfci.harvard.edu/dsbook/clustering.html) and part of [chapter 33](http://rafalab.dfci.harvard.edu/dsbook/large-datasets.html).
+- [Chapter 16 of Tidy Modeling with R](https://www.tmwr.org/dimensionality.html).
 
 ```{r}
 #| message: false
