@@ -28,8 +28,8 @@ Hands on data with R:
 Explore your data with statistical models:
 
 1. [A Few Words on Statistical Models](slides/70-intro-to-models.html)
-1. [Supervised Models - A glimpse to Linear Models and an introduction to Tidymodels](slides/73-supervised.qmd)
-1. [🚧Work in Progress⚠️] [Unsupervised Models - Explore your Data with Clustering and PCA](slides/76-unsupervised.qmd) 
+1. [Supervised Learning - A glimpse to Linear Models and an introduction to Tidymodels](slides/73-supervised.qmd)
+1. [🚧Work in Progress⚠️] [Unsupervised Learning - Explore your Data with Clustering and PCA](slides/76-unsupervised.qmd) 
 
 
 # Tools

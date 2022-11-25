@@ -1,5 +1,5 @@
 ---
-title: "Unsupervised Methods - Explore your Data with Clustering and PCA"
+title: "Unsupervised Learning - Explore your Data with Clustering and PCA"
 subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
 author: "Otho Mantegazza"
 execute: 
@@ -14,20 +14,41 @@ editor_options:
 
 🚧**Work in Progress**⚠️
 
-# Introduction to Unsupervised Models
+# References first
 
-Unsupervised model, often also called "dimension reduction" methods can help you explore and search for patterns in high dimensional data.
+As always, my favorite references for unsupervised learning are:
+
+- [Introduction to Statistical Learning](https://www.statlearning.com), chapter 12.
+- [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html): [chapter 34](http://rafalab.dfci.harvard.edu/dsbook/clustering.html) and part of [chapter 33](http://rafalab.dfci.harvard.edu/dsbook/large-datasets.html).
+- [Chapter 16 of Tidy Modeling with R](https://www.tmwr.org/dimensionality.html).
+- [A tutorial on Principal Component Analysis \[PDF\]](https://www.cs.cmu.edu/~elaw/papers/pca.pdf) by Jonathon Shlens.
+
+There's an additional reference that I really like, that explains [Principal Components visually](https://setosa.io/ev/principal-component-analysis/). Check it out!
+
+# Ok, but what is Unsupervised Learning?
+
+Unsupervised learning might seem strange.
+
+Comparing it to what we have learned about supervised learning in the previous chapter, when we run a supervised model, such as a  linear regression model, we estimate a function that is able to guess an outcome $Y$ starting from the value of a series of predictors $X_1, X_2, ..., X_n$. We can then use statistical indicators to investigate how likely it is that the model that we have estimated is explaining how $Y$ responds to variations in the predictors $X$ or if our model is inappropriate for the data and is capturing only noise. So, in supervised modeling we have a way to tell if our model is "good" or "bad".
+
+In supervised learning instead, we don't have, or we don't care to look at an outcome variable $y$. We look only at a series of predictors $X_1, X_2, ... X_n$, and explore if we can group our observation that make up each predictor in an interesting and insightful way. Since we don't have an outcome variable $Y$ that we could use to test the performance of our model, there is no real way to tell if our unsupervised model is "good" or "bad". The model will probably show us some pattern in the data, and it's up to us to investigate that pattern further to understand if it is useful.
 
 The unsupervised methods that you have already heard about are probably:
 
 - Clustering.
 - Principal Component Analysis.
 
-Your references for unsupervised learning are:
+You could also hear the term **dimension reduction** referring to unsupervised learning methods. This is a great way to describe them, since we often use them to reduce the dimension, or variables, of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.
 
-- [Introduction to Statistical Learning](https://www.statlearning.com), chapter 12.
-- [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html): [chapter 34](http://rafalab.dfci.harvard.edu/dsbook/clustering.html) and part of [chapter 33](http://rafalab.dfci.harvard.edu/dsbook/large-datasets.html).
-- [Chapter 16 of Tidy Modeling with R](https://www.tmwr.org/dimensionality.html).
+## Examples of unsupervised learning questions
+
+Coming back to the rice panicles dataset. The group that published the paper have measured many variables (predictors): `rachis_length`, `primary_branch_length`, `primary_branch_number`, `secondary_branch_length`, `internode_length` and so on. We might be interested to know if there are groups of rice accessions (observations) that are similars among each others, for example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice versa.
+
+We probably don't even know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.
+
+Otherwise, we might measure many type of pollutants, which would be our variable/predictors, in many samples of soil, which would be our observations/samples,  from many areas of the world. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects. We could again use clustering or PCA to search for those groups in multivariate data.
+
+Or, similarly, we might be measuring gene expression (observations) in many sample of different tumors (variables/predictors), and we want to look at those data to seek for patterns and understand if group of tumors have similar unexpected features. Again, we could use unsupervised learning to search for those patterns.
 
 ```{r}
 #| message: false
