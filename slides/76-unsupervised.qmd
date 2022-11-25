@@ -14,7 +14,9 @@ editor_options:
 
 🚧**Work in Progress**⚠️
 
-# References first
+# Introduction & Setup
+
+## References first
 
 As always, my favorite references for unsupervised learning are:
 
@@ -25,7 +27,7 @@ As always, my favorite references for unsupervised learning are:
 
 There's an additional reference that I really like, that explains [Principal Components visually](https://setosa.io/ev/principal-component-analysis/). Check it out!
 
-# Ok, but what is Unsupervised Learning?
+## Ok, but what is Unsupervised Learning?
 
 Unsupervised learning might seem strange.
 
@@ -40,15 +42,19 @@ The unsupervised methods that you have already heard about are probably:
 
 You could also hear the term **dimension reduction** referring to unsupervised learning methods. This is a great way to describe them, since we often use them to reduce the dimension, or variables, of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.
 
-## Examples of unsupervised learning questions
+### Examples of unsupervised learning questions
 
-Coming back to the rice panicles dataset. The group that published the paper have measured many variables (predictors): `rachis_length`, `primary_branch_length`, `primary_branch_number`, `secondary_branch_length`, `internode_length` and so on. We might be interested to know if there are groups of rice accessions (observations) that are similars among each others, for example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice versa.
+Coming back to the rice panicles dataset: The group that published the paper have measured many variables (predictors): `rachis_length`, `primary_branch_length`, `primary_branch_number`, `secondary_branch_length`, `internode_length` and so on. We might be interested to know if there are groups of rice accessions (observations) that are similars among each others, for example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice versa.
 
 We probably don't even know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.
 
 Otherwise, we might measure many type of pollutants, which would be our variable/predictors, in many samples of soil, which would be our observations/samples,  from many areas of the world. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects. We could again use clustering or PCA to search for those groups in multivariate data.
 
 Or, similarly, we might be measuring gene expression (observations) in many sample of different tumors (variables/predictors), and we want to look at those data to seek for patterns and understand if group of tumors have similar unexpected features. Again, we could use unsupervised learning to search for those patterns.
+
+## R packages
+
+(the ususal)
 
 ```{r}
 #| message: false
@@ -87,6 +93,57 @@ rice_colors <-
     Os = '#1f74b4',
     Ob = '#c0d787',
     Og = '#349a37')
+```
+
+# Principal Component Analysis
+
+When we perform a Principal Component Analysis (PCA), we take the variables in our dataset and we use them to estimate new variables that are a linear combination of the original ones. The new variable will be orthogonal, thus uncorrelated to each others, and are called the principal components.
+
+In detail, the transformation that we perform to estimate the principal components, are rotations of the original axis in a way that the first principal components corresponds to the main axis of variation of the original data, the second component corresponds to the second main axis of variation, orthogonal to the first one, and so on until we have as many components as are the variable of the original dataset.
+
+Given the hypothesis that the main axis of variation collect the signal available in the dataset, and that the axis of minor variation collect only noise, the rotations (*loadings*) and the values projected on the principal components (*scores*) can provide us with valuable insights on pattern that were hidden in the original dataset.
+
+Let's go through a naive example before running a PCA on the rice dataset.
+
+## A Naive Example
+
+While plant leaves absorb blue and red light, they reflect green and IR light, satellite images vegetated area will show huge reflectance values in those wavelength.
+
+Let's imagine we have collected a dataset in two dimensions, in which we have collected two variables are green and IR reflectance for 2000 spots in heavily vegetated area.
+
+Both variables will basically be a function of the coverage of land with plants, but we don't know yet. So, given this assumption, our dataset could look something like this.
+
+Let's assume that the vegetation coverage `v` is measured in a value between 0 and 1. We can generate a `v` vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1.
+
+```{r}
+size <- 100
+v <- runif(size, min = 0.3, 1)
+```
+
+IR and green reflectance will both be a linear function of the vegetation coverage stored in `v`, plus a small random noise.
+
+```{r}
+reflectance <- 
+  tibble(
+    ir = v*2 + rnorm(size, mean = 0, sd = .02),
+    green = v*1.3 + rnorm(size, mean = 0, sd = .02)
+  )
+```
+
+So, the `reflectance` dataset looks like this.
+
+```{r}
+reflectance
+```
+
+And if we plot `green` vs `ir` reflectance, we see right away that they are higlhy correlated.
+
+```{r}
+reflectance %>% 
+  ggplot() +
+  aes(x = green,
+      y = ir) +
+  geom_point(alpha = .6)
 ```
 
 
