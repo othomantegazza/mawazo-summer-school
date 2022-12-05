@@ -95,3 +95,18 @@ a {
 #title-slide {
   text-align: left;
 }
+
+.quarto-title-author-name {
+  text-align: left !important; 
+}
+
+.quarto-title-authors {
+  justify-content: left !important;
+  padding-left: 0em !important;
+}
+
+.quarto-title-author {
+  justify-content: left !important;
+  padding-left: 0em !important;
+  font-weight: 300 !important;
+}
