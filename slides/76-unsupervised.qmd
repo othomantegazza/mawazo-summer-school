@@ -62,7 +62,7 @@ We will use the rice panicle dataset to demostrate how to run PCA and hierarchic
 
 ## R packages
 
-(the ususal)
+(the usuals)
 
 ```{r}
 #| message: false
@@ -83,43 +83,25 @@ theme_update(axis.title = element_text(size = 15),
              strip.text = element_text(size = 15))
 ```
 
-## Data
-
-We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968).
-
-```{r}
-rice <-  
-   paste0('https://raw.githubusercontent.com/othomantegazza',
-           '/mawazo-summer-school/main/data-int/rice.csv') %>% 
-  read_delim(delim = ';') %>% 
-  janitor::clean_names()
-
-
-# define colors
-rice_colors <- 
-  c(Or = '#b5d4e9',
-    Os = '#1f74b4',
-    Ob = '#c0d787',
-    Og = '#349a37')
-```
-
 # Principal Component Analysis
 
 When we perform a Principal Component Analysis (PCA), we take the variables in our dataset and we use them to estimate new variables that are a linear combination of the original ones. The new variable will be orthogonal, thus uncorrelated to each others, and are called the principal components.
 
 In detail, the transformation that we perform to estimate the principal components, are rotations of the original axis in a way that the first principal components corresponds to the main axis of variation of the original data, the second component corresponds to the second main axis of variation, orthogonal to the first one, and so on until we have as many components as are the variable of the original dataset.
 
-Given the hypothesis that the main axis of variation collect the signal available in the dataset, and that the axis of minor variation collect only noise, the rotations (*loadings*) and the values projected on the principal components (*scores*) can provide us with valuable insights on pattern that were hidden in the original dataset.
+Given the hypothesis that the main axis of variation collect the signal available in the dataset, and that the axis of minor variation collect only noise, the rotations (*loadings*) and the values projected on the principal components (*scores*) can provide us with valuable insights about pattern that were hidden in the original dataset, and about how many dimension we need to encode those pattern.
 
 Let's go through a naive example before running a PCA on the rice dataset.
 
-## A Naive Example
+## A Naive Example on Synthetic Data
 
 While plant leaves absorb blue and red light, they reflect green and IR light, satellite images vegetated area will show huge reflectance values in those wavelength.
 
 Let's imagine we have collected a dataset in two dimensions, in which we have collected two variables are green and IR reflectance for 2000 spots in heavily vegetated area.
 
 Both variables will basically be a function of the coverage of land with plants, but we don't know yet. So, given this assumption, our dataset could look something like this.
+
+### Let's generate the data
 
 Let's assume that the vegetation coverage `v` is measured in a value between 0 and 1. We can generate a `v` vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1.
 
@@ -151,11 +133,58 @@ reflectance %>%
   ggplot() +
   aes(x = green,
       y = ir) +
-  geom_point(alpha = .6)
+  geom_point(alpha = .6) +
+  labs(title = "Reflectance")
+```
+
+### Let's run the PCA
+
+To run the PCA, first we have to center the data at 0 and to scale them to z-scores.
+
+This can be achieved with the function [scale](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) from base R.
+
+```{r}
+reflectance_scaled <- 
+  reflectance %>%
+  scale() %>%
+  as_tibble()
+```
+
+We call `as_tibble()` after `scale()` because the scale function returns a matrix-like object.
+
+Let's plot the centered and scaled data to see what they look like.
+
+```{r}
+reflectance_scaled %>% 
+  ggplot() +
+  aes(x = green,
+      y = ir) +
+  geom_point(alpha = .6) +
+  labs(title = "Reflectance")
 ```
 
 
-```{r}
+## Data
+
+We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968).
+
+```{r, eval = FALSE}
+rice <-  
+   paste0('https://raw.githubusercontent.com/othomantegazza',
+           '/mawazo-summer-school/main/data-int/rice.csv') %>% 
+  read_delim(delim = ';') %>% 
+  janitor::clean_names()
+
+
+# define colors
+rice_colors <- 
+  c(Or = '#b5d4e9',
+    Os = '#1f74b4',
+    Ob = '#c0d787',
+    Og = '#349a37')
+```
+
+```{r, eval = FALSE}
 rice_simple <- 
   rice %>% 
   sample_n(50)
@@ -168,9 +197,7 @@ rice_simple %>%
   dist() %>% 
   hclust() %>% 
   plot()
-```
 
-```{r}
 rice_simple %>% 
   select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
   mutate(species = paste(species, 1:n())) %>% 
@@ -178,11 +205,7 @@ rice_simple %>%
   mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
   as.matrix() %>% 
   heatmap()
-```
 
-With superheat?
-
-```{r}
 rice_pc <- 
   rice %>% 
   select(species, rachis_length_rl_in_cm:spikelet_number_sp_n) %>% 
@@ -190,31 +213,21 @@ rice_pc <-
   column_to_rownames('species') %>% 
   # mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %>% 
   prcomp(center = T, scale = T)
-  
-```
 
-```{r}
 rice_pc_data <- 
   rice_pc %>% 
   augment() %>% 
   bind_cols(rice)
-```
 
-```{r}
 rice_pc_data %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
              colour = species)) +
   geom_point() +
   scale_color_manual(values = rice_colors)
-```
 
-```{r}
 rice_pc$sdev
-```
 
-
-```{r}
 rice_pc$rotation %>% 
   as.data.frame() %>% 
   rownames_to_column(var = 'measurement') %>% 
