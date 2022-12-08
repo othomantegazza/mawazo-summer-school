@@ -141,7 +141,7 @@ reflectance %>%
 
 To run the PCA, first we have to center the data at 0 and to scale them to z-scores.
 
-This can be achieved with the function [scale](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) from base R.
+This can be achieved with the function [scale()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) from base R.
 
 ```{r}
 reflectance_scaled <- 
@@ -160,7 +160,55 @@ reflectance_scaled %>%
   aes(x = green,
       y = ir) +
   geom_point(alpha = .6) +
-  labs(title = "Reflectance")
+  labs(title = "Reflectance, scaled")
+```
+
+We can see that now the two variables (`ir` and `green` reflectance) are centered at zero and in roughly in range (-2, 2). The scale of the variables ahas changed, but the main pattern in the data is unchanged.
+
+Let's use the function [prcomp()]() to run a principant component analysis on this dataset.
+
+```{r}
+pca <- 
+  reflectance_scaled %>% 
+  prcomp()
+```
+
+We have used the function `prcomp()` and stored its output in `pca`. The ouptut of `prcomp()` is a list with 5 elements in it.
+
+```{r}
+class(pca)
+```
+
+```{r}
+typeof(pca)
+```
+
+```{r}
+ls(pca)
+```
+
+Let's give an interpretation of the PCA results from an explorative-data-analysis point of view.
+
+### Analitical intepretation of PCA results
+
+```{r}
+pca$x %>% 
+  as_tibble() %>% 
+  ggplot() +
+  aes(x = PC1,
+      y = PC2) +
+  geom_point() +
+  coord_fixed()
+```
+
+```{r}
+pca$sdev %>% 
+  as_tibble() %>% 
+  mutate(pc = c('PC1', 'PC2')) %>% 
+  ggplot() +
+  aes(x = pc,
+      y = value) +
+  geom_col()
 ```
 
 
