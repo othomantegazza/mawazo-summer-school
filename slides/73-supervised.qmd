@@ -20,9 +20,9 @@ You can use linear model to test if a combination of one or more predictor varia
 
 For reference on linear models check:
 
-- Chapters 3 to 7 of [ISLR](https://www.statlearning.com).
-- Chapters 16, 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
-- [Analising Data Using Linear Models](https://bookdown.org/pingapang9/linear_models_bookdown/), for students in social, behavioural and management science, by Stéphanie M. van den Berg, basically the whole book.
+-   Chapters 3 to 7 of [ISLR](https://www.statlearning.com).
+-   Chapters 16, 17 and 18 of [Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/regression.html).
+-   [Analising Data Using Linear Models](https://bookdown.org/pingapang9/linear_models_bookdown/), for students in social, behavioural and management science, by Stéphanie M. van den Berg, basically the whole book.
 
 Let's try linear regression in R.
 
@@ -56,7 +56,6 @@ theme_update(axis.title = element_text(size = 15),
              axis.text = element_text(size = 15),
              strip.text = element_text(size = 15))
 ```
-
 
 # The rice dataset
 
@@ -98,12 +97,11 @@ rice %>% count(species)
 rice %>% pull(accession_name) %>% n_distinct()
 ```
 
-
 ### Content and aim of the data
 
 The dataset contains phenotypic measurements of 1140 rice panicle from 91 rice accessions of 4 different rice species.
 
-The aim of [the paper in which this dataset is published](https://academic.oup.com/jxb/article/70/20/5617/5538968) is to compare panicles at a phenotypic and transcriptomic level for a combination of 4 African and Asian, wild and domesticated rice species. 
+The aim of [the paper in which this dataset is published](https://academic.oup.com/jxb/article/70/20/5617/5538968) is to compare panicles at a phenotypic and transcriptomic level for a combination of 4 African and Asian, wild and domesticated rice species.
 
 ```{r}
 #| echo: false
@@ -122,11 +120,11 @@ In the picture below, from the [original article (*CC-BY-NC*)](https://academic.
 
 ## Question
 
-Let's try to anwser the question: Can we use the number of branches (PB e SB) on a panicle to explain the number of spikelets (SP) on the same panicle? In case how?
+Let's try to answer the question: Can we use the number of branches (PB e SB) on a panicle to explain the number of spikelets (SP) on the same panicle? In case how?
 
 ## Visualize the data first
 
-To anwser the question, let's first visualize the data to get an idea of how they are distributed.
+To answer the question, let's first visualize the data to get an idea of how they are distributed.
 
 ```{r}
 rice %>% 
@@ -136,7 +134,7 @@ rice %>%
   geom_point(alpha = .4) 
 ```
 
-It seems that the number of spikelets grows with the number of primary branches on a panicle. The pattern might not be perfectly linear, and there might be some variation among different rice species. 
+It seems that the number of spikelets grows with the number of primary branches on a panicle. The pattern might not be perfectly linear, and there might be some variation among different rice species.
 
 Let's also visualize the same data divided in facets, to get a clearer idea of how different species behave.
 
@@ -155,7 +153,7 @@ Can we describe this observation with a statistical model using linear regressio
 
 # A syntax for models
 
-How do we define a model in R? Let's start from a generic regression. 
+How do we define a model in R? Let's start from a generic regression.
 
 ## Generic linear regression
 
@@ -165,24 +163,21 @@ $$Y = a + b * X + error$$
 
 We can express the same concept with a tilde `~` formula.
 
-$$Y \sim a + b * X$$
-If we subsitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the `intercept` and `slope` coefficients for this equation.
+$$Y \sim a + b * X$$ If we substitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the `intercept` and `slope` coefficients for this equation.
 
-$$spikelets = intercept + slope * primary\_branches + error$$
-Let's use a tilde formula again.
+$$spikelets = intercept + slope * primary\_branches + error$$ Let's use a tilde formula again.
 
 $$spikelets \sim intercept + slope * primary\_branches$$
 
 With this syntax we can express models with any number of predictors, or any mathematical combination of them.
 
-$$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$
-## Model formulas in R
+$$Y = a + b_1X_1 + b\_2X_2 + ... + b\_nX_n + error$$ \## Model formulas in R
 
 R has adopted the [tilde model formula definition](https://thomasleeper.com/Rcourse/Tutorials/formulae.html) that we have seen above to define models within it's function, such as `lm()`. So, for example, the formula: `spikelet_number_sp_n ~ primary_branch_number_pb` will use:
 
-- The variable `spikelet_number_sp_n` as response.
-- The `primary_branch_number_pbn` as predictor. 
-- The intercept and the slope get's calculated autmatically when we provide this formula and the associated data to the function `lm()`
+-   The variable `spikelet_number_sp_n` as response.
+-   The `primary_branch_number_pbn` as predictor.
+-   The intercept and the slope get's calculated automatically when we provide this formula and the associated data to the function `lm()`
 
 # Run the model
 
@@ -214,14 +209,14 @@ In the next sessions we will explore the many available tools to get more inform
 
 The [`summary()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/summary.lm) method prints:
 
-- The **coefficients** that we've seen above (in this case the slope and the intercept of the linear regression line) with the associated T-statistics.
-- **R-squared** and **F-statistics** measuring and scoring the overall model.
+-   The **coefficients** that we've seen above (in this case the slope and the intercept of the linear regression line) with the associated T-statistics.
+-   **R-squared** and **F-statistics** measuring and scoring the overall model.
 
 ```{r}
 fit %>% summary()
 ```
 
-### Diagnostic plots
+### Diagnostic plots {#diagnostic-plots}
 
 If you use the [`plot()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/plot.lm) method on a fitted `lm` object, R prints a selection of [4 diagnostic plots](https://www.r-bloggers.com/2019/11/the-hidden-diagnostic-plots-for-the-lm-object/).
 
@@ -235,9 +230,8 @@ plot(fit)
 
 To access the coefficients and statistics of the model systematically, what better choice than to tidy them in a tibble with the package [broom](https://broom.tidymodels.org/)
 
-:::: {.columns}
-
-::: {.column width="40%"}   
+::: columns
+::: {.column width="40%"}
 ![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/broom.svg)
 :::
 
@@ -245,16 +239,13 @@ To access the coefficients and statistics of the model systematically, what bett
 :::
 
 ::: {.column width="50%"}
-
 [broom](https://broom.tidymodels.org/) summarizes key information about models in tidy `tibble()`s. broom provides three verbs to make it convenient to interact with model objects:
 
-- `tidy()` summarizes information about model components.
-- `glance()` reports information about the entire model.
-- `augment()` adds information about observations to a dataset.
-
+-   `tidy()` summarizes information about model components.
+-   `glance()` reports information about the entire model.
+-   `augment()` adds information about observations to a dataset.
 :::
-
-::::
+:::
 
 Let's check broom's main functions.
 
@@ -268,11 +259,9 @@ fit %>%
   glimpse()
 ```
 
-
 ### Tidy the results of the linear regression {.scrollable}
 
 `tidy()` summarizes information about model coefficients and their statistics in a tibble.
-
 
 ```{r}
 fit_tidy <-
@@ -311,7 +300,7 @@ rice %>%
               slope = mod_slope)
 ```
 
-It's basically the same result that we get if we add a `geom_smooth()` to the graphic, with the paramete `method = 'lm'`.
+It's basically the same result that we get if we add a `geom_smooth()` to the graphic, with the parameter `method = 'lm'`.
 
 ```{r}
 rice %>% 
@@ -321,13 +310,12 @@ rice %>%
   geom_smooth(method = 'lm')
 ```
 
+## Conclusions from the model and from the graph
 
-## Conclusions from the model and from the graph 
+-   The model suggests that the number of spikelets grows with the number of primary branches. More precisely, the model estimates that on average, you get `r mod_slope %>% round(2)` spikelets every new primary branch.
+-   We can see visually that the variance of the response variable `spikelet_number_sp_n` grows when the predictor `primary_branch_number_pbn` grows. So at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
+-   You can see from the [diagnostic plot](#diagnostic-plots), that the relationship between number of spikelets and primary branches might not be perfectly linear. One educated hypothesis to explain this behaviour might be that the species that produce most spikelets rely heavily on secondary branches, and not only on primary branches.
 
-- The model suggests that the number of spikelets grows with the number of primary branches. More precisely, the model estimates that on average, you get `r mod_slope %>% round(2)` spikelets evey new primary branch. 
-- We can see visually that the variance of the response variable `spikelet_number_sp_n` grows when the predictor `primary_branch_number_pbn` grows. So at high number of primary branches we can expect our predictions of spikelet number to be more approximated.
-- You can see from the [diagnostic plot](#diagnostic-plots), that the relationship between number of spikelets and primary branches might not be perfectly linear. One educated hypothesis to explain this behaviour might be that the species that produce most spikelets rely heavily on secondary branches, and not only on primary branches.
- 
 # Multiple regression
 
 ## What if we want to use more than one predictor
@@ -361,7 +349,7 @@ fit_multiple %>%
   tidy()
 ```
 
-The p-value of the new term `secondary_branch_number_sbn` has an incredibly low p-value (approximated at 0), a hint that the this term is adding information to the model and is helping us buinding a better function that connects the spikelet number to the branch number.
+The p-value of the new term `secondary_branch_number_sbn` has an incredibly low p-value (approximated at 0), a hint that the this term is adding information to the model and is helping us building a better function that connects the spikelet number to the branch number.
 
 We can use the diagnostic plot to check how this model is performing.
 
@@ -371,28 +359,25 @@ par(mfrow = c(2, 2)) # organize the plots in a 2x2 grid
 fit_multiple %>% plot()
 ```
 
-
 You can extend this reasoning to any variable in the dataset.
 
 For example, try yourself to model the number of spikelet with this formula below, in which we add the variable as a new predictor `species`:
 
-```
-spikelet_number_sp_n ~
-   primary_branch_number_pbn +
-   secondary_branch_number_sbn +
-   species
-```
+    spikelet_number_sp_n ~
+       primary_branch_number_pbn +
+       secondary_branch_number_sbn +
+       species
 
 ## Comparing models
 
 As our model become more and more nuanced and complicated, it gets harder to understand the output intuitively, and to visualize the results.
 
-Thus it gets harder to anwser vital questions such as:
+Thus it gets harder to answer vital questions such as:
 
-- which combination and transformation of predictors should I include in the model,
-- which model is best to encapsulate the signal in my data, succesfully excluding the noise.
+-   which combination and transformation of predictors should I include in the model,
+-   which model is best to encapsulate the signal in my data, successfully excluding the noise.
 
-Predictor and model selection is an incredibly important and wide field in modelling and the method might change wether you're aim is inference or predicton.
+Predictor and model selection is an incredibly important and wide field in modelling and the method might change whether you're aim is inference or prediction.
 
 A very basic example of ways to compare similar model is to run an anova to check if the model with an added term is explaining more variance then the simpler one.
 
@@ -405,18 +390,18 @@ anova(
 
 But you can learn more effective ways to select and test if your linear model is working properly in:
 
-- Chapter 5 "Resampling Methods" and chapter 6 "Linear Model Selection and Regularization" of [Introduction to Statistical Learning](https://www.statlearning.com/).
-- Chapter 10 to 15 of [Tidy Modeling with R](https://www.tmwr.org/).
+-   Chapter 5 "Resampling Methods" and chapter 6 "Linear Model Selection and Regularization" of [Introduction to Statistical Learning](https://www.statlearning.com/).
+-   Chapter 10 to 15 of [Tidy Modeling with R](https://www.tmwr.org/).
 
 # Tidymodels
 
-We had a glimpse of what you can do in R with linear models. 
+We had a glimpse of what you can do in R with linear models.
 
-The main function modeling function that we have used is `lm()` from the [`stats`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html) package (which is loaded in R at start up, and that's why we did't have to load it calling `library(stats)`).
+The main function modeling function that we have used is `lm()` from the [`stats`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html) package (which is loaded in R at start up, and that's why we didn't have to load it calling `library(stats)`).
 
-R has many other packages dedicated to modeling, provided access to a multitude of advanced and secotrial modeling methods, each with a dedicated interface and diagnostic tools.
+R has many other packages dedicated to modeling, provided access to a multitude of advanced modeling methods, each with a dedicated interface and diagnostic tools.
 
-To unify and ease access to this multitude and to encourage good modeling practices through suggested and standardized workflow, the R community recently published the [`tidymodels`](https://www.tidymodels.org/) framework.  
+To unify and ease access to this multitude and to encourage good modeling practices through suggested and standardized workflow, the R community recently published the [`tidymodels`](https://www.tidymodels.org/) framework.
 
 Just as we load all tidyverse packages at once by calling `library(tidyverse)`, we can load every tidymodels package calling `library(tidymodels)` (remember that first you have to install them with `install.packages("tidymodels")`).
 
@@ -424,7 +409,7 @@ We have already used the `broom` package from tidymodels, installing it and load
 
 ## Example with linear regression
 
-Let's load also the tidymodel package [parsnip](https://parsnip.tidymodels.org/) and use it to fit the same linear regression that we have seen above. 
+Let's load also the tidymodels package [parsnip](https://parsnip.tidymodels.org/) and use it to fit the same linear regression that we have seen above.
 
 ```{r}
 library(parsnip)
@@ -438,7 +423,7 @@ mod <-
   set_engine('lm')
 ```
 
-Then, let's fit the model 
+Then, let's fit the model
 
 ```{r}
 mod_fit <- 
