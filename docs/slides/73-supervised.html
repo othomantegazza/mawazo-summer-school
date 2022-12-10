@@ -398,11 +398,11 @@ $ spikelet_number_sp_n                                   &lt;dbl&gt; 38, 38, 30,
 </section>
 <section id="question" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="question"><span class="header-section-number">3.2</span> Question</h2>
-<p>Let’s try to anwser the question: Can we use the number of branches (PB e SB) on a panicle to explain the number of spikelets (SP) on the same panicle? In case how?</p>
+<p>Let’s try to answer the question: Can we use the number of branches (PB e SB) on a panicle to explain the number of spikelets (SP) on the same panicle? In case how?</p>
 </section>
 <section id="visualize-the-data-first" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="visualize-the-data-first"><span class="header-section-number">3.3</span> Visualize the data first</h2>
-<p>To anwser the question, let’s first visualize the data to get an idea of how they are distributed.</p>
+<p>To answer the question, let’s first visualize the data to get an idea of how they are distributed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
@@ -438,7 +438,7 @@ $ spikelet_number_sp_n                                   &lt;dbl&gt; 38, 38, 30,
 <p>In a simple linear model, such as linear regression, we are modelling the response variable <code>Y</code> as a combination two coefficients <code>a</code> and <code>b</code> that define the intercept and the slope of the line, the predictor <code>X</code> and an <code>error</code> term that, in absence of a better explanation, we hypothesize as being random gaussian.</p>
 <p><span class="math display">\[Y = a + b * X + error\]</span></p>
 <p>We can express the same concept with a tilde <code>~</code> formula.</p>
-<p><span class="math display">\[Y \sim a + b * X\]</span> If we subsitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the <code>intercept</code> and <code>slope</code> coefficients for this equation.</p>
+<p><span class="math display">\[Y \sim a + b * X\]</span> If we substitute the generic terms of the equation above with the variables from the rice dataset, we can say that, in the rice problem, we are trying to guess the <code>intercept</code> and <code>slope</code> coefficients for this equation.</p>
 <p><span class="math display">\[spikelets = intercept + slope * primary\_branches + error\]</span> Let’s use a tilde formula again.</p>
 <p><span class="math display">\[spikelets \sim intercept + slope * primary\_branches\]</span></p>
 <p>With this syntax we can express models with any number of predictors, or any mathematical combination of them.</p>
@@ -447,7 +447,7 @@ $ spikelet_number_sp_n                                   &lt;dbl&gt; 38, 38, 30,
 <ul>
 <li>The variable <code>spikelet_number_sp_n</code> as response.</li>
 <li>The <code>primary_branch_number_pbn</code> as predictor.</li>
-<li>The intercept and the slope get’s calculated autmatically when we provide this formula and the associated data to the function <code>lm()</code></li>
+<li>The intercept and the slope get’s calculated automatically when we provide this formula and the associated data to the function <code>lm()</code></li>
 </ul>
 </section>
 </section>
@@ -632,7 +632,7 @@ $ nobs          &lt;int&gt; 1140</code></pre>
 <p><img src="73-supervised_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It’s basically the same result that we get if we add a <code>geom_smooth()</code> to the graphic, with the paramete <code>method = 'lm'</code>.</p>
+<p>It’s basically the same result that we get if we add a <code>geom_smooth()</code> to the graphic, with the parameter <code>method = 'lm'</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> primary_branch_number_pbn,</span>
@@ -650,7 +650,7 @@ $ nobs          &lt;int&gt; 1140</code></pre>
 <section id="conclusions-from-the-model-and-from-the-graph" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="conclusions-from-the-model-and-from-the-graph"><span class="header-section-number">5.4</span> Conclusions from the model and from the graph</h2>
 <ul>
-<li>The model suggests that the number of spikelets grows with the number of primary branches. More precisely, the model estimates that on average, you get 15.6 spikelets evey new primary branch.</li>
+<li>The model suggests that the number of spikelets grows with the number of primary branches. More precisely, the model estimates that on average, you get 15.6 spikelets every new primary branch.</li>
 <li>We can see visually that the variance of the response variable <code>spikelet_number_sp_n</code> grows when the predictor <code>primary_branch_number_pbn</code> grows. So at high number of primary branches we can expect our predictions of spikelet number to be more approximated.</li>
 <li>You can see from the <a href="#diagnostic-plots">diagnostic plot</a>, that the relationship between number of spikelets and primary branches might not be perfectly linear. One educated hypothesis to explain this behaviour might be that the species that produce most spikelets rely heavily on secondary branches, and not only on primary branches.</li>
 </ul>
@@ -705,7 +705,7 @@ $ nobs          &lt;int&gt; 1140</code></pre>
 3 secondary_branch_number_sbn     4.09    0.0421     97.1  0       </code></pre>
 </div>
 </div>
-<p>The p-value of the new term <code>secondary_branch_number_sbn</code> has an incredibly low p-value (approximated at 0), a hint that the this term is adding information to the model and is helping us buinding a better function that connects the spikelet number to the branch number.</p>
+<p>The p-value of the new term <code>secondary_branch_number_sbn</code> has an incredibly low p-value (approximated at 0), a hint that the this term is adding information to the model and is helping us building a better function that connects the spikelet number to the branch number.</p>
 <p>We can use the diagnostic plot to check how this model is performing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># organize the plots in a 2x2 grid</span></span>
@@ -724,12 +724,12 @@ $ nobs          &lt;int&gt; 1140</code></pre>
 <section id="comparing-models" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="comparing-models"><span class="header-section-number">6.2</span> Comparing models</h2>
 <p>As our model become more and more nuanced and complicated, it gets harder to understand the output intuitively, and to visualize the results.</p>
-<p>Thus it gets harder to anwser vital questions such as:</p>
+<p>Thus it gets harder to answer vital questions such as:</p>
 <ul>
 <li>which combination and transformation of predictors should I include in the model,</li>
-<li>which model is best to encapsulate the signal in my data, succesfully excluding the noise.</li>
+<li>which model is best to encapsulate the signal in my data, successfully excluding the noise.</li>
 </ul>
-<p>Predictor and model selection is an incredibly important and wide field in modelling and the method might change wether you’re aim is inference or predicton.</p>
+<p>Predictor and model selection is an incredibly important and wide field in modelling and the method might change whether you’re aim is inference or prediction.</p>
 <p>A very basic example of ways to compare similar model is to run an anova to check if the model with an added term is explaining more variance then the simpler one.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
@@ -758,14 +758,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="tidymodels" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Tidymodels</h1>
 <p>We had a glimpse of what you can do in R with linear models.</p>
-<p>The main function modeling function that we have used is <code>lm()</code> from the <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html"><code>stats</code></a> package (which is loaded in R at start up, and that’s why we did’t have to load it calling <code>library(stats)</code>).</p>
-<p>R has many other packages dedicated to modeling, provided access to a multitude of advanced and secotrial modeling methods, each with a dedicated interface and diagnostic tools.</p>
+<p>The main function modeling function that we have used is <code>lm()</code> from the <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html"><code>stats</code></a> package (which is loaded in R at start up, and that’s why we didn’t have to load it calling <code>library(stats)</code>).</p>
+<p>R has many other packages dedicated to modeling, provided access to a multitude of advanced modeling methods, each with a dedicated interface and diagnostic tools.</p>
 <p>To unify and ease access to this multitude and to encourage good modeling practices through suggested and standardized workflow, the R community recently published the <a href="https://www.tidymodels.org/"><code>tidymodels</code></a> framework.</p>
 <p>Just as we load all tidyverse packages at once by calling <code>library(tidyverse)</code>, we can load every tidymodels package calling <code>library(tidymodels)</code> (remember that first you have to install them with <code>install.packages("tidymodels")</code>).</p>
 <p>We have already used the <code>broom</code> package from tidymodels, installing it and loading it separately from the whole framework.</p>
 <section id="example-with-linear-regression" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="example-with-linear-regression"><span class="header-section-number">7.1</span> Example with linear regression</h2>
-<p>Let’s load also the tidymodel package <a href="https://parsnip.tidymodels.org/">parsnip</a> and use it to fit the same linear regression that we have seen above.</p>
+<p>Let’s load also the tidymodels package <a href="https://parsnip.tidymodels.org/">parsnip</a> and use it to fit the same linear regression that we have seen above.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parsnip)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
