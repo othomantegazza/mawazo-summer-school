@@ -12,7 +12,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-🚧**Work in Progress**⚠️
+🚧 **Work in Progress** ⚠️
 
 # Introduction & Setup
 
@@ -108,11 +108,13 @@ Both variables will basically be a function of the vegetation density, plus some
 
 ### Generate the data
 
-Let's assume that the vegetation coverage `v` is measured in a value between 0 and 1. We can generate a `v` vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1.
+Let's assume that the vegetation coverage is measured in a value between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. This vector represents the vegetation coverage, thus we call it `veg`.
 
 ```{r}
+set.seed(21)
 size <- 100
-v <- runif(size, min = 0.3, 1)
+noise <- .2
+veg <- runif(size, min = 0.3, 1)
 ```
 
 IR and green reflectance will both be a linear function of the vegetation coverage stored in `v`, plus a small random noise.
@@ -120,11 +122,12 @@ IR and green reflectance will both be a linear function of the vegetation covera
 ```{r}
 reflectance <- 
   tibble(
-    ir = v*2 + rnorm(size, mean = 0, sd = .02),
-    green = v*1.3 + rnorm(size, mean = 0, sd = .02)
+    ir = veg*2 + rnorm(size, mean = 0, sd = noise),
+    green = veg*1.3 + rnorm(size, mean = 0, sd = noise/2)
   )
 ```
 
+\
 So, the `reflectance` dataset looks like this:
 
 ```{r}
@@ -182,7 +185,7 @@ The ouput of `prcomp()` is a list with 5 elements in it:
 
 -   `sdesv`: the standard deviation of each component.
 -   `rotation`: the matrix of variable loading, indicating how the original dataset was rotated.
--   `x`: the projection of our original data on the principal components, which is a dataset that has the same dimensions of our original data (in this case 2x2000).
+-   `x`: the projection of our original data on the principal components, which is a dataset that has the same dimensions of our original data (in this case 2x`r size`).
 -   `center` and `scale`, the center and scale used (if centering and scaling was performed before, they should approximate to 0).
 
 ```{r}
@@ -197,9 +200,79 @@ typeof(pca)
 ls(pca)
 ```
 
-Let's interpret the PCA results from an Exploratory Data Analysis point of view, and learn what each of those
+Let's interpret the PCA results from an Exploratory Data Analysis point of view, and learn how to make use of each of those output.
 
 ### Analytical interpretation of PCA results
+
+Remember that when we run a principal component analysis, we find the main axis of variation of our data, project the original data on those main axis of variation, and then we hypothesis the projections on the first principal components contains the signal, while the projection on the last components, is the noise.
+
+We have the projection for our vegetation dataset in the matrix `x` stored within the list `pca` . Let's access this object calling `pca$x` at the R console, and turn it into a tibble to explore it's content.
+
+```{r}
+projections <-
+  pca$x %>% 
+  as_tibble()
+```
+
+```{r}
+projections
+```
+
+The projection matrix has the same size and dimension of our original dataset (2x`r size`), the first column stores the projection of our original data on the first principal component `PC1`, while the second column stores the projection of our original data on the second principal component `PC2`.
+
+By definition the principal components are ordered by their standard deviation of the data projected on them. Indeed, if we check it:
+
+```{r}
+projections %>% 
+  summarise(
+    standard_deviation_PC1 = sd(PC1),
+    standard_deviation_PC2 = sd(PC2)
+  )
+```
+
+```{r}
+projections <- 
+  projections %>% 
+  mutate(signal = veg) %>% 
+  bind_cols(reflectance)
+```
+
+```{r}
+projections %>% 
+  ggplot() +
+  aes(x = veg,
+      y = PC1) +
+  geom_point()
+```
+
+```{r}
+#| message: false
+#| fig-height: 6
+projections %>% 
+  GGally::ggpairs()
+```
+
+```{r}
+#| echo: false
+pc1_cor <- with(projections, cor(PC1, signal)) %>% round(3)
+ir_cor <- with(projections, cor(ir, signal)) %>% round(3)
+green_cor <- with(projections, cor(green, signal)) %>% round(3)
+```
+
+-   The `signal` is more correlated to `PC1` (r :`r pc1_cor`) than to the simulated measurements `ir` (r: `r ir_cor`) and `green` (r: `r green_cor`).
+
+-   The `signal` is less correlated to `PC2` (or no correlated at all to it) than `ir` and `green` .
+
+It's almost as if the principal component analysis had denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
+
+```{r}
+pca$rotation
+```
+
+```{r}
+head(as.matrix(reflectance_scaled) %*% pca$rotation)
+head((as.matrix(reflectance_scaled) %*% pca$rotation) %*% t(pca$rotation))
+```
 
 ```{r}
 pca$x %>% 
