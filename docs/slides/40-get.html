@@ -7,7 +7,7 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.269">
+  <meta name="generator" content="quarto-1.2.313">
 
   <meta name="author" content="Otho Mantegazza">
   <title>Get Data into R</title>
@@ -1099,7 +1099,7 @@ $ `Fe [µg/g] (Residue)`      &lt;int&gt; 0</code></pre>
 <p>Check Tidytuesday submissions on <a href="https://twitter.com/hashtag/TidyTuesday">Twitter with the hashtag #TidyTuesday</a></p>
 
 <div class="footer footer-default">
-<p><a href="../index.html">Home</a> | <a href="https://www.summercompschool.mawazoinstitute.org/">2022 CBSER Summer School</a></p>
+<p><a href="../index.html">Home</a> | <a href="https://mawazoinstitute.org/cbser-summer-school">2022 CBSER Summer School</a></p>
 </div>
 </section></section>
     </div>
@@ -1319,12 +1319,15 @@ $ `Fe [µg/g] (Residue)`      &lt;int&gt; 0</code></pre>
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -1335,13 +1338,6 @@ $ `Fe [µg/g] (Residue)`      &lt;int&gt; 0</code></pre>
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
