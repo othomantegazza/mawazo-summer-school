@@ -1,6 +1,6 @@
 ---
 title: "A Glimpse to Linear Models"
-subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
+subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://mawazoinstitute.org/cbser-summer-school)'
 author: "Otho Mantegazza"
 execute: 
   echo: true

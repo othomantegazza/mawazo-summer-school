@@ -6,7 +6,7 @@ execute:
 format:
   revealjs:
     theme: [simple, style/theme.scss]
-    footer: '[Home](../index.html) | [2022 CBSER Summer School](https://www.summercompschool.mawazoinstitute.org/)'
+    footer: '[Home](../index.html) | [2022 CBSER Summer School](https://mawazoinstitute.org/cbser-summer-school)'
 editor_options: 
   chunk_output_type: console
 ---

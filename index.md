@@ -1,6 +1,6 @@
 ---
 title: 'Data Analysis in R'
-subtitle: '[CBSER Summer School by Mawazo Institute](https://www.summercompschool.mawazoinstitute.org/)'
+subtitle: '[CBSER Summer School by RWTH Aachen and Mawazo Institute](https://mawazoinstitute.org/cbser-summer-school)'
 author: 'Otho Mantegazza'
 format:
   html:
