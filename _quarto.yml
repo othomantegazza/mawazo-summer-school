@@ -3,9 +3,10 @@ project:
   output-dir: docs
   render:
     - slides/*.qmd
-    - index.md
+    - index.qmd
   preview:
     port: 4200
+  pre-render: bash sh/pre-render.sh
 
 execute:
   freeze: auto
