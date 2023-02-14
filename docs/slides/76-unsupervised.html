@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-setup" id="toc-introduction-setup" class="nav-link active" data-scroll-target="#introduction-setup"><span class="toc-section-number">1</span>  Introduction &amp; Setup</a>
+  <li><a href="#introduction-to-unsupervised-learning" id="toc-introduction-to-unsupervised-learning" class="nav-link active" data-scroll-target="#introduction-to-unsupervised-learning"><span class="toc-section-number">1</span>  Introduction to Unsupervised Learning</a>
   <ul class="collapse">
   <li><a href="#references-first" id="toc-references-first" class="nav-link" data-scroll-target="#references-first"><span class="toc-section-number">1.1</span>  References first</a></li>
   <li><a href="#ok-but-what-is-unsupervised-learning" id="toc-ok-but-what-is-unsupervised-learning" class="nav-link" data-scroll-target="#ok-but-what-is-unsupervised-learning"><span class="toc-section-number">1.2</span>  Ok, but what is Unsupervised Learning?</a>
@@ -148,18 +148,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#examples-of-unsupervised-learning-methods" id="toc-examples-of-unsupervised-learning-methods" class="nav-link" data-scroll-target="#examples-of-unsupervised-learning-methods"><span class="toc-section-number">1.2.3</span>  Examples of unsupervised learning methods</a></li>
   <li><a href="#examples-of-unsupervised-learning-questions" id="toc-examples-of-unsupervised-learning-questions" class="nav-link" data-scroll-target="#examples-of-unsupervised-learning-questions"><span class="toc-section-number">1.2.4</span>  Examples of unsupervised learning questions</a></li>
   </ul></li>
-  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><span class="toc-section-number">1.3</span>  R packages</a></li>
   </ul></li>
-  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis"><span class="toc-section-number">2</span>  Principal Component Analysis</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">2</span>  Setup</a>
   <ul class="collapse">
-  <li><a href="#a-naive-example-on-synthetic-data" id="toc-a-naive-example-on-synthetic-data" class="nav-link" data-scroll-target="#a-naive-example-on-synthetic-data"><span class="toc-section-number">2.1</span>  A Naive Example on Synthetic Data</a>
-  <ul class="collapse">
-  <li><a href="#generate-the-data" id="toc-generate-the-data" class="nav-link" data-scroll-target="#generate-the-data"><span class="toc-section-number">2.1.1</span>  Generate the data</a></li>
-  <li><a href="#lets-run-the-pca" id="toc-lets-run-the-pca" class="nav-link" data-scroll-target="#lets-run-the-pca"><span class="toc-section-number">2.1.2</span>  Let’s run the PCA</a></li>
-  <li><a href="#analytical-interpretation-of-pca-results" id="toc-analytical-interpretation-of-pca-results" class="nav-link" data-scroll-target="#analytical-interpretation-of-pca-results"><span class="toc-section-number">2.1.3</span>  Analytical interpretation of PCA results</a></li>
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><span class="toc-section-number">2.1</span>  R packages</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">2.2</span>  Data</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="toc-section-number">2.3</span>  Exercise</a></li>
+  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis"><span class="toc-section-number">3</span>  Principal Component Analysis</a>
+  <ul class="collapse">
+  <li><a href="#a-naive-example-on-synthetic-data" id="toc-a-naive-example-on-synthetic-data" class="nav-link" data-scroll-target="#a-naive-example-on-synthetic-data"><span class="toc-section-number">3.1</span>  A Naive Example on Synthetic Data</a>
+  <ul class="collapse">
+  <li><a href="#generate-the-data" id="toc-generate-the-data" class="nav-link" data-scroll-target="#generate-the-data"><span class="toc-section-number">3.1.1</span>  Generate the data</a></li>
+  <li><a href="#lets-run-the-pca" id="toc-lets-run-the-pca" class="nav-link" data-scroll-target="#lets-run-the-pca"><span class="toc-section-number">3.1.2</span>  Let’s run the PCA</a></li>
+  <li><a href="#analytical-interpretation-of-pca-results" id="toc-analytical-interpretation-of-pca-results" class="nav-link" data-scroll-target="#analytical-interpretation-of-pca-results"><span class="toc-section-number">3.1.3</span>  Analytical interpretation of PCA results</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">3.2</span>  Data</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="toc-section-number">3.3</span>  Exercise</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -192,11 +195,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>🚧 <strong>Work in Progress</strong> ⚠️</p>
-<section id="introduction-setup" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction &amp; Setup</h1>
+<section id="introduction-to-unsupervised-learning" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction to Unsupervised Learning</h1>
 <section id="references-first" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="references-first"><span class="header-section-number">1.1</span> References first</h2>
-<p>As always, my favorite references for unsupervised learning are:</p>
+<p>As always, references first, and my favorite references for unsupervised learning are:</p>
 <ul>
 <li><a href="https://www.statlearning.com">Introduction to Statistical Learning</a>, chapter 12.</li>
 <li><a href="http://rafalab.dfci.harvard.edu/dsbook/regression.html">Introduction to Data Science</a>: <a href="http://rafalab.dfci.harvard.edu/dsbook/clustering.html">chapter 34</a> and part of <a href="http://rafalab.dfci.harvard.edu/dsbook/large-datasets.html">chapter 33</a>.</li>
@@ -210,33 +213,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Unsupervised learning might seem strange.</p>
 <section id="a-quick-recap-about-supervised-learning" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="a-quick-recap-about-supervised-learning"><span class="header-section-number">1.2.1</span> A quick recap about supervised learning</h3>
-<p>In order to define it, let’s first take a step back and remember what we have learned about supervised learning in the previous chapter. When run a supervised learning model, such as a linear regression model, we fit a function that is able to guess an outcome <span class="math inline">\(Y\)</span> starting from the value of a series of predictors <span class="math inline">\(X_1, X_2, ..., X_n\)</span>, to our data. When we fit the model on our data, we basically estimate parameters for the model; in the linear regression example, those parameters would be the slope and intercept of the regression line. Once we have estimated those parameters, then we can then use statistical indicators to investigate if the model that we have selected and the parameters that we have estimated are explaining how <span class="math inline">\(Y\)</span> responds to variations in the predictors <span class="math inline">\(X\)</span>. I they don;t the selected model might be inappropriate for our data, capturing only noise and no signal.</p>
+<p>In order to define it, let’s first take a step back and remember what we have learned about supervised learning in the previous chapter. When we fit a supervised learning model, such as a linear regression model, we are looking for a function that is able to guess an outcome <span class="math inline">\(Y\)</span> starting from the value of a series of predictors <span class="math inline">\(X_1, X_2, ..., X_n\)</span>; both the outcome variable <span class="math inline">\(Y\)</span> and the predictor variables <span class="math inline">\(X_1, X_2, ..., X_n\)</span> are already part of our data, before fit the model. When we do fit the model, we estimate parameters for the function that connects the outcome and the predictor. In the linear regression example, those parameters would be the slope and intercept of the regression line.</p>
+<p>Once we have estimated those parameters, then we can then use statistical indicators to investigate if the model that we have selected and the parameters that we have estimated are convincingly explaining how <span class="math inline">\(Y\)</span> responds to variations in the predictors <span class="math inline">\(X\)</span>. If they don’t, the model that we have selected might be inappropriate for capturing how the outcome responds to the predictors; or it might be that the outcome is not responding to changes in the predictor variables at all.</p>
 </section>
 <section id="lets-compare-it-to-unsupervised-learning" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="lets-compare-it-to-unsupervised-learning"><span class="header-section-number">1.2.2</span> Let’s compare it to unsupervised learning</h3>
-<p>In supervised learning instead, we don’t have, or we don’t care to look at an outcome variable <span class="math inline">\(y\)</span>. We look only at a series of predictors <span class="math inline">\(X_1, X_2, ... X_n\)</span>, and explore if we can group our observation that make up each predictor in an interesting and insightful way. Since we don’t have an outcome variable <span class="math inline">\(Y\)</span> that we could use to test the performance of our model, there is no real way to tell if our unsupervised model is “good” or “bad”. The model will probably show us some pattern in the data, and it’s up to us to investigate that pattern further to understand if they are useful or not.</p>
+<p>In supervised learning instead, we don’t have an outcome variable <span class="math inline">\(Y\)</span>, or we don’t care to look at it, thus the world “unsupervised”. We look only at a series of predictors <span class="math inline">\(X_1, X_2, ... X_n\)</span>, and we ask to ourselves: is there any interesting pattern in the predictor? Do they co-variate in interesting ways? Can we group them together in an insightful way judging from their covariance patterns?</p>
+<p>Since we don’t have an outcome variable <span class="math inline">\(Y\)</span> that we could use to test the performance of our model, there is no real way to tell if our unsupervised model is “good” or “bad”; if it is “successful” or not. The model will probably show us some pattern in the data; it’s up to us to further investigate those patterns to understand if they are useful and insightful, or not.</p>
 </section>
 <section id="examples-of-unsupervised-learning-methods" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="examples-of-unsupervised-learning-methods"><span class="header-section-number">1.2.3</span> Examples of unsupervised learning methods</h3>
-<p>The unsupervised learning methods that you have already heard about are probably:</p>
+<p>The unsupervised learning methods that you have probably already heard about are :</p>
 <ul>
 <li>Clustering.</li>
 <li>Principal Component Analysis.</li>
 </ul>
-<p>You could also hear the term <strong>dimension reduction</strong> pointing to unsupervised learning methods. This is a great way to describe them, since we often use those methods to reduce the dimensions (read: number of variables i.e.&nbsp;number of columns), of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.</p>
+<p>You could also have heard the term <strong>dimension reduction</strong> as a synonym to unsupervised learning. This is a great term to describe it, since we often use those methods to reduce the dimensions (read: number of variables i.e.&nbsp;number of columns), of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.</p>
 </section>
 <section id="examples-of-unsupervised-learning-questions" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="examples-of-unsupervised-learning-questions"><span class="header-section-number">1.2.4</span> Examples of unsupervised learning questions</h3>
-<p>For example, we might be measuring a range of pollutants in many samples of soil from selected areas around the world. In this setup, the pollutants would be the variable/predictors of the data and each sample of soil would be an observation. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects.To achieve that we could clustering or PCA to.</p>
-<p>Or, similarly, we might be measuring gene expression (observations) in many sample of different tumor tissues (variables/predictors). Want to look at those data to seek for patterns and understand if group of tumors have similar unexpected features. Again, we could use unsupervised learning to search for those patterns.</p>
+<p>For example, we might be measuring a range of pollutants in many samples of soil from selected areas around the world. In this setup, the pollutants would be the variable/predictors of the data and each sample of soil would be an observation. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects.</p>
+<p>Or, similarly, we could use transcriptomics to measure gene expression at the transcriptomics level in many samples of different tumors tissues. We want to look at those data to seek for patterns and understand if group of tumors have similar gene expression pattern. Again, we could use unsupervised learning to search for those patterns.</p>
 <p>Coming back to the rice panicles dataset: The group that published the paper have measured many variables (predictors): <code>rachis_length</code>, <code>primary_branch_length</code>, <code>primary_branch_number</code>, <code>secondary_branch_length</code>, <code>internode_length</code> and so on. We might be interested to know if there are groups of rice accessions (observations) that share similar panicle features. For example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice-versa.</p>
 <p>It might be that we don’t even know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.</p>
 <p>We will use the rice panicle dataset to demonstrate how to run PCA and hierarchical clustering in R.</p>
 </section>
 </section>
-<section id="r-packages" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="r-packages"><span class="header-section-number">1.3</span> R packages</h2>
-<p>(the usual)</p>
+</section>
+<section id="setup" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setup</h1>
+<section id="r-packages" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="r-packages"><span class="header-section-number">2.1</span> R packages</h2>
+<p>Let’s load the R packages needed to cover the examples in this chapter.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
@@ -256,25 +264,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="principal-component-analysis" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Principal Component Analysis</h1>
-<p>When we perform a Principal Component Analysis (PCA), we take the variables in our dataset and we use them to estimate new variables that are a linear combination of the original ones. The new variable will be orthogonal, thus uncorrelated to each others, and are called the principal components.</p>
+<section id="principal-component-analysis" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Principal Component Analysis</h1>
+<p>When we run a Principal Component Analysis (PCA), we take the variables in our dataset and we use them to estimate new variables that are a linear combination of the original ones. The new variable will be orthogonal, thus uncorrelated to each others, and are called the principal components.</p>
 <p>In detail, the transformation that we perform to estimate the principal components, are rotations of the original axis in a way that the first principal components corresponds to the main axis of variation of the original data, the second component corresponds to the second main axis of variation, orthogonal to the first one, and so on until we have as many components as are the variable of the original dataset.</p>
 <p>Given the hypothesis that the main axis of variation collect the signal available in the dataset, and that the axis of minor variation collect only noise, the rotations (<em>loadings</em>) and the values projected on the principal components (<em>scores</em>) can provide us with valuable insights about pattern that were hidden in the original dataset, and about how many dimension we need to encode those pattern.</p>
 <p>Let’s go through a naive example before running a PCA on the rice dataset.</p>
-<section id="a-naive-example-on-synthetic-data" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="a-naive-example-on-synthetic-data"><span class="header-section-number">2.1</span> A Naive Example on Synthetic Data</h2>
-<p>We generally use PCA to make sense of multidimensional (i.e.&nbsp;multivariate) datasets. Instead, For demonstration sake, before dealing with a complex dataset, let’s start from a simple example with data in 2 dimension. We will use this data to make clear the of how the PCA works and how to interpret it.</p>
-<p>While plant leaves absorb blue and red light, they reflect green and IR light. Satellite images vegetated area will show huge reflectance values in those wavelength.</p>
+<section id="a-naive-example-on-synthetic-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="a-naive-example-on-synthetic-data"><span class="header-section-number">3.1</span> A Naive Example on Synthetic Data</h2>
+<p>We generally use PCA to make sense of multidimensional (i.e.&nbsp;multivariate) datasets.</p>
+<p>Instead, for demonstration sake, before dealing with a complex dataset, let’s start from a simple example with data in 2 dimension. We will use this data to demostrate of how the PCA works and how to interpret it.</p>
+<p>For the next example, let’s draw from satellite imaging of cultivated fields. While plant leaves absorb blue and red light, they reflect green and IR light, Thus, satellite images of vegetated area will show strong reflection values in those wavelength.</p>
 <p>Let’s imagine that we have collected a dataset in two dimensions, storing:</p>
 <ul>
 <li>2 variables: green and IR reflectance,</li>
 <li>2000 observations, that cover a rectangular grid over a vegetated area.</li>
 </ul>
-<p>Both variables will basically be a function of the vegetation density, plus some “noise” coming from atmospheric disturbance, different plant composition or else. Let’s imagine that we yet don’t know that.s</p>
-<section id="generate-the-data" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">2.1.1</span> Generate the data</h3>
-<p>Let’s assume that the vegetation coverage is measured in a value between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. This vector represents the vegetation coverage, thus we call it <code>veg</code>.</p>
+<p>Both variables will basically be a function of the vegetation density, plus some “noise” coming from atmospheric disturbance, different plant composition or else. However, for the sake of demostrationm, let’s imagine that we don’t know that yet.</p>
+<section id="generate-the-data" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">3.1.1</span> Generate the data</h3>
+<p>Let’s assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. This vector represents the vegetation coverage, thus we call it <code>veg</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="dv">100</span></span>
@@ -311,7 +320,7 @@ So, the <code>reflectance</code> dataset looks like this:</p>
 # ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
-<p>If we plot <code>green</code> vs.&nbsp;<code>ir</code> reflectance, we see right away that the two variables are higlhy correlated.</p>
+<p>If we plot <code>green</code> vs.&nbsp;<code>ir</code> reflectance, we see right away that the two variables are correlated.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>reflectance <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -323,9 +332,10 @@ So, the <code>reflectance</code> dataset looks like this:</p>
 <p><img src="76-unsupervised_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>What if we want to describe how <code>green</code> and <code>ir</code> covariates through PCA?</p>
 </section>
-<section id="lets-run-the-pca" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="lets-run-the-pca"><span class="header-section-number">2.1.2</span> Let’s run the PCA</h3>
+<section id="lets-run-the-pca" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="lets-run-the-pca"><span class="header-section-number">3.1.2</span> Let’s run the PCA</h3>
 <p>To run the PCA, first we have to center the data at 0 and to scale them to z-scores.</p>
 <p>This can be achieved with the function <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale">scale()</a> from base R.</p>
 <div class="cell">
@@ -348,7 +358,7 @@ So, the <code>reflectance</code> dataset looks like this:</p>
 </div>
 </div>
 <p>We can see that now the two variables (<code>ir</code> and <code>green</code> reflectance) are both centered at zero and roughly in range (-2, 2). The scale of the variables has changed, but the main pattern in the data is unchanged.</p>
-<p>Let’s use the function <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp">prcomp()</a> to run a principal component analysis on this dataset, and store the results in the object <code>pca</code>.</p>
+<p>Calling the function <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp">prcomp()</a> we can run a principal component analysis on this dataset, and store the results in the object <code>pca</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  reflectance_scaled <span class="sc">%&gt;%</span> </span>
@@ -381,8 +391,8 @@ So, the <code>reflectance</code> dataset looks like this:</p>
 </div>
 <p>Let’s interpret the PCA results from an Exploratory Data Analysis point of view, and learn how to make use of each of those output.</p>
 </section>
-<section id="analytical-interpretation-of-pca-results" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="analytical-interpretation-of-pca-results"><span class="header-section-number">2.1.3</span> Analytical interpretation of PCA results</h3>
+<section id="analytical-interpretation-of-pca-results" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="analytical-interpretation-of-pca-results"><span class="header-section-number">3.1.3</span> Analytical interpretation of PCA results</h3>
 <p>Remember that when we run a principal component analysis, we find the main axis of variation of our data, project the original data on those main axis of variation, and then we hypothesis the projections on the first principal components contains the signal, while the projection on the last components, is the noise.</p>
 <p>We have the projection for our vegetation dataset in the matrix <code>x</code> stored within the list <code>pca</code> . Let’s access this object calling <code>pca$x</code> at the R console, and turn it into a tibble to explore it’s content.</p>
 <div class="cell">
@@ -410,8 +420,8 @@ So, the <code>reflectance</code> dataset looks like this:</p>
 # ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
-<p>The projection matrix has the same size and dimension of our original dataset (2x100), the first column stores the projection of our original data on the first principal component <code>PC1</code>, while the second column stores the projection of our original data on the second principal component <code>PC2</code>.</p>
-<p>By definition the principal components are ordered by their standard deviation of the data projected on them. Indeed, if we check it:</p>
+<p>The projection matrix has the same size and dimension of the original dataset (2x100), the first column stores projections of original data on the first principal component <code>PC1</code>, while the second column stores the projections of original data on the second principal component <code>PC2</code>.</p>
+<p>By definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order. Indeed, if we check it:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>projections <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -512,8 +522,8 @@ green -0.7071068  0.7071068</code></pre>
 </div>
 </section>
 </section>
-<section id="data" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="data"><span class="header-section-number">2.2</span> Data</h2>
+<section id="data" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="data"><span class="header-section-number">3.2</span> Data</h2>
 <p>We will keep working on the <a href="https://academic.oup.com/jxb/article/70/20/5617/5538968">rice dataset</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span>  </span>
@@ -587,8 +597,8 @@ green -0.7071068  0.7071068</code></pre>
 <span id="cb33-54"><a href="#cb33-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(component)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise" class="level2 exercise" data-number="2.3">
-<h2 class="exercise anchored" data-number="2.3" data-anchor-id="exercise"><span class="header-section-number">2.3</span> Exercise</h2>
+<section id="exercise" class="level2 exercise" data-number="3.3">
+<h2 class="exercise anchored" data-number="3.3" data-anchor-id="exercise"><span class="header-section-number">3.3</span> Exercise</h2>
 
 
 </section>
