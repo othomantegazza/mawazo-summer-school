@@ -8,12 +8,13 @@ format:
   html:
     toc: true
     number-sections: true
+    css: ../style/custom.css
 editor_options: 
   chunk_output_type: console
 ---
 
 🚧 **Work in Progress** ⚠️
-
+ 
 # Introduction to Unsupervised Learning
 
 ## References first
@@ -29,17 +30,17 @@ There's an additional reference that I really like, that explains [Principal Com
 
 ## Ok, but what is Unsupervised Learning?
 
-Unsupervised learning might seem strange.
+Unsupervised learning might seem strange. To understand what "Unsupervised" means, let's first take a step back and remember what we have learned about "supervised learning in the previous chapter. Then define what makes an "Unsupervised" learning process by comparison. 
 
 ### A quick recap about supervised learning
 
-In order to define it, let's first take a step back and remember what we have learned about supervised learning in the previous chapter. When we fit a supervised learning model, such as a linear regression model, we are looking for a function that is able to guess an outcome $Y$ starting from the value of a series of predictors $X_1, X_2, ..., X_n$; both the outcome variable $Y$ and the predictor variables $X_1, X_2, ..., X_n$ are already part of our data, before fit the model. When we do fit the model, we estimate parameters for the function that connects the outcome and the predictor. In the linear regression example, those parameters would be the slope and intercept of the regression line.
+When we fit a supervised learning model, such as a linear regression model, we are looking for a function that is able to guess an outcome $Y$ starting from the value of a series of predictors $X_1, X_2, ..., X_n$; both the outcome variable $Y$ and the predictor variables $X_1, X_2, ..., X_n$ are already part of our data, before fit the model. When we do fit the model, we estimate parameters for the function that connects the outcome and the predictor. In the linear regression example, those parameters would be the slope and intercept of the regression line.
 
 Once we have estimated those parameters, then we can then use statistical indicators to investigate if the model that we have selected and the parameters that we have estimated are convincingly explaining how $Y$ responds to variations in the predictors $X$. If they don't, the model that we have selected might be inappropriate for capturing how the outcome responds to the predictors; or it might be that the outcome is not responding to changes in the predictor variables at all.
 
 ### Let's compare it to unsupervised learning
 
-In supervised learning instead, we don't have an outcome variable $Y$, or we don't care to look at it, thus the world "unsupervised". We look only at a series of predictors $X_1, X_2, ... X_n$, and we ask to ourselves: is there any interesting pattern in the predictor? Do they co-variate in interesting ways? Can we group them together in an insightful way judging from their covariance patterns?
+In supervised learning instead, we don't have an outcome variable $Y$, or we don't care to look at it, thus the word "unsupervised". We look only at a series of predictors $X_1, X_2, ... X_n$, and we ask to ourselves: is there any interesting pattern in the predictor? Do they co-variate in interesting ways? Can we group them together in an insightful way judging from their covariance patterns?
 
 Since we don't have an outcome variable $Y$ that we could use to test the performance of our model, there is no real way to tell if our unsupervised model is "good" or "bad"; if it is "successful" or not. The model will probably show us some pattern in the data; it's up to us to further investigate those patterns to understand if they are useful and insightful, or not.
 
@@ -50,25 +51,27 @@ The unsupervised learning methods that you have probably already heard about are
 -   Clustering.
 -   Principal Component Analysis.
 
-You could also have heard the term **dimension reduction** as a synonym to unsupervised learning. This is a great term to describe it, since we often use those methods to reduce the dimensions (read: number of variables i.e. number of columns), of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.
+You could also have heard the term **dimension reduction** as a synonym of unsupervised learning. This is a great term to describe it, since we often use those methods to reduce the dimensions (read: number of variables i.e. number of columns), of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.
 
 ### Examples of unsupervised learning questions
 
-For example, we might be measuring a range of pollutants in many samples of soil from selected areas around the world. In this setup, the pollutants would be the variable/predictors of the data and each sample of soil would be an observation. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects.
+Thus, whem we apply unsupervised learning, we look at predictors variables, without an outcome. We might ask In which cases would such method be useful?
 
-Or, similarly, we could use transcriptomics to measure gene expression at the transcriptomics level in many samples of different tumors tissues. We want to look at those data to seek for patterns and understand if group of tumors have similar gene expression pattern. Again, we could use unsupervised learning to search for those patterns.
+For example, we are measuring a range of pollutants in many samples of soil from selected areas around the world. In this setup, the pollutants are the variable/predictors of the data and each sample of soil is an observation. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects.
+
+Or, similarly, we could use transcriptomics to measure gene expression in many samples of different tumors tissues. We want to look at those data to seek for patterns and understand if group of tumors have similar gene expression pattern. Again, we could use unsupervised learning to search for those patterns.
 
 Coming back to the rice panicles dataset: The group that published the paper have measured many variables (predictors): `rachis_length`, `primary_branch_length`, `primary_branch_number`, `secondary_branch_length`, `internode_length` and so on. We might be interested to know if there are groups of rice accessions (observations) that share similar panicle features. For example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice-versa.
 
-It might be that we don't even know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.
+Maybe we don't know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.
 
-We will use the rice panicle dataset to demonstrate how to run PCA and hierarchical clustering in R.
+We will start with a dummy dataset, and later we will move to real life datasets suche as the rice panicles to demonstrate how to run and interpret PCA and hierarchical clustering in R.
 
 # Setup
 
 ## R packages
 
-Let's load the R packages needed to cover the examples in this chapter.
+Load the R packages needed to cover the examples in this chapter.
 
 ```{r}
 #| message: false
@@ -92,11 +95,15 @@ theme_update(axis.title = element_text(size = 15),
 
 # Principal Component Analysis
 
+The Principal Component Analysis, abbreviated to PCA, is one of the most used Unsupervised Learning Techniques.
+
 When we run a Principal Component Analysis (PCA), we take the variables in our dataset and we use them to estimate new variables that are a linear combination of the original ones. The new variable will be orthogonal, thus uncorrelated to each others, and are called the principal components.
 
-In detail, the transformation that we perform to estimate the principal components, are rotations of the original axis in a way that the first principal components corresponds to the main axis of variation of the original data, the second component corresponds to the second main axis of variation, orthogonal to the first one, and so on until we have as many components as are the variable of the original dataset.
+In detail, the transformation that we perform to estimate the principal components, are rotations of the original axis of the data, in a way that the first principal components corresponds to the main axis of variation of the original data, the second component corresponds to the second main axis of variation, orthogonal to the first one, and so on until we have as many components as are the variable of the original dataset.
 
-Given the hypothesis that the main axis of variation collect the signal available in the dataset, and that the axis of minor variation collect only noise, the rotations (*loadings*) and the values projected on the principal components (*scores*) can provide us with valuable insights about pattern that were hidden in the original dataset, and about how many dimension we need to encode those pattern.
+Given the hypothesis that the main axes of variation collect the signal available in the dataset, and that the axes of minor variation collect only noise, the rotations (*loadings*) and the values projected on the principal components (*scores*) can provide us with valuable insights about pattern that were hidden in the original dataset, and about how many dimension we need to encode those pattern.
+
+Since the principal component are the axis of variation of the dataset, orderd by how much variance they explain, the first principal components store the main signal in the data, and the last store the noise.
 
 Let's go through a naive example before running a PCA on the rice dataset.
 
@@ -106,18 +113,18 @@ We generally use PCA to make sense of multidimensional (i.e. multivariate) datas
 
 Instead, for demonstration sake, before dealing with a complex dataset, let's start from a simple example with data in 2 dimension. We will use this data to demostrate of how the PCA works and how to interpret it.
 
-For the next example, let's draw from satellite imaging of cultivated fields. While plant leaves absorb blue and red light, they reflect green and IR light, Thus, satellite images of vegetated area will show strong reflection values in those wavelength.
+Let's draw an example from satellite imaging of cultivated fields. While plant leaves absorb blue and red light, they reflect green and IR light, Thus, satellite images of those fields will show strong reflection bands in both green and IR wavelengths.
 
 Let's imagine that we have collected a dataset in two dimensions, storing:
 
 -   2 variables: green and IR reflectance,
 -   2000 observations, that cover a rectangular grid over a vegetated area.
 
-Both variables will basically be a function of the vegetation density, plus some "noise" coming from atmospheric disturbance, different plant composition or else. However, for the sake of demostrationm, let's imagine that we don't know that yet.
+Both variables will basically be a function of the vegetation density, plus some "noise" coming from atmospheric disturbance, different plant composition or else. So we can safely assume that when we look at the IR and green reflection, we are not looking at two independent variables, but rather to a linear function of vegetation coverage. However, for the sake of demostration, let's imagine that we don't know that yet.
 
 ### Generate the data
 
-Let's assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. This vector represents the vegetation coverage, thus we call it `veg`.
+Let's also assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. Let's call this vector `veg`, for vegetation.
 
 ```{r}
 set.seed(21)
@@ -126,7 +133,7 @@ noise <- .2
 veg <- runif(size, min = 0.3, 1)
 ```
 
-IR and green reflectance will both be a linear function of the vegetation coverage stored in `v`, plus a small random noise.
+IR and green reflectance will both be a linear function of the vegetation coverage stored in `veg`, plus a small random noise.
 
 ```{r}
 reflectance <- 
@@ -136,16 +143,16 @@ reflectance <-
   )
 ```
 
-\
 So, the `reflectance` dataset looks like this:
 
 ```{r}
 reflectance
 ```
 
-If we plot `green` vs. `ir` reflectance, we see right away that the two variables are correlated.
+If we plot `green` vs. `ir` reflectance, we see right away that those two variables are correlated.
 
 ```{r}
+#| fig-cap: Green and IR reflectance are correlated.
 reflectance %>% 
   ggplot() +
   aes(x = green,
@@ -174,6 +181,7 @@ We call `as_tibble()` after `scale()` because the scale function returns a matri
 Let's plot the centered and scaled data to see what they look like.
 
 ```{r}
+#| fig-cap: Only the scale of the axes have changed.
 reflectance_scaled %>% 
   ggplot() +
   aes(x = green,
@@ -215,9 +223,9 @@ Let's interpret the PCA results from an Exploratory Data Analysis point of view,
 
 ### Analytical interpretation of PCA results
 
-Remember that when we run a principal component analysis, we find the main axis of variation of our data, project the original data on those main axis of variation, and then we hypothesis the projections on the first principal components contains the signal, while the projection on the last components, is the noise.
+When we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component contains the signal, while the lower order components, contain the noise. 
 
-We have the projection for our vegetation dataset in the matrix `x` stored within the list `pca` . Let's access this object calling `pca$x` at the R console, and turn it into a tibble to explore it's content.
+We have the projection of the `IR` and `green` variable on the two principal components is stored in the matrix `x` stored within the list `pca` . Let's access this object calling `pca$x`, and turn it into a tibble to explore it's content.
 
 ```{r}
 projections <-
@@ -229,9 +237,9 @@ projections <-
 projections
 ```
 
-The projection matrix has the same size and dimension of the original dataset (2x`r size`), the first column stores projections of original data on the first principal component `PC1`, while the second column stores the projections of original data on the second principal component `PC2`.
+The projection matrix `x` has the same size and dimension of the original dataset (2x`r size`), the first column stores projections of original data on the first principal component `PC1`, while the second column stores the projections of original data on the second principal component `PC2`.
 
-By definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order. Indeed, if we check it:
+By definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order. Let's check it:
 
 ```{r}
 projections %>% 
