@@ -14,7 +14,7 @@ editor_options:
 ---
 
 🚧 **Work in Progress** ⚠️
- 
+
 # Introduction to Unsupervised Learning
 
 ## References first
@@ -30,7 +30,7 @@ There's an additional reference that I really like, that explains [Principal Com
 
 ## Ok, but what is Unsupervised Learning?
 
-Unsupervised learning might seem strange. To understand what "Unsupervised" means, let's first take a step back and remember what we have learned about "supervised learning in the previous chapter. Then define what makes an "Unsupervised" learning process by comparison. 
+Unsupervised learning might seem strange. To understand what "Unsupervised" means, let's first take a step back and remember what we have learned about "supervised learning in the previous chapter. Then define what makes an"Unsupervised" learning process by comparison.
 
 ### A quick recap about supervised learning
 
@@ -91,7 +91,6 @@ theme_update(axis.title = element_text(size = 15),
              axis.text = element_text(size = 15),
              strip.text = element_text(size = 15))
 ```
-
 
 # Principal Component Analysis
 
@@ -223,9 +222,9 @@ Let's interpret the PCA results from an Exploratory Data Analysis point of view,
 
 ### Analytical interpretation of PCA results
 
-When we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component contains the signal, while the lower order components, contain the noise. 
+When we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component, contains the signal, while the lower order components, contain the noise.
 
-We have the projection of the `IR` and `green` variable on the two principal components is stored in the matrix `x` stored within the list `pca` . Let's access this object calling `pca$x`, and turn it into a tibble to explore it's content.
+Let's access the projection of the data on the two principal component, calling `pca$x`, and turn this matrix into a tibble to explore its content.
 
 ```{r}
 projections <-
@@ -239,7 +238,9 @@ projections
 
 The projection matrix `x` has the same size and dimension of the original dataset (2x`r size`), the first column stores projections of original data on the first principal component `PC1`, while the second column stores the projections of original data on the second principal component `PC2`.
 
-By definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order. Let's check it:
+By definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order.
+
+Indeed:
 
 ```{r}
 projections %>% 
@@ -249,43 +250,59 @@ projections %>%
   )
 ```
 
-```{r}
-projections <- 
-  projections %>% 
-  mutate(signal = veg) %>% 
-  bind_cols(reflectance)
-```
+Since we have hypothesized that the first principal components stores the signal in the dataset, what happens if we plot it against the vector `veg`, which stores the original vegetation data?
 
 ```{r}
-projections %>% 
+#| fig-cap: The original vegetation vector and PC1 are highly similar.
+signal <- 
+  projections %>% 
+  mutate(vegetation = veg) %>% 
+  bind_cols(reflectance)
+
+signal %>% 
   ggplot() +
-  aes(x = veg,
+  aes(x = vegetation,
       y = PC1) +
   geom_point()
 ```
 
+Since the direction of the principal component is random, PC1 and the original vegetation vector are anti-correlated. Still their correlation modulus is very high, they just carry a reversed sign. They are almost the same data.
+
+To observe this effect better. Let's plot all the variables that we have used in this example against each other pairwise (`vegetation`, `ir`, `green`, `PC1` and `PC2`).
+
 ```{r}
+#| fig-cap: PC1 stores the signal, PC2 the noise.
 #| message: false
 #| fig-height: 6
-projections %>% 
-  GGally::ggpairs()
+signal %>% 
+  relocate(vegetation, ir, green, PC1, PC2) %>% 
+  GGally::ggpairs() +
+  theme(axis.text = element_text(size = 10))
 ```
 
 ```{r}
 #| echo: false
-pc1_cor <- with(projections, cor(PC1, signal)) %>% round(3)
-ir_cor <- with(projections, cor(ir, signal)) %>% round(3)
-green_cor <- with(projections, cor(green, signal)) %>% round(3)
+pc1_cor <- with(signal, cor(PC1, vegetation)) %>% round(3)
+ir_cor <- with(signal, cor(ir, vegetation)) %>% round(3)
+green_cor <- with(signal, cor(green, vegetation)) %>% round(3)
 ```
 
 -   The `signal` is more correlated to `PC1` (r :`r pc1_cor`) than to the simulated measurements `ir` (r: `r ir_cor`) and `green` (r: `r green_cor`).
 
 -   The `signal` is less correlated to `PC2` (or no correlated at all to it) than `ir` and `green` .
 
-It's almost as if the principal component analysis had denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
+### Conlcusions on the principal component
+
+Applying a principal component analysis we have shown that the `ir` and `green` channel are basically a linear function of the same variable plus noised. So, even if their dataset was represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.
+
+Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
+
+### Restoring the original data
+
+All the information from the original (centered and scaled) data can be reconstructed from the principal components multiplying the projection matrix `pca$x` by the rotation matrix `pca$rotation` transposed.
 
 ```{r}
-pca$rotation
+(pca$x %*% t(pca$rotation)) %>% head()
 ```
 
 ```{r}
