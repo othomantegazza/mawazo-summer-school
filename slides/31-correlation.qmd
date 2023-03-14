@@ -33,6 +33,7 @@ library(tidyverse)
 library(palmerpenguins)
 library(corrplot)
 library(GGally)
+library(corrr)
 ```
 
 Remember the [palmer penguins](https://allisonhorst.github.io/palmerpenguins/) dataset?
@@ -146,15 +147,40 @@ Let's use the `ggpairs()` function from the package [GGally](https://ggobi.githu
 #| message: false
 
 penguins %>%
-  select_if(is.numeric) %>% 
+  select(species, where(is.numeric)) %>% 
   # let's remove the 'year' variable
   select(-year) %>% 
   # let's drop na's
   drop_na() %>% 
-  ggpairs()
+  ggpairs(aes(color = species),
+          columns = c("flipper_length_mm", "body_mass_g", 
+                      "bill_length_mm", "bill_depth_mm"))
 ```
 
 Find more examples on the [R Graph Gallery](https://r-graph-gallery.com/199-correlation-matrix-with-ggally.html).
+
+## corrr
+
+[The `corrr` package](https://corrr.tidymodels.org/) is a recent package for correlation analysis. It is built to work with `data.frames` and with `dplyr` pipes.
+
+With this code, we can use `corrr` to explore how the numeric variable in the Palmer Penguins dataset correlate with each other.
+
+```{r}
+penguins_cor <- 
+  penguins %>% 
+  select(where(is.numeric), -year) %>% 
+  correlate() %>% 
+  shave() 
+
+# show correlation coefficients
+penguins_cor %>% 
+  fashion()
+
+# plot them
+penguins_cor %>% 
+  rplot()
+```
+
 
 # Caveats on Correlation
 
