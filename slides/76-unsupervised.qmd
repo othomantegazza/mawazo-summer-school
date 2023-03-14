@@ -310,28 +310,10 @@ Applying a principal component analysis we have shown that the `ir` and `green` 
 Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
 
 
+# PCA on the Palmer Penguins Dataset
 
-```{r}
-pca$x %>% 
-  as_tibble() %>% 
-  ggplot() +
-  aes(x = PC1,
-      y = PC2) +
-  geom_point() +
-  coord_fixed()
-```
 
-```{r}
-pca$sdev %>% 
-  as_tibble() %>% 
-  mutate(pc = c('PC1', 'PC2')) %>% 
-  ggplot() +
-  aes(x = pc,
-      y = value) +
-  geom_col()
-```
-
-## Data
+# PCA on the Rice Varieties Dataset
 
 We will keep working on the [rice dataset](https://academic.oup.com/jxb/article/70/20/5617/5538968).
 
