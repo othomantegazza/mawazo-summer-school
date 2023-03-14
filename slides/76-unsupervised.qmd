@@ -312,6 +312,10 @@ Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` a
 
 # PCA on the Palmer Penguins Dataset
 
+- One dimension most variation, influenced by all variables.
+- Gentoo most different group.
+- Second PC about bill length and depth.
+- Most different along second PC is Chinstrap.
 
 # PCA on the Rice Varieties Dataset
 
