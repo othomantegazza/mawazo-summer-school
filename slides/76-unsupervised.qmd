@@ -106,7 +106,7 @@ Since the principal component are the axis of variation of the dataset, orderd b
 
 Let's go through a naive example before running a PCA on the rice dataset.
 
-## A Naive Example on Synthetic Data
+# A Naive PCA Example on Synthetic Data
 
 We generally use PCA to make sense of multidimensional (i.e. multivariate) datasets.
 
@@ -121,7 +121,7 @@ Let's imagine that we have collected a dataset in two dimensions, storing:
 
 Both variables will basically be a function of the vegetation density, plus some "noise" coming from atmospheric disturbance, different plant composition or else. So we can safely assume that when we look at the IR and green reflection, we are not looking at two independent variables, but rather to a linear function of vegetation coverage. However, for the sake of demostration, let's imagine that we don't know that yet.
 
-### Generate the data
+## Generate the data
 
 Let's also assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. Let's call this vector `veg`, for vegetation.
 
@@ -162,7 +162,7 @@ reflectance %>%
 
 What if we want to describe how `green` and `ir` covariates through PCA?
 
-### Let's run the PCA
+## Let's run the PCA
 
 To run the PCA, first we have to center the data at 0 and to scale them to z-scores.
 
@@ -220,7 +220,7 @@ ls(pca)
 
 Let's interpret the PCA results from an Exploratory Data Analysis point of view, and learn how to make use of each of those output.
 
-### Analytical interpretation of PCA results
+## Analytical interpretation of PCA results
 
 When we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component, contains the signal, while the lower order components, contain the noise.
 
@@ -291,13 +291,7 @@ green_cor <- with(signal, cor(green, vegetation)) %>% round(3)
 
 -   The `signal` is less correlated to `PC2` (or no correlated at all to it) than `ir` and `green` .
 
-### Conlcusions on the principal component
-
-Applying a principal component analysis we have shown that the `ir` and `green` channel are basically a linear function of the same variable plus noised. So, even if their dataset was represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.
-
-Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
-
-### Restoring the original data
+## Restoring the original data
 
 All the information from the original (centered and scaled) data can be reconstructed from the principal components multiplying the projection matrix `pca$x` by the rotation matrix `pca$rotation` transposed.
 
@@ -306,9 +300,16 @@ All the information from the original (centered and scaled) data can be reconstr
 ```
 
 ```{r}
-head(as.matrix(reflectance_scaled) %*% pca$rotation)
-head((as.matrix(reflectance_scaled) %*% pca$rotation) %*% t(pca$rotation))
+reflectance_scaled %>% as.matrix() %>% head()
 ```
+
+## Learning points
+
+Applying a principal component analysis we have shown that the `ir` and `green` channel are basically a linear function of the same variable plus noised. So, even if `ir` and `green` are represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.
+
+Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` and the noise `PC2`.
+
+
 
 ```{r}
 pca$x %>% 
