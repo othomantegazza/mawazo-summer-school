@@ -125,18 +125,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><span class="header-section-number">2.1</span> R packages</a></li>
   </ul></li>
-  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis"><span class="header-section-number">3</span> Principal Component Analysis</a>
+  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis"><span class="header-section-number">3</span> Principal Component Analysis</a></li>
+  <li><a href="#a-naive-pca-example-on-synthetic-data" id="toc-a-naive-pca-example-on-synthetic-data" class="nav-link" data-scroll-target="#a-naive-pca-example-on-synthetic-data"><span class="header-section-number">4</span> A Naive PCA Example on Synthetic Data</a>
   <ul class="collapse">
-  <li><a href="#a-naive-example-on-synthetic-data" id="toc-a-naive-example-on-synthetic-data" class="nav-link" data-scroll-target="#a-naive-example-on-synthetic-data"><span class="header-section-number">3.1</span> A Naive Example on Synthetic Data</a>
-  <ul class="collapse">
-  <li><a href="#generate-the-data" id="toc-generate-the-data" class="nav-link" data-scroll-target="#generate-the-data"><span class="header-section-number">3.1.1</span> Generate the data</a></li>
-  <li><a href="#lets-run-the-pca" id="toc-lets-run-the-pca" class="nav-link" data-scroll-target="#lets-run-the-pca"><span class="header-section-number">3.1.2</span> Let’s run the PCA</a></li>
-  <li><a href="#analytical-interpretation-of-pca-results" id="toc-analytical-interpretation-of-pca-results" class="nav-link" data-scroll-target="#analytical-interpretation-of-pca-results"><span class="header-section-number">3.1.3</span> Analytical interpretation of PCA results</a></li>
-  <li><a href="#conlcusions-on-the-principal-component" id="toc-conlcusions-on-the-principal-component" class="nav-link" data-scroll-target="#conlcusions-on-the-principal-component"><span class="header-section-number">3.1.4</span> Conlcusions on the principal component</a></li>
-  <li><a href="#restoring-the-original-data" id="toc-restoring-the-original-data" class="nav-link" data-scroll-target="#restoring-the-original-data"><span class="header-section-number">3.1.5</span> Restoring the original data</a></li>
+  <li><a href="#generate-the-data" id="toc-generate-the-data" class="nav-link" data-scroll-target="#generate-the-data"><span class="header-section-number">4.1</span> Generate the data</a></li>
+  <li><a href="#lets-run-the-pca" id="toc-lets-run-the-pca" class="nav-link" data-scroll-target="#lets-run-the-pca"><span class="header-section-number">4.2</span> Let’s run the PCA</a></li>
+  <li><a href="#analytical-interpretation-of-pca-results" id="toc-analytical-interpretation-of-pca-results" class="nav-link" data-scroll-target="#analytical-interpretation-of-pca-results"><span class="header-section-number">4.3</span> Analytical interpretation of PCA results</a></li>
+  <li><a href="#restoring-the-original-data" id="toc-restoring-the-original-data" class="nav-link" data-scroll-target="#restoring-the-original-data"><span class="header-section-number">4.4</span> Restoring the original data</a></li>
+  <li><a href="#learning-points" id="toc-learning-points" class="nav-link" data-scroll-target="#learning-points"><span class="header-section-number">4.5</span> Learning points</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3.2</span> Data</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">3.3</span> Exercise</a></li>
+  <li><a href="#pca-on-the-palmer-penguins-dataset" id="toc-pca-on-the-palmer-penguins-dataset" class="nav-link" data-scroll-target="#pca-on-the-palmer-penguins-dataset"><span class="header-section-number">5</span> PCA on the Palmer Penguins Dataset</a></li>
+  <li><a href="#pca-on-the-rice-varieties-dataset" id="toc-pca-on-the-rice-varieties-dataset" class="nav-link" data-scroll-target="#pca-on-the-rice-varieties-dataset"><span class="header-section-number">6</span> PCA on the Rice Varieties Dataset</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6.1</span> Exercise</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -247,8 +248,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Given the hypothesis that the main axes of variation collect the signal available in the dataset, and that the axes of minor variation collect only noise, the rotations (<em>loadings</em>) and the values projected on the principal components (<em>scores</em>) can provide us with valuable insights about pattern that were hidden in the original dataset, and about how many dimension we need to encode those pattern.</p>
 <p>Since the principal component are the axis of variation of the dataset, orderd by how much variance they explain, the first principal components store the main signal in the data, and the last store the noise.</p>
 <p>Let’s go through a naive example before running a PCA on the rice dataset.</p>
-<section id="a-naive-example-on-synthetic-data" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="a-naive-example-on-synthetic-data"><span class="header-section-number">3.1</span> A Naive Example on Synthetic Data</h2>
+</section>
+<section id="a-naive-pca-example-on-synthetic-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> A Naive PCA Example on Synthetic Data</h1>
 <p>We generally use PCA to make sense of multidimensional (i.e.&nbsp;multivariate) datasets.</p>
 <p>Instead, for demonstration sake, before dealing with a complex dataset, let’s start from a simple example with data in 2 dimension. We will use this data to demostrate of how the PCA works and how to interpret it.</p>
 <p>Let’s draw an example from satellite imaging of cultivated fields. While plant leaves absorb blue and red light, they reflect green and IR light, Thus, satellite images of those fields will show strong reflection bands in both green and IR wavelengths.</p>
@@ -258,8 +260,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>2000 observations, that cover a rectangular grid over a vegetated area.</li>
 </ul>
 <p>Both variables will basically be a function of the vegetation density, plus some “noise” coming from atmospheric disturbance, different plant composition or else. So we can safely assume that when we look at the IR and green reflection, we are not looking at two independent variables, but rather to a linear function of vegetation coverage. However, for the sake of demostration, let’s imagine that we don’t know that yet.</p>
-<section id="generate-the-data" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">3.1.1</span> Generate the data</h3>
+<section id="generate-the-data" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">4.1</span> Generate the data</h2>
 <p>Let’s also assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. Let’s call this vector <code>veg</code>, for vegetation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
@@ -315,8 +317,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>What if we want to describe how <code>green</code> and <code>ir</code> covariates through PCA?</p>
 </section>
-<section id="lets-run-the-pca" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="lets-run-the-pca"><span class="header-section-number">3.1.2</span> Let’s run the PCA</h3>
+<section id="lets-run-the-pca" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="lets-run-the-pca"><span class="header-section-number">4.2</span> Let’s run the PCA</h2>
 <p>To run the PCA, first we have to center the data at 0 and to scale them to z-scores.</p>
 <p>This can be achieved with the function <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale">scale()</a> from base R.</p>
 <div class="cell">
@@ -377,8 +379,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s interpret the PCA results from an Exploratory Data Analysis point of view, and learn how to make use of each of those output.</p>
 </section>
-<section id="analytical-interpretation-of-pca-results" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="analytical-interpretation-of-pca-results"><span class="header-section-number">3.1.3</span> Analytical interpretation of PCA results</h3>
+<section id="analytical-interpretation-of-pca-results" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="analytical-interpretation-of-pca-results"><span class="header-section-number">4.3</span> Analytical interpretation of PCA results</h2>
 <p>When we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component, contains the signal, while the lower order components, contain the noise.</p>
 <p>Let’s access the projection of the data on the two principal component, calling <code>pca$x</code>, and turn this matrix into a tibble to explore its content.</p>
 <div class="cell">
@@ -464,13 +466,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>The <code>signal</code> is less correlated to <code>PC2</code> (or no correlated at all to it) than <code>ir</code> and <code>green</code> .</p></li>
 </ul>
 </section>
-<section id="conlcusions-on-the-principal-component" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="conlcusions-on-the-principal-component"><span class="header-section-number">3.1.4</span> Conlcusions on the principal component</h3>
-<p>Applying a principal component analysis we have shown that the <code>ir</code> and <code>green</code> channel are basically a linear function of the same variable plus noised. So, even if their dataset was represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.</p>
-<p>Moreover, the PCA has denoised our data, and it had stored the signal in <code>PC1</code> and the noise <code>PC2</code>.</p>
-</section>
-<section id="restoring-the-original-data" class="level3" data-number="3.1.5">
-<h3 data-number="3.1.5" class="anchored" data-anchor-id="restoring-the-original-data"><span class="header-section-number">3.1.5</span> Restoring the original data</h3>
+<section id="restoring-the-original-data" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="restoring-the-original-data"><span class="header-section-number">4.4</span> Restoring the original data</h2>
 <p>All the information from the original (centered and scaled) data can be reconstructed from the principal components multiplying the projection matrix <code>pca$x</code> by the rotation matrix <code>pca$rotation</code> transposed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(pca<span class="sc">$</span>x <span class="sc">%*%</span> <span class="fu">t</span>(pca<span class="sc">$</span>rotation)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -485,17 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.matrix</span>(reflectance_scaled) <span class="sc">%*%</span> pca<span class="sc">$</span>rotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            PC1           PC2
-[1,] -0.9640769  0.3174623206
-[2,]  0.9340633 -0.7491069178
-[3,] -0.2465952 -0.2574111245
-[4,]  1.6827974  0.0708281317
-[5,] -2.0820700 -0.0004048589
-[6,] -2.0264513 -0.1416268228</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>((<span class="fu">as.matrix</span>(reflectance_scaled) <span class="sc">%*%</span> pca<span class="sc">$</span>rotation) <span class="sc">%*%</span> <span class="fu">t</span>(pca<span class="sc">$</span>rotation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>reflectance_scaled <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             ir        green
 [1,]  0.4572255  0.906185047
@@ -506,109 +493,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [6,]  1.5330628  1.332772189</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>x <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> PC1,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> PC2) <span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="76-unsupervised_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>sdev <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pc =</span> <span class="fu">c</span>(<span class="st">'PC1'</span>, <span class="st">'PC2'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> pc,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> value) <span class="sc">+</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="76-unsupervised_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+</section>
+<section id="learning-points" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="learning-points"><span class="header-section-number">4.5</span> Learning points</h2>
+<p>Applying a principal component analysis we have shown that the <code>ir</code> and <code>green</code> channel are basically a linear function of the same variable plus noised. So, even if <code>ir</code> and <code>green</code> are represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.</p>
+<p>Moreover, the PCA has denoised our data, and it had stored the signal in <code>PC1</code> and the noise <code>PC2</code>.</p>
 </section>
 </section>
-<section id="data" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="data"><span class="header-section-number">3.2</span> Data</h2>
+<section id="pca-on-the-palmer-penguins-dataset" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> PCA on the Palmer Penguins Dataset</h1>
+<ul>
+<li>One dimension most variation, influenced by all variables.</li>
+<li>Gentoo most different group.</li>
+<li>Second PC about bill length and depth.</li>
+<li>Most different along second PC is Chinstrap.</li>
+</ul>
+</section>
+<section id="pca-on-the-rice-varieties-dataset" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> PCA on the Rice Varieties Dataset</h1>
 <p>We will keep working on the <a href="https://academic.oup.com/jxb/article/70/20/5617/5538968">rice dataset</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span>  </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">paste0</span>(<span class="st">'https://raw.githubusercontent.com/othomantegazza'</span>,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">'/mawazo-summer-school/main/data-int/rice.csv'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_delim</span>(<span class="at">delim =</span> <span class="st">';'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define colors</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>rice_colors <span class="ot">&lt;-</span> </span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">Or =</span> <span class="st">'#b5d4e9'</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Os =</span> <span class="st">'#1f74b4'</span>,</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ob =</span> <span class="st">'#c0d787'</span>,</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Og =</span> <span class="st">'#349a37'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span>  </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">paste0</span>(<span class="st">'https://raw.githubusercontent.com/othomantegazza'</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">'/mawazo-summer-school/main/data-int/rice.csv'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_delim</span>(<span class="at">delim =</span> <span class="st">';'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define colors</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>rice_colors <span class="ot">&lt;-</span> </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">Or =</span> <span class="st">'#b5d4e9'</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Os =</span> <span class="st">'#1f74b4'</span>,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ob =</span> <span class="st">'#c0d787'</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Og =</span> <span class="st">'#349a37'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="ot">&lt;-</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  rice <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dist</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hclust</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">heatmap</span>()</span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>rice_pc <span class="ot">&lt;-</span> </span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  rice <span class="sc">%&gt;%</span> </span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %&gt;% </span></span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prcomp</span>(<span class="at">center =</span> T, <span class="at">scale =</span> T)</span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>rice_pc_data <span class="ot">&lt;-</span> </span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>  rice_pc <span class="sc">%&gt;%</span> </span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(rice)</span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>rice_pc_data <span class="sc">%&gt;%</span> </span>
-<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fittedPC1,</span>
-<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> .fittedPC2,</span>
-<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> rice_colors)</span>
-<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>rice_pc<span class="sc">$</span>sdev</span>
-<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>rice_pc<span class="sc">$</span>rotation <span class="sc">%&gt;%</span> </span>
-<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'measurement'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>measurement,</span>
-<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'component'</span>,</span>
-<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">'rotation'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(component <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'PC1'</span>, <span class="st">'PC2'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> measurement,</span>
-<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> rotation)) <span class="sc">+</span></span>
-<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(component)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="ot">&lt;-</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  rice <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hclust</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>rice_simple <span class="sc">%&gt;%</span> </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>scales<span class="sc">::</span><span class="fu">rescale</span>(., <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">from =</span> <span class="fu">range</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">heatmap</span>()</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>rice_pc <span class="ot">&lt;-</span> </span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  rice <span class="sc">%&gt;%</span> </span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, rachis_length_rl_in_cm<span class="sc">:</span>spikelet_number_sp_n) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">paste</span>(species, <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'species'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate_all(~scales::rescale(., to = c(0,1), from = range(.))) %&gt;% </span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prcomp</span>(<span class="at">center =</span> T, <span class="at">scale =</span> T)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>rice_pc_data <span class="ot">&lt;-</span> </span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>  rice_pc <span class="sc">%&gt;%</span> </span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(rice)</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>rice_pc_data <span class="sc">%&gt;%</span> </span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> .fittedPC1,</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> .fittedPC2,</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> rice_colors)</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>rice_pc<span class="sc">$</span>sdev</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>rice_pc<span class="sc">$</span>rotation <span class="sc">%&gt;%</span> </span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'measurement'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>measurement,</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'component'</span>,</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">'rotation'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(component <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'PC1'</span>, <span class="st">'PC2'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> measurement,</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> rotation)) <span class="sc">+</span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(component)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="exercise" class="level2 exercise" data-number="3.3">
-<h2 class="exercise anchored" data-number="3.3" data-anchor-id="exercise"><span class="header-section-number">3.3</span> Exercise</h2>
+<section id="exercise" class="level2 exercise" data-number="6.1">
+<h2 class="exercise anchored" data-number="6.1" data-anchor-id="exercise"><span class="header-section-number">6.1</span> Exercise</h2>
 
 
 </section>
