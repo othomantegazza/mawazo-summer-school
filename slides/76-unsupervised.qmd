@@ -1,5 +1,5 @@
 ---
-title: "Unsupervised Learning - Explore your Data with Clustering and PCA"
+title: "Unsupervised Learning - Explore your Data with PCA"
 subtitle: '[Home](../index.html) | [CBSER Summer School by Mawazo Institute](https://mawazoinstitute.org/cbser-summer-school)'
 author: "Otho Mantegazza"
 execute: 
