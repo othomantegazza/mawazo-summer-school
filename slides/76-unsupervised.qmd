@@ -312,6 +312,74 @@ Moreover, the PCA has denoised our data, and it had stored the signal in `PC1` a
 
 # PCA on the Palmer Penguins Dataset
 
+We can run a PCA on the [Palmer Penguins dataset](https://allisonhorst.github.io/palmerpenguins) to learn how many variables do we need to capture most of the variation in that dataset, and to learn if by reducing its dimension, we can learn something variables on the population of penguins that are taken into consideration.
+
+Having already loaded the dataset with `library(palmerpenguins)` at the beginning of this chapter, we can start exploring the data, available in the R environment in the object `penguins`.
+
+```{r}
+penguins
+```
+
+## Categorical and Numerical Variables
+
+The `penguins` dataset is made of both numerical and categorical variables.
+
+The **nunerical** varibles are:
+
+```{r}
+penguins %>% select(where(~is.numeric(.))) %>% names()
+```
+
+And the other variables are **catergorical**:
+
+```{r}
+penguins %>% select(where(~!is.numeric(.))) %>% names()
+```
+
+Since `year` is a variable recorded at a really low resolution, providing little detail on the penguin under study, I'd rather treat it as a categorical variable, and exlude it from the PCA.
+
+```{r}
+penguins %>% count(year)
+```
+
+
+If we run a PCA on the numerical variables, then we can learn how the categorical variables associated to each data point is distributed along the each principal component.
+
+## Run the PCA
+
+We can isolate the **numerical** variable, drop the missing values and run the PCA as we did in the previous section.
+
+```{r}
+penguins_num <- 
+  penguins %>% 
+  select(where(~is.numeric(.))) %>% 
+  select(-year) %>% 
+  drop_na()
+```
+
+```{r}
+penguins_pca <- 
+  penguins_num %>% 
+  scale() %>%
+  prcomp()
+```
+
+The PCA of the penguins dataset is now stored in the object `penguins_pca`.
+
+## Dimesnionality
+
+Just by printing the `penguins_pca` object we can get important information:
+
+```{r}
+penguins_pca
+```
+
+For example we can see the first principal component has a standard deviation that's almost double the one of the second principal component (1.66 against 0.88), hinting that one dimension can explain most of the variation in the `penguins` dataset.
+
+Moreover, we can see that the loadings on the first principal component are similar for all variables but `bill_depth_mm`, which has an inverse sign.
+
+## More
+
 - One dimension most variation, influenced by all variables.
 - Gentoo most different group.
 - Second PC about bill length and depth.
