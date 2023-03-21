@@ -1192,70 +1192,98 @@
   {
     "objectID": "slides/76-unsupervised.html",
     "href": "slides/76-unsupervised.html",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "",
     "text": "🚧 Work in Progress ⚠️"
   },
   {
     "objectID": "slides/76-unsupervised.html#references-first",
     "href": "slides/76-unsupervised.html#references-first",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "1.1 References first",
     "text": "1.1 References first\nAs always, references first, and my favorite references for unsupervised learning are:\n\nIntroduction to Statistical Learning, chapter 12.\nIntroduction to Data Science: chapter 34 and part of chapter 33.\nChapter 16 of Tidy Modeling with R.\nA tutorial on Principal Component Analysis [PDF] by Jonathon Shlens.\n\nThere’s an additional reference that I really like, that explains Principal Components visually. Check it out!"
   },
   {
     "objectID": "slides/76-unsupervised.html#ok-but-what-is-unsupervised-learning",
     "href": "slides/76-unsupervised.html#ok-but-what-is-unsupervised-learning",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "1.2 Ok, but what is Unsupervised Learning?",
     "text": "1.2 Ok, but what is Unsupervised Learning?\nUnsupervised learning might seem strange. To understand what “Unsupervised” means, let’s first take a step back and remember what we have learned about “supervised learning in the previous chapter. Then define what makes an”Unsupervised” learning process by comparison.\n\n1.2.1 A quick recap about supervised learning\nWhen we fit a supervised learning model, such as a linear regression model, we are looking for a function that is able to guess an outcome \\(Y\\) starting from the value of a series of predictors \\(X_1, X_2, ..., X_n\\); both the outcome variable \\(Y\\) and the predictor variables \\(X_1, X_2, ..., X_n\\) are already part of our data, before fit the model. When we do fit the model, we estimate parameters for the function that connects the outcome and the predictor. In the linear regression example, those parameters would be the slope and intercept of the regression line.\nOnce we have estimated those parameters, then we can then use statistical indicators to investigate if the model that we have selected and the parameters that we have estimated are convincingly explaining how \\(Y\\) responds to variations in the predictors \\(X\\). If they don’t, the model that we have selected might be inappropriate for capturing how the outcome responds to the predictors; or it might be that the outcome is not responding to changes in the predictor variables at all.\n\n\n1.2.2 Let’s compare it to unsupervised learning\nIn supervised learning instead, we don’t have an outcome variable \\(Y\\), or we don’t care to look at it, thus the word “unsupervised”. We look only at a series of predictors \\(X_1, X_2, ... X_n\\), and we ask to ourselves: is there any interesting pattern in the predictor? Do they co-variate in interesting ways? Can we group them together in an insightful way judging from their covariance patterns?\nSince we don’t have an outcome variable \\(Y\\) that we could use to test the performance of our model, there is no real way to tell if our unsupervised model is “good” or “bad”; if it is “successful” or not. The model will probably show us some pattern in the data; it’s up to us to further investigate those patterns to understand if they are useful and insightful, or not.\n\n\n1.2.3 Examples of unsupervised learning methods\nThe unsupervised learning methods that you have probably already heard about are :\n\nClustering.\nPrincipal Component Analysis.\n\nYou could also have heard the term dimension reduction as a synonym of unsupervised learning. This is a great term to describe it, since we often use those methods to reduce the dimensions (read: number of variables i.e. number of columns), of a complex multivariate dataset to a smaller, informative and more manageable subset or combination of them.\n\n\n1.2.4 Examples of unsupervised learning questions\nThus, whem we apply unsupervised learning, we look at predictors variables, without an outcome. We might ask In which cases would such method be useful?\nFor example, we are measuring a range of pollutants in many samples of soil from selected areas around the world. In this setup, the pollutants are the variable/predictors of the data and each sample of soil is an observation. We want to know if there are groups of soils with similar combination of pollutants, to investigate their history, and their effects.\nOr, similarly, we could use transcriptomics to measure gene expression in many samples of different tumors tissues. We want to look at those data to seek for patterns and understand if group of tumors have similar gene expression pattern. Again, we could use unsupervised learning to search for those patterns.\nComing back to the rice panicles dataset: The group that published the paper have measured many variables (predictors): rachis_length, primary_branch_length, primary_branch_number, secondary_branch_length, internode_length and so on. We might be interested to know if there are groups of rice accessions (observations) that share similar panicle features. For example, maybe there is an unexpected group of rice varieties with long secondary branches, short rachis, and few primary branches, or vice-versa.\nMaybe we don’t know which pattern we are looking for, we just want to know if there are groups of rice varieties with similar panicle features, so that later we can investigate those features. If our data are multivariate, and they often are, it is unlikely that we will manage to explore all the combination of features visually, so we can seek for pattern in the data with unsupervised learning, such as PCA or clustering.\nWe will start with a dummy dataset, and later we will move to real life datasets suche as the rice panicles to demonstrate how to run and interpret PCA and hierarchical clustering in R."
   },
   {
     "objectID": "slides/76-unsupervised.html#r-packages",
     "href": "slides/76-unsupervised.html#r-packages",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "2.1 R packages",
     "text": "2.1 R packages\nLoad the R packages needed to cover the examples in this chapter.\n\nlibrary(dplyr)\nlibrary(readr)\nlibrary(magrittr)\nlibrary(tidyr)\nlibrary(palmerpenguins)\nlibrary(tibble)\nlibrary(ggplot2)\nlibrary(readr)\nlibrary(here)\nlibrary(stringr)\nlibrary(broom)\n\ntheme_update(axis.title = element_text(size = 15),\n             axis.text = element_text(size = 15),\n             strip.text = element_text(size = 15))"
   },
   {
     "objectID": "slides/76-unsupervised.html#generate-the-data",
     "href": "slides/76-unsupervised.html#generate-the-data",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "4.1 Generate the data",
     "text": "4.1 Generate the data\nLet’s also assume that vegetation coverage is measured in a value ranging between 0 and 1. We can generate a vector that stores 100 numbers sampled randomly from a uniform distribution, that simulates vegetation coverage values between 0.3 and 1. Let’s call this vector veg, for vegetation.\n\nset.seed(21)\nsize &lt;- 100\nnoise &lt;- .2\nveg &lt;- runif(size, min = 0.3, 1)\n\nIR and green reflectance will both be a linear function of the vegetation coverage stored in veg, plus a small random noise.\n\nreflectance &lt;- \n  tibble(\n    ir = veg*2 + rnorm(size, mean = 0, sd = noise),\n    green = veg*1.3 + rnorm(size, mean = 0, sd = noise/2)\n  )\n\nSo, the reflectance dataset looks like this:\n\nreflectance\n\n# A tibble: 100 × 2\n      ir green\n   &lt;dbl&gt; &lt;dbl&gt;\n 1 1.58  1.16 \n 2 1.31  0.551\n 3 1.54  0.895\n 4 0.788 0.565\n 5 2.06  1.33 \n 6 2.09  1.28 \n 7 0.738 0.579\n 8 0.660 0.465\n 9 2.16  1.33 \n10 2.02  1.05 \n# … with 90 more rows\n# ℹ Use `print(n = ...)` to see more rows\n\n\nIf we plot green vs. ir reflectance, we see right away that those two variables are correlated.\n\nreflectance %&gt;% \n  ggplot() +\n  aes(x = green,\n      y = ir) +\n  geom_point(alpha = .6) +\n  labs(title = \"Reflectance\")\n\n\n\n\nGreen and IR reflectance are correlated.\n\n\n\n\nWhat if we want to describe how green and ir covariates through PCA?"
   },
   {
     "objectID": "slides/76-unsupervised.html#lets-run-the-pca",
     "href": "slides/76-unsupervised.html#lets-run-the-pca",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "4.2 Let’s run the PCA",
     "text": "4.2 Let’s run the PCA\nTo run the PCA, first we have to center the data at 0 and to scale them to z-scores.\nThis can be achieved with the function scale() from base R.\n\nreflectance_scaled &lt;- \n  reflectance %&gt;%\n  scale() %&gt;%\n  as_tibble()\n\nWe call as_tibble() after scale() because the scale function returns a matrix-like object, while for simplicity, we tend to work with tibble dataframes.\nLet’s plot the centered and scaled data to see what they look like.\n\nreflectance_scaled %&gt;% \n  ggplot() +\n  aes(x = green,\n      y = ir) +\n  geom_point(alpha = .6) +\n  labs(title = \"Reflectance, scaled\")\n\n\n\n\nOnly the scale of the axes have changed.\n\n\n\n\nWe can see that now the two variables (ir and green reflectance) are both centered at zero and roughly in range (-2, 2). The scale of the variables has changed, but the main pattern in the data is unchanged.\nCalling the function prcomp() we can run a principal component analysis on this dataset, and store the results in the object pca.\n\npca &lt;- \n  reflectance_scaled %&gt;% \n  prcomp()\n\nThe ouput of prcomp() is a list with 5 elements in it:\n\nsdesv: the standard deviation of each component.\nrotation: the matrix of variable loading, indicating how the original dataset was rotated.\nx: the projection of our original data on the principal components, which is a dataset that has the same dimensions of our original data (in this case 2x100).\ncenter and scale, the center and scale used (if centering and scaling was performed before, they should approximate to 0).\n\n\nclass(pca)\n\n[1] \"prcomp\"\n\n\n\ntypeof(pca)\n\n[1] \"list\"\n\n\n\nls(pca)\n\n[1] \"center\"   \"rotation\" \"scale\"    \"sdev\"     \"x\"       \n\n\nLet’s interpret the PCA results from an Exploratory Data Analysis point of view, and learn how to make use of each of those output."
   },
   {
     "objectID": "slides/76-unsupervised.html#analytical-interpretation-of-pca-results",
     "href": "slides/76-unsupervised.html#analytical-interpretation-of-pca-results",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "4.3 Analytical interpretation of PCA results",
     "text": "4.3 Analytical interpretation of PCA results\nWhen we run a principal component analysis, we hypothesize that main axes of variation of the original data, which is the first principal component, contains the signal, while the lower order components, contain the noise.\nLet’s access the projection of the data on the two principal component, calling pca$x, and turn this matrix into a tibble to explore its content.\n\nprojections &lt;-\n  pca$x %&gt;% \n  as_tibble()\n\n\nprojections\n\n# A tibble: 100 × 2\n      PC1       PC2\n    &lt;dbl&gt;     &lt;dbl&gt;\n 1 -0.964  0.317   \n 2  0.934 -0.749   \n 3 -0.247 -0.257   \n 4  1.68   0.0708  \n 5 -2.08  -0.000405\n 6 -2.03  -0.142   \n 7  1.73   0.178   \n 8  2.12   0.0185  \n 9 -2.25  -0.137   \n10 -1.35  -0.619   \n# … with 90 more rows\n# ℹ Use `print(n = ...)` to see more rows\n\n\nThe projection matrix x has the same size and dimension of the original dataset (2x100), the first column stores projections of original data on the first principal component PC1, while the second column stores the projections of original data on the second principal component PC2.\nBy definition the principal components are ordered by the standard deviation of the data projected on them, in decreasing order.\nIndeed:\n\nprojections %&gt;% \n  summarise(\n    standard_deviation_PC1 = sd(PC1),\n    standard_deviation_PC2 = sd(PC2)\n  )\n\n# A tibble: 1 × 2\n  standard_deviation_PC1 standard_deviation_PC2\n                   &lt;dbl&gt;                  &lt;dbl&gt;\n1                   1.36                  0.373\n\n\nSince we have hypothesized that the first principal components stores the signal in the dataset, what happens if we plot it against the vector veg, which stores the original vegetation data?\n\nsignal &lt;- \n  projections %&gt;% \n  mutate(vegetation = veg) %&gt;% \n  bind_cols(reflectance)\n\nsignal %&gt;% \n  ggplot() +\n  aes(x = vegetation,\n      y = PC1) +\n  geom_point()\n\n\n\n\nThe original vegetation vector and PC1 are highly similar.\n\n\n\n\nSince the direction of the principal component is random, PC1 and the original vegetation vector are anti-correlated. Still their correlation modulus is very high, they just carry a reversed sign. They are almost the same data.\nTo observe this effect better. Let’s plot all the variables that we have used in this example against each other pairwise (vegetation, ir, green, PC1 and PC2).\n\nsignal %&gt;% \n  relocate(vegetation, ir, green, PC1, PC2) %&gt;% \n  GGally::ggpairs() +\n  theme(axis.text = element_text(size = 10))\n\n\n\n\nPC1 stores the signal, PC2 the noise.\n\n\n\n\n\nThe signal is more correlated to PC1 (r :-0.964) than to the simulated measurements ir (r: 0.909) and green (r: 0.952).\nThe signal is less correlated to PC2 (or no correlated at all to it) than ir and green ."
   },
   {
     "objectID": "slides/76-unsupervised.html#restoring-the-original-data",
     "href": "slides/76-unsupervised.html#restoring-the-original-data",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "4.4 Restoring the original data",
     "text": "4.4 Restoring the original data\nAll the information from the original (centered and scaled) data can be reconstructed from the principal components multiplying the projection matrix pca$x by the rotation matrix pca$rotation transposed.\n\n(pca$x %*% t(pca$rotation)) %&gt;% head()\n\n             ir        green\n[1,]  0.4572255  0.906185047\n[2,] -0.1307839 -1.190181109\n[3,]  0.3563863 -0.007648046\n[4,] -1.2400005 -1.139834377\n[5,]  1.4725321  1.471959522\n[6,]  1.5330628  1.332772189\n\n\n\nreflectance_scaled %&gt;% as.matrix() %&gt;% head()\n\n             ir        green\n[1,]  0.4572255  0.906185047\n[2,] -0.1307839 -1.190181109\n[3,]  0.3563863 -0.007648046\n[4,] -1.2400005 -1.139834377\n[5,]  1.4725321  1.471959522\n[6,]  1.5330628  1.332772189"
   },
   {
     "objectID": "slides/76-unsupervised.html#learning-points",
     "href": "slides/76-unsupervised.html#learning-points",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "4.5 Learning points",
     "text": "4.5 Learning points\nApplying a principal component analysis we have shown that the ir and green channel are basically a linear function of the same variable plus noised. So, even if ir and green are represented as a dataset in two dimensions (two variables), it could be approximated to a dataset in one dimension.\nMoreover, the PCA has denoised our data, and it had stored the signal in PC1 and the noise PC2."
   },
   {
+    "objectID": "slides/76-unsupervised.html#categorical-and-numerical-variables",
+    "href": "slides/76-unsupervised.html#categorical-and-numerical-variables",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
+    "section": "5.1 Categorical and Numerical Variables",
+    "text": "5.1 Categorical and Numerical Variables\nThe penguins dataset is made of both numerical and categorical variables.\nThe nunerical varibles are:\n\npenguins %&gt;% select(where(~is.numeric(.))) %&gt;% names()\n\n[1] \"bill_length_mm\"    \"bill_depth_mm\"     \"flipper_length_mm\"\n[4] \"body_mass_g\"       \"year\"             \n\n\nAnd the other variables are catergorical:\n\npenguins %&gt;% select(where(~!is.numeric(.))) %&gt;% names()\n\n[1] \"species\" \"island\"  \"sex\"    \n\n\nSince year is a variable recorded at a really low resolution, providing little detail on the penguin under study, I’d rather treat it as a categorical variable, and exlude it from the PCA.\n\npenguins %&gt;% count(year)\n\n# A tibble: 3 × 2\n   year     n\n  &lt;int&gt; &lt;int&gt;\n1  2007   110\n2  2008   114\n3  2009   120\n\n\nIf we run a PCA on the numerical variables, then we can learn how the categorical variables associated to each data point is distributed along the each principal component."
+  },
+  {
+    "objectID": "slides/76-unsupervised.html#run-the-pca",
+    "href": "slides/76-unsupervised.html#run-the-pca",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
+    "section": "5.2 Run the PCA",
+    "text": "5.2 Run the PCA\nWe can isolate the numerical variable, drop the missing values and run the PCA as we did in the previous section.\n\npenguins_num &lt;- \n  penguins %&gt;% \n  select(where(~is.numeric(.))) %&gt;% \n  select(-year) %&gt;% \n  drop_na()\n\n\npenguins_pca &lt;- \n  penguins_num %&gt;% \n  scale() %&gt;%\n  prcomp()\n\nThe PCA of the penguins dataset is now stored in the object penguins_pca."
+  },
+  {
+    "objectID": "slides/76-unsupervised.html#dimesnionality",
+    "href": "slides/76-unsupervised.html#dimesnionality",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
+    "section": "5.3 Dimesnionality",
+    "text": "5.3 Dimesnionality\nJust by printing the penguins_pca object we can get important information:\n\npenguins_pca\n\nStandard deviations (1, .., p=4):\n[1] 1.6594442 0.8789293 0.6043475 0.3293816\n\nRotation (n x k) = (4 x 4):\n                         PC1          PC2        PC3        PC4\nbill_length_mm     0.4552503 -0.597031143 -0.6443012  0.1455231\nbill_depth_mm     -0.4003347 -0.797766572  0.4184272 -0.1679860\nflipper_length_mm  0.5760133 -0.002282201  0.2320840 -0.7837987\nbody_mass_g        0.5483502 -0.084362920  0.5966001  0.5798821\n\n\nFor example we can see the first principal component has a standard deviation that’s almost double the one of the second principal component (1.66 against 0.88), hinting that one dimension can explain most of the variation in the penguins dataset.\nMoreover, we can see that the loadings on the first principal component are similar for all variables but bill_depth_mm, which has an inverse sign."
+  },
+  {
+    "objectID": "slides/76-unsupervised.html#more",
+    "href": "slides/76-unsupervised.html#more",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
+    "section": "5.4 More",
+    "text": "5.4 More\n\nOne dimension most variation, influenced by all variables.\nGentoo most different group.\nSecond PC about bill length and depth.\nMost different along second PC is Chinstrap."
+  },
+  {
     "objectID": "slides/76-unsupervised.html#exercise",
     "href": "slides/76-unsupervised.html#exercise",
-    "title": "Unsupervised Learning - Explore your Data with Clustering and PCA",
+    "title": "Unsupervised Learning - Explore your Data with PCA",
     "section": "6.1 Exercise",
     "text": "6.1 Exercise"
   },
@@ -1264,7 +1292,7 @@
     "href": "index.html",
     "title": "Data Analysis in R",
     "section": "",
-    "text": "Introduction:\n\nIntroduction\n\nHands on data with R:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nNotes on Correlation\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\n\nExplore your data with statistical models:\n\nA Few Words on Statistical Models\nSupervised Learning - A glimpse to Linear Models and an introduction to Tidymodels\n[🚧 Work in Progress ⚠️] Unsupervised Learning - Explore your Data with Clustering and PCA"
+    "text": "Introduction:\n\nIntroduction\n\nHands on data with R:\n\nMeet R\nManipulate Data\nMissing Values\nVisualize Data\nNotes on Correlation\nRobust Statistics\nGet Data into R\nClean Data with R\nExplorative Data Analysis\n\nExplore your data with statistical models:\n\nA Few Words on Statistical Models\nSupervised Learning - A glimpse to Linear Models and an introduction to Tidymodels\n[🚧 Work in Progress ⚠️] Unsupervised Learning - Explore your Data with PCA"
   },
   {
     "objectID": "index.html#r-and-rstudio",
